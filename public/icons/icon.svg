@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle / Squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+
+  <!-- Outer Red Ring -->
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#DC2626" stroke-width="12" opacity="0.8" />
+
+  <!-- Superhero Shield -->
+  <path d="M 256,70 L 400,120 C 400,280 256,400 256,430 C 256,400 112,280 112,120 Z" 
+        fill="url(#shieldGrad)" 
+        stroke="#FFFFFF" 
+        stroke-width="10" />
+
+  <!-- Inner Black Trim -->
+  <path d="M 256,95 L 375,135 C 375,270 256,370 256,395 C 256,370 137,270 137,135 Z" 
+        fill="#0F172A" 
+        opacity="0.95" />
+
+  <!-- Letter R (Reza) in Gold -->
+  <text x="256" y="275" 
+        font-family="'Plus Jakarta Sans', system-ui, sans-serif" 
+        font-size="160" 
+        font-weight="900" 
+        fill="url(#goldGrad)" 
+        text-anchor="middle" 
+        dominant-baseline="central"
+        stroke="#FFFFFF"
+        stroke-width="4">R</text>
+
+  <!-- Lightning Bolt -->
+  <polygon points="266,130 236,220 270,220 240,320 295,200 260,200" fill="#FBBF24" />
+
+  <!-- Small text banner ABALA -->
+  <rect x="176" y="340" width="160" height="34" rx="17" fill="#DC2626" />
+  <text x="256" y="362" 
+        font-family="system-ui, sans-serif" 
+        font-size="18" 
+        font-weight="900" 
+        fill="#FFFFFF" 
+        letter-spacing="3" 
+        text-anchor="middle">ABALA</text>
+</svg>

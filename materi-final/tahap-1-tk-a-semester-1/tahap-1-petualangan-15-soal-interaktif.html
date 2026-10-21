@@ -1,0 +1,3223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Petualangan Belajar Kak Reza • Tahap 1 (15 Soal Variatif)</title>
+  <style>
+    :root {
+      --hero-blue: #2563EB;
+      --hero-blue-dark: #1D4ED8;
+      --hero-cyan: #06B6D4;
+      --pac-yellow: #FACC15;
+      --pac-yellow-dark: #CA8A04;
+      --hero-red: #EF4444;
+      --hero-red-dark: #B91C1C;
+      --turbo-green: #10B981;
+      --turbo-green-dark: #047857;
+      --cosmic-purple: #7C3AED;
+      --text-main: #0F172A;
+      --text-muted: #475569;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* LOCK TO 1 SCREEN: ZERO VERTICAL SCROLLING */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      max-height: 100dvh;
+      overflow: hidden;
+      font-family: 'Segoe UI', 'Nunito', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 50% 15%, #1E3A8A 0%, #0F172A 100%);
+      color: var(--text-main);
+    }
+
+    /* Animated Starfield Backdrop */
+    .cosmic-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .star-dot {
+      position: absolute;
+      border-radius: 50%;
+      background: #FDE047;
+      opacity: 0.55;
+      animation: twinkleStar 2.6s ease-in-out infinite alternate;
+    }
+    @keyframes twinkleStar {
+      0% { transform: scale(0.7); opacity: 0.25; }
+      100% { transform: scale(1.25); opacity: 0.85; }
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* App Container: Fits 100% in 100dvh without scroll */
+    .app-shell {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 500px;
+      height: 100vh;
+      height: 100dvh;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 8px 10px 10px;
+      overflow: hidden;
+    }
+
+    /* 1. TOP BAR */
+    .top-bar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 2px solid #38BDF8;
+      padding: 6px 10px;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25);
+      color: #FFFFFF;
+    }
+
+    .icon-btn {
+      border: none;
+      background: #1E293B;
+      color: #FFFFFF;
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: 1.5px solid #475569;
+      border-bottom: 3px solid #334155;
+      flex-shrink: 0;
+    }
+    .icon-btn:active {
+      transform: translateY(2px);
+      border-bottom-width: 1px;
+    }
+    .icon-btn.active-toggle {
+      background: #FACC15;
+      color: #0F172A;
+      border-color: #FEF08A;
+      border-bottom-color: #CA8A04;
+    }
+
+    .progress-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.74rem;
+      font-weight: 900;
+      color: #38BDF8;
+    }
+    .star-counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      background: #FACC15;
+      color: #0F172A;
+      padding: 1px 8px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 0.75rem;
+    }
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      background: #1E293B;
+      border-radius: 999px;
+      overflow: hidden;
+      padding: 2px;
+      position: relative;
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #EF4444, #FACC15, #10B981);
+      border-radius: 999px;
+      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* 2. MASCOT & VOICE BUBBLE BAR */
+    .mascot-bar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mascot-avatar {
+      width: 62px;
+      height: 62px;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+      filter: drop-shadow(0 4px 8px rgba(250, 204, 21, 0.35));
+    }
+    .mascot-avatar.happy-jump {
+      animation: heroFly 0.45s ease infinite alternate;
+    }
+    @keyframes heroFly {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-7px) scale(1.06); }
+    }
+    .hero-cape {
+      transform-origin: 50px 55px;
+      animation: capeWave 1.8s ease-in-out infinite alternate;
+    }
+    @keyframes capeWave {
+      0% { transform: rotate(-3deg) scaleX(0.96); }
+      100% { transform: rotate(4deg) scaleX(1.05); }
+    }
+    .eye-lid {
+      transform-origin: center;
+      animation: eyeBlink 4s infinite;
+    }
+    @keyframes eyeBlink {
+      0%, 94%, 100% { transform: scaleY(1); }
+      97% { transform: scaleY(0.1); }
+    }
+    .mascot-mouth {
+      transform-origin: 50px 64px;
+    }
+    .mascot-avatar.speaking .mascot-mouth {
+      animation: mouthTalk 0.22s ease-in-out infinite alternate;
+    }
+    @keyframes mouthTalk {
+      0% { transform: scaleY(0.4) scaleX(0.9); }
+      100% { transform: scaleY(1.35) scaleX(1.1); }
+    }
+
+    .speech-bubble {
+      flex: 1;
+      background: #FFFFFF;
+      border-radius: 16px;
+      padding: 8px 11px;
+      border: 2.5px solid #FACC15;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      min-height: 54px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .speech-bubble.speaking-active {
+      border-color: #38BDF8;
+      background: #F0F9FF;
+    }
+    .speech-text {
+      font-size: 0.84rem;
+      font-weight: 800;
+      line-height: 1.28;
+      color: var(--text-main);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .speak-btn {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563EB, #06B6D4);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .speech-bubble.speaking-active .speak-btn {
+      animation: pulseSpeaker 0.75s infinite alternate;
+    }
+    @keyframes pulseSpeaker {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.12); }
+    }
+
+    /* 3. MAIN CARD (100% Fit in 1 Screen) */
+    .main-card {
+      flex: 1;
+      min-height: 0;
+      background: #F8FAFC;
+      border-radius: 22px;
+      border: 3px solid #38BDF8;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .screen-view {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      min-height: 0;
+      gap: 8px;
+    }
+    .screen-view.active {
+      display: flex;
+    }
+
+    /* HOME VIEW */
+    .hero-banner {
+      background: linear-gradient(135deg, #1D4ED8 0%, #0F172A 100%);
+      border: 2.5px solid #FACC15;
+      border-radius: 18px;
+      padding: 10px 12px;
+      color: white;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #FACC15;
+      color: #0F172A;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .hero-title {
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin: 0 0 2px;
+      color: #FEF08A;
+    }
+    .hero-sub {
+      font-size: 0.75rem;
+      opacity: 0.92;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    /* REZA Name Tiles on Home */
+    .name-blocks-bar {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #EFF6FF;
+      border: 2px solid #93C5FD;
+      border-radius: 14px;
+      padding: 6px 8px;
+    }
+    .letter-tile {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      color: white;
+      font-weight: 900;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-bottom: 3px solid rgba(0,0,0,0.25);
+    }
+    .letter-tile:active {
+      transform: scale(1.15);
+    }
+
+    .category-filter-grid {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .cat-btn {
+      background: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-bottom: 4px solid #94A3B8;
+      border-radius: 14px;
+      padding: 6px 8px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      min-height: 0;
+    }
+    .cat-btn.selected {
+      border-color: #2563EB;
+      border-bottom-color: #1D4ED8;
+      background: #DBEAFE;
+    }
+    .cat-btn.full-span {
+      grid-column: span 2;
+    }
+    .cat-icon {
+      font-size: 1.45rem;
+      flex-shrink: 0;
+    }
+    .cat-title {
+      font-weight: 900;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      display: block;
+    }
+    .cat-desc {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      display: block;
+    }
+
+    .big-start-btn {
+      flex-shrink: 0;
+      width: 100%;
+      background: linear-gradient(135deg, #EF4444, #F97316);
+      color: white;
+      border: none;
+      border-bottom: 5px solid #B91C1C;
+      border-radius: 16px;
+      padding: 11px;
+      font-size: 1.02rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+    }
+    .big-start-btn:active {
+      transform: translateY(3px);
+      border-bottom-width: 2px;
+    }
+
+    /* QUESTION VIEW (100% Fit in 1 Screen) */
+    .pillar-header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .pillar-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .header-right-pills {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .shuffle-var-btn {
+      border: none;
+      background: #DBEAFE;
+      color: #1E3A8A;
+      font-size: 0.72rem;
+      font-weight: 900;
+      padding: 4px 8px;
+      border-radius: 999px;
+      cursor: pointer;
+      border-bottom: 2px solid #93C5FD;
+    }
+    .shuffle-var-btn:active {
+      transform: translateY(1px);
+    }
+    .q-number-pill {
+      font-size: 0.74rem;
+      font-weight: 900;
+      background: #E2E8F0;
+      color: #1E293B;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .stage-body {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .visual-showcase {
+      width: 100%;
+      flex: 1;
+      min-height: 0;
+      max-height: 165px;
+      background: linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 100%);
+      border: 2.5px solid #60A5FA;
+      border-radius: 18px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .choices-grid {
+      flex-shrink: 0;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .choices-grid.two-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .choice-card {
+      background: #FFFFFF;
+      border: 2.5px solid #CBD5E1;
+      border-bottom: 5px solid #94A3B8;
+      border-radius: 16px;
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      height: 92px;
+      transition: transform 0.14s, border-color 0.15s;
+    }
+    .choice-card:active {
+      transform: translateY(3px);
+      border-bottom-width: 2px;
+    }
+    .choice-card.correct-pick {
+      background: #DCFCE7;
+      border-color: #10B981;
+      border-bottom-color: #047857;
+      animation: bounceWin 0.45s ease;
+    }
+    .choice-card.wrong-pick {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+      border-bottom-color: #B45309;
+      animation: gentleWobble 0.4s ease;
+    }
+    @keyframes bounceWin {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    @keyframes gentleWobble {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .choice-emoji {
+      font-size: 2.15rem;
+      line-height: 1;
+    }
+    .choice-label {
+      font-size: 0.84rem;
+      font-weight: 900;
+      color: var(--text-main);
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    /* Single Pac-Man Path Tracing Box */
+    .trace-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .trace-canvas-box {
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      height: 175px;
+      background: #0F172A;
+      border-radius: 18px;
+      border: 3px solid #2563EB;
+      box-shadow: inset 0 0 18px rgba(37, 99, 235, 0.4);
+      overflow: hidden;
+      touch-action: none;
+    }
+    #traceCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+    }
+    .trace-helper-bar {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+    .pill-action-btn {
+      border: none;
+      background: #E2E8F0;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      border-radius: 12px;
+      border-bottom: 3px solid #94A3B8;
+      cursor: pointer;
+    }
+
+    /* Word Builder Interactive Slots (Soal 2) */
+    .word-slots-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .letter-slot {
+      width: 48px;
+      height: 52px;
+      border-radius: 12px;
+      background: #FFFFFF;
+      border: 2.5px dashed #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #0F172A;
+    }
+    .letter-slot.active-slot {
+      border-color: #EF4444;
+      background: #FEF2F2;
+    }
+    .letter-slot.filled-slot {
+      border-style: solid;
+      border-color: #10B981;
+      background: #DCFCE7;
+      color: #047857;
+    }
+
+    /* Tap to Count Items */
+    .tap-items-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .tappable-item {
+      width: 56px;
+      height: 56px;
+      border-radius: 15px;
+      background: #FFFFFF;
+      border: 2.5px solid #60A5FA;
+      border-bottom: 5px solid #2563EB;
+      font-size: 1.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+    .tappable-item.counted {
+      background: #DCFCE7;
+      border-color: #10B981;
+      border-bottom-color: #059669;
+    }
+    .count-badge {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #EF4444;
+      color: white;
+      font-weight: 900;
+      font-size: 0.76rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Sound Orb */
+    .big-sound-orb {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563EB, #06B6D4);
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      animation: pulseSpeaker 1.2s infinite alternate;
+    }
+
+    /* Feedback Bar */
+    .feedback-bar {
+      flex-shrink: 0;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 14px;
+      background: #F1F5F9;
+      border: 2px solid #CBD5E1;
+    }
+    .feedback-bar.success {
+      background: #DCFCE7;
+      border-color: #10B981;
+      color: #065F46;
+    }
+    .feedback-bar.retry {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+      color: #92400E;
+    }
+    .feedback-msg {
+      font-size: 0.8rem;
+      font-weight: 800;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .next-btn {
+      background: linear-gradient(135deg, #10B981, #059669);
+      color: white;
+      border: none;
+      border-bottom: 4px solid #047857;
+      padding: 7px 14px;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      font-weight: 900;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .next-btn.show {
+      display: inline-flex;
+    }
+
+    /* Report List */
+    .report-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .report-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      padding: 6px 10px;
+      border-radius: 11px;
+      border: 1.5px solid #CBD5E1;
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+    .bsh-badge {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 900;
+      background: #DCFCE7;
+      color: #065F46;
+    }
+
+    /* Settings Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal-card {
+      width: 100%;
+      max-width: 420px;
+      max-height: 90dvh;
+      overflow-y: auto;
+      background: #FFFFFF;
+      border-radius: 22px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .q-jump-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+    .q-jump-btn {
+      padding: 6px;
+      border-radius: 10px;
+      border: 2px solid #CBD5E1;
+      background: #F8FAFC;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .q-jump-btn.done {
+      background: #DCFCE7;
+      border-color: #10B981;
+      color: #065F46;
+    }
+    select, input[type="range"], input[type="text"] {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 10px;
+      border: 2px solid #CBD5E1;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cosmic Starfield -->
+  <div class="cosmic-bg" aria-hidden="true">
+    <div class="star-dot" style="width:8px;height:8px;top:8%;left:12%;"></div>
+    <div class="star-dot" style="width:6px;height:6px;top:16%;left:84%;animation-delay:0.7s;"></div>
+    <div class="star-dot" style="width:10px;height:10px;top:28%;left:6%;animation-delay:1.3s;"></div>
+    <div class="star-dot" style="width:7px;height:7px;top:42%;left:92%;animation-delay:0.4s;"></div>
+    <div class="star-dot" style="width:9px;height:9px;top:75%;left:8%;animation-delay:1.8s;"></div>
+    <div class="star-dot" style="width:6px;height:6px;top:82%;left:88%;animation-delay:0.9s;"></div>
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <div class="app-shell">
+    <!-- 1. TOP BAR -->
+    <div class="top-bar">
+      <button class="icon-btn" id="btnHome" title="Menu Utama">🏠</button>
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span>⚡ <span class="dyn-name">Kak Reza</span> • Putaran Ke-<span id="roundBadgeText">1</span></span>
+          <span class="star-counter">⭐ <span id="starCountText">0</span>/15</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressBarFill"></div>
+        </div>
+      </div>
+      <button class="icon-btn active-toggle" id="btnMusic" title="Musik">🎵</button>
+      <button class="icon-btn" id="btnSettings" title="Pengaturan">⚙️</button>
+    </div>
+
+    <!-- 2. MASCOT & VOICE OVER BUBBLE -->
+    <div class="mascot-bar">
+      <div class="mascot-avatar" id="mascotAvatar" title="Ketuk Kapten Rex untuk dengar suara!">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <path class="hero-cape" d="M 22 52 L 8 92 L 50 84 L 92 92 L 78 52 Z" fill="#EF4444" stroke="#B91C1C" stroke-width="2.5"/>
+          <circle cx="50" cy="52" r="30" fill="#FFE5D9" stroke="#1D4ED8" stroke-width="3.5"/>
+          <path d="M 20 48 C 20 24, 80 24, 80 48 L 80 55 C 68 58, 58 53, 50 56 C 42 53, 32 58, 20 55 Z" fill="#2563EB" stroke="#1E3A8A" stroke-width="2"/>
+          <polygon points="50,22 53,30 61,30 55,35 57,42 50,38 43,42 45,35 39,30 47,30" fill="#FACC15"/>
+          <g class="eye-lid">
+            <ellipse cx="37" cy="46" rx="6" ry="4.5" fill="#FFFFFF"/>
+            <circle cx="37" cy="46" r="2.8" fill="#0F172A"/>
+            <ellipse cx="63" cy="46" rx="6" ry="4.5" fill="#FFFFFF"/>
+            <circle cx="63" cy="46" r="2.8" fill="#0F172A"/>
+          </g>
+          <path class="mascot-mouth" d="M 42 63 Q 50 72 58 63 Z" fill="#EF4444" stroke="#0F172A" stroke-width="1.8"/>
+          <path d="M 32 78 L 68 78 L 74 94 L 26 94 Z" fill="#2563EB" stroke="#1E3A8A" stroke-width="2"/>
+          <circle cx="50" cy="86" r="5" fill="#FACC15"/>
+        </svg>
+      </div>
+
+      <div class="speech-bubble" id="speechBubble" role="button" tabindex="0">
+        <div class="speech-text" id="speechText">
+          Halo Kak Reza! Aku Kapten Rex. Yuk kita jalankan 15 misi mengenal huruf, kata, angka, dan benda!
+        </div>
+        <button class="speak-btn" id="btnReplayVoice" aria-label="Putar Suara">🔊</button>
+      </div>
+    </div>
+
+    <!-- 3. MAIN CARD (100% Fit in 1 Screen) -->
+    <div class="main-card">
+
+      <!-- VIEW 1: HOME -->
+      <div class="screen-view active" id="viewHome">
+        <div class="hero-banner">
+          <div class="hero-badge">⚡ PETUALANGAN BELAJAR <span class="dyn-name-upper">KAK REZA</span></div>
+          <h1 class="hero-title">Markas Bermain <span class="dyn-name">Kak Reza</span>! 🦸‍♂️🕹️</h1>
+          <p class="hero-sub">Soal Otomatis Bervariasi Setiap Diulang • Pas 1 Layar Tanpa Scroll</p>
+        </div>
+
+        <div class="name-blocks-bar">
+          <span style="font-size:0.75rem;font-weight:900;color:#1E3A8A;">Huruf Nama:</span>
+          <div class="letter-tile" style="background:#EF4444;" onclick="speakLetter('R', 'Huruf R! R untuk Reza!')">R</div>
+          <div class="letter-tile" style="background:#2563EB;" onclick="speakLetter('E', 'Huruf E! Re!')">E</div>
+          <div class="letter-tile" style="background:#10B981;" onclick="speakLetter('Z', 'Huruf Z!')">Z</div>
+          <div class="letter-tile" style="background:#F59E0B;" onclick="speakLetter('A', 'Huruf A! Za! Re-za!')">A</div>
+          <button class="pill-action-btn" style="padding:4px 8px;font-size:0.72rem;background:#FEF08A;border-bottom-color:#CA8A04;" onclick="spellFullName()">🔊 Bunyikan</button>
+        </div>
+
+        <div class="category-filter-grid">
+          <button class="cat-btn full-span selected" data-cat="semua">
+            <span class="cat-icon">🕹️</span>
+            <div>
+              <span class="cat-title">Semua Misi Lengkap (15 Soal Variatif)</span>
+              <span class="cat-desc">Huruf, Kata, Angka, Suara & Benda untuk <span class="dyn-name">Kak Reza</span></span>
+            </div>
+          </button>
+
+          <button class="cat-btn" data-cat="huruf_kata">
+            <span class="cat-icon">🔤</span>
+            <div>
+              <span class="cat-title">1. Huruf & Kata</span>
+              <span class="cat-desc">Soal 1–5: Huruf, Nama, Kata</span>
+            </div>
+          </button>
+
+          <button class="cat-btn" data-cat="angka">
+            <span class="cat-icon">🔢</span>
+            <div>
+              <span class="cat-title">2. Angka & Hitung</span>
+              <span class="cat-desc">Soal 6–10: Angka 1–5 & Hitung</span>
+            </div>
+          </button>
+
+          <button class="cat-btn" data-cat="benda_suara">
+            <span class="cat-icon">🚒</span>
+            <div>
+              <span class="cat-title">3. Benda & Suara</span>
+              <span class="cat-desc">Soal 11–13: Kendaraan, Hewan</span>
+            </div>
+          </button>
+
+          <button class="cat-btn" data-cat="logika">
+            <span class="cat-icon">🛡️</span>
+            <div>
+              <span class="cat-title">4. Logika & Bentuk</span>
+              <span class="cat-desc">Soal 14–15: Fungsi & Bentuk</span>
+            </div>
+          </button>
+        </div>
+
+        <button class="big-start-btn" id="btnStartAdventure">
+          🚀 Mulai Bermain, <span class="dyn-name">Kak Reza</span>!
+        </button>
+      </div>
+
+      <!-- VIEW 2: QUESTION STAGE (Strictly 1 Screen) -->
+      <div class="screen-view" id="viewQuestion">
+        <div class="pillar-header">
+          <span class="pillar-pill" id="pillarBadge">🔤 HURUF & KATA</span>
+          <div class="header-right-pills">
+            <button class="shuffle-var-btn" id="btnSwapVariant" title="Ganti variasi soal baru">🎲 Soal Baru</button>
+            <span class="q-number-pill" id="qIndexBadge">Misi 1 / 15</span>
+          </div>
+        </div>
+
+        <div class="stage-body" id="questionStageBody"></div>
+
+        <div class="feedback-bar" id="feedbackBar">
+          <div class="feedback-msg" id="feedbackMsg">Ayo <span class="dyn-name">Kak Reza</span>, pilih jawaban yang tepat! ⚡</div>
+          <button class="next-btn" id="btnNextQuestion">Lanjut ➡️</button>
+        </div>
+      </div>
+
+      <!-- VIEW 3: CELEBRATION -->
+      <div class="screen-view" id="viewResult">
+        <div class="hero-banner" style="background: linear-gradient(135deg, #059669 0%, #1D4ED8 100%);">
+          <div class="hero-badge">🏆 PIAGAM BINTANG UTAMA</div>
+          <h2 class="hero-title">Misi Selesai! Hebat, <span class="dyn-name">Kak Reza</span>! 🌟</h2>
+          <p class="hero-sub" id="resultSubText">Semua misi berhasil ditaklukkan!</p>
+        </div>
+
+        <div class="report-list" id="assessmentReportList"></div>
+
+        <div style="display:flex; gap:8px;">
+          <button class="big-start-btn" id="btnPlayAgain" style="flex:1; font-size:0.92rem; padding:10px;">
+            🔄 Main Lagi (Variasi Soal Baru!)
+          </button>
+          <button class="big-start-btn" id="btnBackCatalog" style="flex:1; font-size:0.92rem; padding:10px; background:linear-gradient(135deg,#2563EB,#7C3AED); border-bottom-color:#1E3A8A;">
+            🏠 Menu Utama
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;font-weight:900;">
+        <span>⚙️ Pengaturan & Suara</span>
+        <button class="icon-btn" id="btnCloseModal" style="width:32px;height:32px;">✖️</button>
+      </div>
+
+      <div>
+        <label style="font-size:0.78rem;font-weight:800;display:block;margin-bottom:3px;">👦 Nama Tampilan di Layar:</label>
+        <input type="text" id="childNameInput" value="Kak Reza" />
+      </div>
+
+      <div>
+        <label style="font-size:0.78rem;font-weight:800;display:block;margin-bottom:3px;">🎙️ Pilih Suara Bahasa Indonesia:</label>
+        <select id="voiceSelect"></select>
+      </div>
+
+      <div>
+        <label style="font-size:0.78rem;font-weight:800;display:block;margin-bottom:3px;">⚡ Kecepatan Suara (<span id="rateValText">0.92x</span>):</label>
+        <input type="range" id="voiceRateRange" min="0.75" max="1.15" step="0.03" value="0.92" />
+      </div>
+
+      <div>
+        <label style="font-size:0.78rem;font-weight:800;display:block;margin-bottom:4px;">🎯 Lompat ke Misi Soal (1–15):</label>
+        <div class="q-jump-grid" id="qJumpGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /*************************************************************************
+     * 0. PERSONALIZATION ENGINE
+     * - UI menampilkan: "Kak Reza"
+     * - Voice Over mengucapkan: "Ka' Reza" (tanpa embel-embel "Superhero")
+     *************************************************************************/
+    let childName = localStorage.getItem('tk_child_name') || 'Kak Reza';
+    let playRoundCounter = parseInt(localStorage.getItem('tk_round_count') || '1', 10);
+
+    function personalizeText(str) {
+      if (!str) return '';
+      return str.replace(/\{name\}/g, childName);
+    }
+
+    function toSpokenVoiceText(uiText) {
+      if (!uiText) return '';
+      return uiText
+        .replace(/\bKak\s+Reza\b/gi, "Ka' Reza")
+        .replace(/\bKak\s+/gi, "Ka' ");
+    }
+
+    function updateNameOnUI() {
+      document.querySelectorAll('.dyn-name').forEach(el => (el.textContent = childName));
+      document.querySelectorAll('.dyn-name-upper').forEach(el => (el.textContent = childName.toUpperCase()));
+      document.getElementById('roundBadgeText').textContent = playRoundCounter;
+      const input = document.getElementById('childNameInput');
+      if (input && input.value !== childName) input.value = childName;
+    }
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function speakLetter(letter, speechText) {
+      playCountNote(letter.charCodeAt(0) % 5 + 1);
+      launchConfetti(16);
+      speakNatural(speechText);
+    }
+
+    function spellFullName() {
+      playCorrectSound();
+      launchConfetti(30);
+      speakNatural(`Huruf nama ${childName}: R... E... Z... A! Dibaca: Re... Za! ${childName} anak hebat!`);
+    }
+
+    /*************************************************************************
+     * 1. BANK VARIASI SOAL DINAMIS (15 SLOT × 4 VARIASI = 60 VARIASI SOAL!)
+     * Setiap diulang atau tombol "🎲 Soal Baru" ditekan, soal berubah variatif!
+     *************************************************************************/
+    const QUESTION_SLOTS = [
+      // ==================== SLOT 1: JALUR PAC-MAN HURUF ====================
+      {
+        id: 1,
+        kategori: 'huruf_kata',
+        pillarName: '🕹️ Jalur Pac-Man & Huruf',
+        pillarBg: '#FEF08A',
+        variants: [
+          {
+            type: 'trace_pacman',
+            targetLetter: 'R',
+            voiceIntro: 'Misi Pertama {name}! Bantu Pac-Man makan semua titik kuning dari kiri sampai ke ujung kanan untuk mengambil huruf R... huruf depan nama REZA!',
+            voiceSuccess: 'Waka waka! Hebat {name}! Pac-Man sampai di ujung dan berhasil mengambil huruf R untuk REZA!',
+            instruction: 'Geser Pac-Man 🟡 makan semua titik sampai menyentuh huruf R di ujung kanan!'
+          },
+          {
+            type: 'trace_pacman',
+            targetLetter: 'A',
+            voiceIntro: 'Ayo {name}! Geser Pac-Man makan semua titik kuning lurus sampai ke ujung kanan untuk mengambil huruf vokal A!',
+            voiceSuccess: 'Waka waka! Mantap {name}! Pac-Man berhasil mengambil huruf A untuk APEL!',
+            instruction: 'Geser Pac-Man 🟡 makan semua titik sampai menyentuh huruf A di ujung kanan!'
+          },
+          {
+            type: 'trace_pacman',
+            targetLetter: 'B',
+            voiceIntro: 'Siap beraksi {name}! Geser Pac-Man makan semua titik kuning sampai ujung kanan untuk mengambil huruf B... huruf depan BOLA!',
+            voiceSuccess: 'Waka waka! Keren {name}! Pac-Man berhasil mengambil huruf B untuk BOLA!',
+            instruction: 'Geser Pac-Man 🟡 makan semua titik sampai menyentuh huruf B di ujung kanan!'
+          },
+          {
+            type: 'trace_pacman',
+            targetLetter: 'M',
+            voiceIntro: 'Ayo {name}! Bantu Pac-Man makan semua titik kuning sampai ke ujung kanan untuk mengambil huruf M... huruf depan MOBIL!',
+            voiceSuccess: 'Waka waka! Luar biasa {name}! Pac-Man berhasil mengambil huruf M untuk MOBIL!',
+            instruction: 'Geser Pac-Man 🟡 makan semua titik sampai menyentuh huruf M di ujung kanan!'
+          }
+        ]
+      },
+
+      // ==================== SLOT 2: MENYUSUN HURUF KATA / NAMA ====================
+      {
+        id: 2,
+        kategori: 'huruf_kata',
+        pillarName: '🔤 Menyusun Huruf & Kata',
+        pillarBg: '#DBEAFE',
+        variants: [
+          {
+            type: 'name_builder',
+            wordLabel: 'Nama REZA (R - E - Z - A)',
+            targetWord: ['R', 'E', 'Z', 'A'],
+            voiceIntro: 'Ayo {name}, susun huruf nama REZA secara berurutan dari kiri ke kanan! Ketuk huruf R, lalu E, lalu Z, lalu A!',
+            voiceSuccess: 'Luar biasa {name}! R, E, Z, A! Terbaca: REZA!'
+          },
+          {
+            type: 'name_builder',
+            wordLabel: 'Kata BOLA ⚽ (B - O - L - A)',
+            targetWord: ['B', 'O', 'L', 'A'],
+            voiceIntro: 'Sekarang ayo {name} susun huruf pembentuk kata BOLA secara berurutan! Ketuk huruf B, lalu O, lalu L, lalu A!',
+            voiceSuccess: 'Hebat sekali {name}! B, O, L, A! Terbaca: BOLA!'
+          },
+          {
+            type: 'name_builder',
+            wordLabel: 'Kata ROTI 🍞 (R - O - T - I)',
+            targetWord: ['R', 'O', 'T', 'I'],
+            voiceIntro: 'Ayo {name}, susun huruf pembentuk kata ROTI dari kiri ke kanan! Ketuk huruf R, lalu O, lalu T, lalu I!',
+            voiceSuccess: 'Pintar sekali {name}! R, O, T, I! Terbaca: ROTI!'
+          },
+          {
+            type: 'name_builder',
+            wordLabel: 'Kata BUKU 📘 (B - U - K - U)',
+            targetWord: ['B', 'U', 'K', 'U'],
+            voiceIntro: 'Yuk {name}, kita susun huruf pembentuk kata BUKU! Ketuk huruf B, lalu U, lalu K, lalu U!',
+            voiceSuccess: 'Cerdas {name}! B, U, K, U! Terbaca: BUKU!'
+          }
+        ]
+      },
+
+      // ==================== SLOT 3: MENGENAL HURUF VOKAL & BENDA ====================
+      {
+        id: 3,
+        kategori: 'huruf_kata',
+        pillarName: '🔤 Mengenal Huruf Vokal',
+        pillarBg: '#DBEAFE',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat perisai huruf ini {name}! Ini adalah huruf A! Bunyinya Aaa! Coba {name} pilih, benda mana yang namanya diawali huruf A?',
+            voiceSuccess: 'Tepat sekali {name}! A untuk APEL!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Huruf A! Bunyinya Aaa!')" style="cursor:pointer;width:74px;height:74px;border-radius:20px;background:linear-gradient(135deg,#EF4444,#F97316);color:white;font-size:2.3rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid #FEF08A;">A a</div>
+                <div style="text-align:left;max-width:200px;">
+                  <div style="font-weight:900;font-size:0.98rem;color:#1E3A8A;">Huruf Vokal: "A"</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih benda yang diawali huruf <b>A</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🍎', label: 'A - Apel', voice: 'A... Apel!', correct: true },
+              { emoji: '🐟', label: 'I - Ikan', voice: 'Ikan diawali huruf I', correct: false },
+              { emoji: '🐍', label: 'U - Ular', voice: 'Ular diawali huruf U', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Perhatikan huruf vokal ini ya {name}! Ini adalah huruf I! Bunyinya Iii! Hewan mana yang namanya diawali huruf I?',
+            voiceSuccess: 'Betul sekali {name}! I untuk IKAN yang berenang di air!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Huruf I! Bunyinya Iii!')" style="cursor:pointer;width:74px;height:74px;border-radius:20px;background:linear-gradient(135deg,#2563EB,#06B6D4);color:white;font-size:2.3rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid #FEF08A;">I i</div>
+                <div style="text-align:left;max-width:200px;">
+                  <div style="font-weight:900;font-size:0.98rem;color:#1E3A8A;">Huruf Vokal: "I"</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih hewan yang diawali huruf <b>I</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🐟', label: 'I - Ikan', voice: 'I... Ikan!', correct: true },
+              { emoji: '🍎', label: 'A - Apel', voice: 'Apel diawali huruf A', correct: false },
+              { emoji: '🐢', label: 'K - Kura', voice: 'Kura-kura diawali huruf K', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Dengarkan bunyi huruf ini {name}: Uuu! Ini adalah huruf U! Coba {name} cari, mana yang namanya diawali huruf U?',
+            voiceSuccess: 'Pintar {name}! U untuk ULAR dan UDANG!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Huruf U! Bunyinya Uuu!')" style="cursor:pointer;width:74px;height:74px;border-radius:20px;background:linear-gradient(135deg,#10B981,#059669);color:white;font-size:2.3rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid #FEF08A;">U u</div>
+                <div style="text-align:left;max-width:200px;">
+                  <div style="font-weight:900;font-size:0.98rem;color:#1E3A8A;">Huruf Vokal: "U"</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih yang diawali huruf <b>U</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🦐', label: 'U - Udang', voice: 'U... Udang!', correct: true },
+              { emoji: '🐔', label: 'A - Ayam', voice: 'Ayam diawali huruf A', correct: false },
+              { emoji: '🐟', label: 'I - Ikan', voice: 'Ikan diawali huruf I', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat huruf yang bulat seperti donat ini {name}! Ini adalah huruf E! Bunyinya Eee! Mana benda yang diawali huruf E?',
+            voiceSuccess: 'Hebat {name}! E untuk ES KRIM yang segar!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Huruf E!')" style="cursor:pointer;width:74px;height:74px;border-radius:20px;background:linear-gradient(135deg,#7C3AED,#9333EA);color:white;font-size:2.3rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid #FEF08A;">E e</div>
+                <div style="text-align:left;max-width:200px;">
+                  <div style="font-weight:900;font-size:0.98rem;color:#1E3A8A;">Huruf Vokal: "E"</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih benda yang diawali huruf <b>E</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🍦', label: 'E - Es Krim', voice: 'E... Es Krim!', correct: true },
+              { emoji: '🍌', label: 'P - Pisang', voice: 'Pisang diawali huruf P', correct: false },
+              { emoji: '🥛', label: 'S - Susu', voice: 'Susu diawali huruf S', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 4: MENGENAL HURUF KONSONAN & BENDA ====================
+      {
+        id: 4,
+        kategori: 'huruf_kata',
+        pillarName: '🔤 Mengenal Huruf Awal Benda',
+        pillarBg: '#DBEAFE',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Sekarang lihat huruf berwarna biru ini {name}! Ini huruf B! Benda mana yang namanya diawali huruf B?',
+            voiceSuccess: 'Mantap {name}! B untuk BOLA!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Huruf B! B untuk Bola!')" style="cursor:pointer;padding:10px 18px;border-radius:18px;background:#2563EB;color:#FEF08A;font-size:2rem;font-weight:900;border:3px solid #93C5FD;">B b</div>
+                <div style="text-align:left;max-width:190px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Huruf Awal: "B"</div>
+                  <div style="font-size:0.76rem;font-weight:700;color:#334155;">Pilih benda yang berawalan huruf <b>B</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '⚽', label: 'Bola', voice: 'Betul! B untuk Bola!', correct: true },
+              { emoji: '🧢', label: 'Topi', voice: 'Topi depannya huruf T', correct: false },
+              { emoji: '🏎️', label: 'Mobil', voice: 'Mobil depannya huruf M', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat huruf ini {name}! Ini adalah huruf M! Kendaraan mana yang namanya diawali huruf M?',
+            voiceSuccess: 'Keren {name}! M untuk MOBIL!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Huruf M! M untuk Mobil!')" style="cursor:pointer;padding:10px 18px;border-radius:18px;background:#EF4444;color:#FEF08A;font-size:2rem;font-weight:900;border:3px solid #FCA5A5;">M m</div>
+                <div style="text-align:left;max-width:190px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Huruf Awal: "M"</div>
+                  <div style="font-size:0.76rem;font-weight:700;color:#334155;">Pilih kendaraan berawalan huruf <b>M</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🏎️', label: 'Mobil', voice: 'Betul! M untuk Mobil!', correct: true },
+              { emoji: '🚲', label: 'Sepeda', voice: 'Sepeda depannya huruf S', correct: false },
+              { emoji: '🚂', label: 'Kereta', voice: 'Kereta depannya huruf K', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Perhatikan huruf ini ya {name}! Ini adalah huruf S! Benda mana yang namanya diawali huruf S?',
+            voiceSuccess: 'Hebat sekali {name}! S untuk SEPATU!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Huruf S! S untuk Sepatu!')" style="cursor:pointer;padding:10px 18px;border-radius:18px;background:#059669;color:#FEF08A;font-size:2rem;font-weight:900;border:3px solid #6EE7B7;">S s</div>
+                <div style="text-align:left;max-width:190px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Huruf Awal: "S"</div>
+                  <div style="font-size:0.76rem;font-weight:700;color:#334155;">Pilih benda yang berawalan huruf <b>S</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '👟', label: 'Sepatu', voice: 'Betul! S untuk Sepatu!', correct: true },
+              { emoji: '📘', label: 'Buku', voice: 'Buku depannya huruf B', correct: false },
+              { emoji: '🍞', label: 'Roti', voice: 'Roti depannya huruf R', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat huruf ini {name}! Ini adalah huruf R, sama seperti huruf depan nama REZA! Benda mana yang juga diawali huruf R?',
+            voiceSuccess: 'Luar biasa {name}! R untuk ROKET dan R untuk REZA!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Huruf R! R untuk Roket dan Reza!')" style="cursor:pointer;padding:10px 18px;border-radius:18px;background:#7C3AED;color:#FEF08A;font-size:2rem;font-weight:900;border:3px solid #C4B5FD;">R r</div>
+                <div style="text-align:left;max-width:190px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Huruf Awal: "R"</div>
+                  <div style="font-size:0.76rem;font-weight:700;color:#334155;">Pilih benda yang berawalan huruf <b>R</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🚀', label: 'Roket', voice: 'Betul! R untuk Roket!', correct: true },
+              { emoji: '⚽', label: 'Bola', voice: 'Bola depannya huruf B', correct: false },
+              { emoji: '🧢', label: 'Topi', voice: 'Topi depannya huruf T', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 5: MENGENAL KATA SUKU KATA & BENDA ====================
+      {
+        id: 5,
+        kategori: 'huruf_kata',
+        pillarName: '📖 Membaca Kata & Benda',
+        pillarBg: '#DBEAFE',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Perhatikan tulisan kata di layar ya {name}: R, O, T, I... dibaca: RO-TI! Mana gambar benda yang bernama ROTI?',
+            voiceSuccess: 'Cerdas sekali {name}! RO-TI adalah makanan Roti!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div onclick="speakNatural('R, O, T, I. Dibaca: RO-TI!')" style="cursor:pointer;background:#1E293B;color:#FACC15;padding:8px 22px;border-radius:16px;font-size:1.65rem;font-weight:900;letter-spacing:2px;border:2px solid #FACC15;">RO - TI</div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">Ketuk benda yang sesuai dengan kata <b>RO-TI</b>!</div>
+              </div>`,
+            choices: [
+              { emoji: '🍞', label: 'ROTI', voice: 'Betul! Ini Roti!', correct: true },
+              { emoji: '🥛', label: 'SUSU', voice: 'Ini Susu', correct: false },
+              { emoji: '🍌', label: 'PISANG', voice: 'Ini Pisang', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat tulisan kata ini {name}: B, U, K, U... dibaca: BU-KU! Mana gambar benda yang bernama BUKU?',
+            voiceSuccess: 'Pintar sekali {name}! BU-KU adalah Buku bacaan!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div onclick="speakNatural('B, U, K, U. Dibaca: BU-KU!')" style="cursor:pointer;background:#1E293B;color:#38BDF8;padding:8px 22px;border-radius:16px;font-size:1.65rem;font-weight:900;letter-spacing:2px;border:2px solid #38BDF8;">BU - KU</div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">Ketuk benda yang sesuai dengan kata <b>BU-KU</b>!</div>
+              </div>`,
+            choices: [
+              { emoji: '📘', label: 'BUKU', voice: 'Betul! Ini Buku!', correct: true },
+              { emoji: '✏️', label: 'PENSIL', voice: 'Ini Pensil', correct: false },
+              { emoji: '🎒', label: 'TAS', voice: 'Ini Tas', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Ayo baca bersama {name}: S, U, S, U... dibaca: SU-SU! Mana gambar minuman SUSU?',
+            voiceSuccess: 'Hebat {name}! SU-SU membuat badan sehat dan kuat!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div onclick="speakNatural('S, U, S, U. Dibaca: SU-SU!')" style="cursor:pointer;background:#1E293B;color:#4ADE80;padding:8px 22px;border-radius:16px;font-size:1.65rem;font-weight:900;letter-spacing:2px;border:2px solid #4ADE80;">SU - SU</div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">Ketuk gambar yang sesuai dengan kata <b>SU-SU</b>!</div>
+              </div>`,
+            choices: [
+              { emoji: '🥛', label: 'SUSU', voice: 'Betul! Ini Susu!', correct: true },
+              { emoji: '🍎', label: 'APEL', voice: 'Ini Apel', correct: false },
+              { emoji: '🍞', label: 'ROTI', voice: 'Ini Roti', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Perhatikan kata ini ya {name}: B, A, J, U... dibaca: BA-JU! Mana gambar BAJU?',
+            voiceSuccess: 'Tepat sekali {name}! BA-JU adalah pakaian yang kita kenakan!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div onclick="speakNatural('B, A, J, U. Dibaca: BA-JU!')" style="cursor:pointer;background:#1E293B;color:#F472B6;padding:8px 22px;border-radius:16px;font-size:1.65rem;font-weight:900;letter-spacing:2px;border:2px solid #F472B6;">BA - JU</div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">Ketuk benda yang sesuai dengan kata <b>BA-JU</b>!</div>
+              </div>`,
+            choices: [
+              { emoji: '👕', label: 'BAJU', voice: 'Betul! Ini Baju!', correct: true },
+              { emoji: '👟', label: 'SEPATU', voice: 'Ini Sepatu', correct: false },
+              { emoji: '🧢', label: 'TOPI', voice: 'Ini Topi', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 6: MENGHITUNG SATU PER SATU (TOUCH & COUNT) ====================
+      {
+        id: 6,
+        kategori: 'angka',
+        pillarName: '🔢 Menghitung Benda Satu-Satu',
+        pillarBg: '#DCFCE7',
+        variants: [
+          {
+            type: 'touch_count',
+            targetCount: 3,
+            itemEmoji: '🏎️',
+            itemName: 'Mobil Balap',
+            voiceIntro: 'Ayo {name} sentuh semua Mobil Balap merah satu per satu untuk menghitungnya, lalu pilih lambang angkanya di bawah!',
+            voiceSuccess: 'Satu, dua, tiga! Ada TIGA Mobil Balap! {name} pintar mengenal angka 3!',
+            choices: [
+              { emoji: '2', label: 'Angka 2', voice: 'Ini angka dua', correct: false },
+              { emoji: '3', label: 'Angka 3', voice: 'Angka Tiga!', correct: true },
+              { emoji: '5', label: 'Angka 5', voice: 'Ini angka lima', correct: false }
+            ]
+          },
+          {
+            type: 'touch_count',
+            targetCount: 4,
+            itemEmoji: '🚀',
+            itemName: 'Roket',
+            voiceIntro: 'Sekarang ayo {name} sentuh semua Roket satu per satu untuk menghitungnya, lalu pilih lambang angkanya di bawah!',
+            voiceSuccess: 'Satu, dua, tiga, empat! Semuanya ada EMPAT Roket!',
+            choices: [
+              { emoji: '4', label: 'Angka 4', voice: 'Angka Empat!', correct: true },
+              { emoji: '2', label: 'Angka 2', voice: 'Ini angka dua', correct: false },
+              { emoji: '5', label: 'Angka 5', voice: 'Ini angka lima', correct: false }
+            ]
+          },
+          {
+            type: 'touch_count',
+            targetCount: 2,
+            itemEmoji: '🚁',
+            itemName: 'Helikopter',
+            voiceIntro: 'Lihat ada Helikopter {name}! Sentuh semua Helikopter satu per satu untuk menghitungnya, lalu pilih angkanya!',
+            voiceSuccess: 'Satu, dua! Ada DUA Helikopter! Hebat sekali {name}!',
+            choices: [
+              { emoji: '1', label: 'Angka 1', voice: 'Ini angka satu', correct: false },
+              { emoji: '2', label: 'Angka 2', voice: 'Angka Dua!', correct: true },
+              { emoji: '4', label: 'Angka 4', voice: 'Ini angka empat', correct: false }
+            ]
+          },
+          {
+            type: 'touch_count',
+            targetCount: 5,
+            itemEmoji: '⭐',
+            itemName: 'Bintang Emas',
+            voiceIntro: 'Ayo {name} sentuh semua Bintang Emas di atas satu per satu sampai habis, lalu pilih lambang angkanya!',
+            voiceSuccess: 'Satu, dua, tiga, empat, lima! Ada LIMA Bintang Emas!',
+            choices: [
+              { emoji: '3', label: 'Angka 3', voice: 'Ini angka tiga', correct: false },
+              { emoji: '4', label: 'Angka 4', voice: 'Ini angka empat', correct: false },
+              { emoji: '5', label: 'Angka 5', voice: 'Angka Lima!', correct: true }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 7: MENGENAL SIMBOL ANGKA & KUANTITAS ====================
+      {
+        id: 7,
+        kategori: 'angka',
+        pillarName: '🔢 Mengenal Lambang Angka',
+        pillarBg: '#DCFCE7',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat lambang angka di kotak biru ini {name}! Ini adalah ANGKA EMPAT! Coba {name} cari, kotak mana yang isinya ada EMPAT Bintang?',
+            voiceSuccess: 'Bintang empat! {name} jago mencocokkan angka 4 dengan empat bintang!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Ini lambang Angka Empat!')" style="cursor:pointer;width:72px;height:72px;border-radius:20px;background:#2563EB;color:#FACC15;font-size:2.5rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid #93C5FD;">4</div>
+                <div style="text-align:left;max-width:195px;">
+                  <div style="font-size:1.02rem;font-weight:900;color:#065F46;">Lambang Angka 4</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Cari kotak yang berisi <b>4 Bintang</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '⭐⭐', label: '2 Bintang', voice: 'Baru dua bintang', correct: false },
+              { emoji: '⭐⭐⭐⭐', label: '4 Bintang', voice: 'Empat Bintang!', correct: true },
+              { emoji: '⭐⭐⭐', label: '3 Bintang', voice: 'Ini tiga bintang', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Perhatikan lambang angka ini {name}! Ini adalah ANGKA TIGA! Kotak mana yang isinya ada TIGA Perisai?',
+            voiceSuccess: 'Tepat sekali {name}! Tiga Perisai sesuai dengan Angka 3!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Ini lambang Angka Tiga!')" style="cursor:pointer;width:72px;height:72px;border-radius:20px;background:#059669;color:#FEF08A;font-size:2.5rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid #6EE7B7;">3</div>
+                <div style="text-align:left;max-width:195px;">
+                  <div style="font-size:1.02rem;font-weight:900;color:#065F46;">Lambang Angka 3</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Cari kotak yang berisi <b>3 Perisai</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🛡️🛡️🛡️', label: '3 Perisai', voice: 'Tiga Perisai!', correct: true },
+              { emoji: '🛡️', label: '1 Perisai', voice: 'Baru satu perisai', correct: false },
+              { emoji: '🛡️🛡️🛡️🛡️', label: '4 Perisai', voice: 'Ini empat perisai', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat angka di kotak merah ini {name}! Ini adalah ANGKA DUA! Mana kotak yang berisi DUA Bola?',
+            voiceSuccess: 'Hebat {name}! Dua Bola cocok dengan Angka 2!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Ini lambang Angka Dua!')" style="cursor:pointer;width:72px;height:72px;border-radius:20px;background:#EF4444;color:#FEF08A;font-size:2.5rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid #FCA5A5;">2</div>
+                <div style="text-align:left;max-width:195px;">
+                  <div style="font-size:1.02rem;font-weight:900;color:#065F46;">Lambang Angka 2</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Cari kotak yang berisi <b>2 Bola</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '⚽⚽', label: '2 Bola', voice: 'Dua Bola!', correct: true },
+              { emoji: '⚽⚽⚽⚽', label: '4 Bola', voice: 'Ini empat bola', correct: false },
+              { emoji: '⚽', label: '1 Bola', voice: 'Ini satu bola', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat lambang angka ini {name}! Ini adalah ANGKA LIMA! Mana kotak yang berisi LIMA Apel?',
+            voiceSuccess: 'Cerdas sekali {name}! Lima Apel cocok dengan Angka 5!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div onclick="speakNatural('Ini lambang Angka Lima!')" style="cursor:pointer;width:72px;height:72px;border-radius:20px;background:#7C3AED;color:#FEF08A;font-size:2.5rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:3px solid #C4B5FD;">5</div>
+                <div style="text-align:left;max-width:195px;">
+                  <div style="font-size:1.02rem;font-weight:900;color:#065F46;">Lambang Angka 5</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Cari kotak yang berisi <b>5 Apel</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🍎🍎🍎🍎🍎', label: '5 Apel', voice: 'Lima Apel!', correct: true },
+              { emoji: '🍎🍎', label: '2 Apel', voice: 'Ini dua apel', correct: false },
+              { emoji: '🍎🍎🍎', label: '3 Apel', voice: 'Ini tiga apel', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 8: MENGHITUNG GAMBAR & MEMILIH ANGKA ====================
+      {
+        id: 8,
+        kategori: 'angka',
+        pillarName: '🔢 Menghitung Benda & Angka',
+        pillarBg: '#DCFCE7',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat di layar {name}, ada LIMA Roket: satu, dua, tiga, empat, lima! Manakah simbol ANGKA LIMA di bawah ini?',
+            voiceSuccess: 'Meluncur! Betul sekali {name}, itu adalah simbol Angka Lima!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="font-size:2.1rem;letter-spacing:4px;">🚀🚀🚀🚀🚀</div>
+                <div style="font-size:0.82rem;font-weight:900;color:#1E3A8A;">Ada <b>LIMA (5)</b> Roket! Pilih lambang <b>Angka 5</b>!</div>
+              </div>`,
+            choices: [
+              { emoji: '5', label: 'Angka 5', voice: 'Angka Lima!', correct: true },
+              { emoji: '2', label: 'Angka 2', voice: 'Ini angka dua', correct: false },
+              { emoji: '1', label: 'Angka 1', voice: 'Ini angka satu', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Coba {name} hitung ada berapa Truk di layar: satu, dua, tiga! Manakah simbol ANGKA TIGA?',
+            voiceSuccess: 'Mantap {name}! Tiga Truk cocok dengan Angka 3!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="font-size:2.2rem;letter-spacing:6px;">🚚🚚🚚</div>
+                <div style="font-size:0.82rem;font-weight:900;color:#1E3A8A;">Ada <b>TIGA (3)</b> Truk! Pilih lambang <b>Angka 3</b>!</div>
+              </div>`,
+            choices: [
+              { emoji: '3', label: 'Angka 3', voice: 'Angka Tiga!', correct: true },
+              { emoji: '5', label: 'Angka 5', voice: 'Ini angka lima', correct: false },
+              { emoji: '1', label: 'Angka 1', voice: 'Ini angka satu', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Hitung Pesawat Terbang ini yuk {name}: satu, dua, tiga, empat! Manakah simbol ANGKA EMPAT?',
+            voiceSuccess: 'Hebat sekali {name}! Itu adalah simbol Angka Empat!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="font-size:2.1rem;letter-spacing:6px;">✈️✈️✈️✈️</div>
+                <div style="font-size:0.82rem;font-weight:900;color:#1E3A8A;">Ada <b>EMPAT (4)</b> Pesawat! Pilih lambang <b>Angka 4</b>!</div>
+              </div>`,
+            choices: [
+              { emoji: '4', label: 'Angka 4', voice: 'Angka Empat!', correct: true },
+              { emoji: '2', label: 'Angka 2', voice: 'Ini angka dua', correct: false },
+              { emoji: '3', label: 'Angka 3', voice: 'Ini angka tiga', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat Kereta Api ini {name}: satu, dua! Ada DUA Kereta Api. Manakah simbol ANGKA DUA?',
+            voiceSuccess: 'Betul {name}! Itu adalah simbol Angka Dua!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="font-size:2.3rem;letter-spacing:8px;">🚂🚂</div>
+                <div style="font-size:0.82rem;font-weight:900;color:#1E3A8A;">Ada <b>DUA (2)</b> Kereta! Pilih lambang <b>Angka 2</b>!</div>
+              </div>`,
+            choices: [
+              { emoji: '2', label: 'Angka 2', voice: 'Angka Dua!', correct: true },
+              { emoji: '4', label: 'Angka 4', voice: 'Ini angka empat', correct: false },
+              { emoji: '5', label: 'Angka 5', voice: 'Ini angka lima', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 9: URUTAN ANGKA 1 SAMPAI 5 ====================
+      {
+        id: 9,
+        kategori: 'angka',
+        pillarName: '🔢 Urutan Angka 1 Sampai 5',
+        pillarBg: '#DCFCE7',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat barisan angka ini {name}: Satu, Dua, Tiga, ... lalu ada kotak kosong sebelum angka Lima! Angka berapa ya sesudah angka Tiga?',
+            voiceSuccess: 'Sempurna {name}! Satu, dua, tiga, EMPAT, lima!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">1</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">2</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">3</div>
+                  <div style="width:46px;height:46px;border-radius:12px;background:#FEF08A;border:2.5px dashed #CA8A04;color:#854D0E;font-weight:900;font-size:1.4rem;display:flex;align-items:center;justify-content:center;">?</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">5</div>
+                </div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">1 • 2 • 3 • <b>[ ? ]</b> • 5</div>
+              </div>`,
+            choices: [
+              { emoji: '4', label: 'Angka 4', voice: 'Angka Empat!', correct: true },
+              { emoji: '1', label: 'Angka 1', voice: 'Angka Satu', correct: false },
+              { emoji: '2', label: 'Angka 2', voice: 'Angka Dua', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Perhatikan urutan angka ini {name}: Satu, lalu kotak tanda tanya, lalu Tiga, Empat, Lima! Angka berapa ya sesudah angka Satu?',
+            voiceSuccess: 'Pintar sekali {name}! Sesudah angka Satu adalah angka DUA!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">1</div>
+                  <div style="width:46px;height:46px;border-radius:12px;background:#FEF08A;border:2.5px dashed #CA8A04;color:#854D0E;font-weight:900;font-size:1.4rem;display:flex;align-items:center;justify-content:center;">?</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">3</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">4</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">5</div>
+                </div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">1 • <b>[ ? ]</b> • 3 • 4 • 5</div>
+              </div>`,
+            choices: [
+              { emoji: '2', label: 'Angka 2', voice: 'Angka Dua!', correct: true },
+              { emoji: '4', label: 'Angka 4', voice: 'Angka Empat', correct: false },
+              { emoji: '5', label: 'Angka 5', voice: 'Angka Lima', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Coba lihat {name}: Satu, Dua, lalu kotak tanda tanya, lalu Empat, Lima! Angka berapa yang ada di tengah sesudah angka Dua?',
+            voiceSuccess: 'Tepat sekali {name}! Satu, dua, TIGA, empat, lima!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">1</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">2</div>
+                  <div style="width:46px;height:46px;border-radius:12px;background:#FEF08A;border:2.5px dashed #CA8A04;color:#854D0E;font-weight:900;font-size:1.4rem;display:flex;align-items:center;justify-content:center;">?</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">4</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">5</div>
+                </div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">1 • 2 • <b>[ ? ]</b> • 4 • 5</div>
+              </div>`,
+            choices: [
+              { emoji: '3', label: 'Angka 3', voice: 'Angka Tiga!', correct: true },
+              { emoji: '1', label: 'Angka 1', voice: 'Angka Satu', correct: false },
+              { emoji: '5', label: 'Angka 5', voice: 'Angka Lima', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Urutan angka dari Satu sampai Lima: Satu, Dua, Tiga, Empat, ... Angka berapa yang paling akhir sesudah Empat ya {name}?',
+            voiceSuccess: 'Hebat {name}! Satu, dua, tiga, empat, LIMA!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">1</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">2</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">3</div>
+                  <div style="width:42px;height:42px;border-radius:12px;background:#2563EB;color:white;font-weight:900;font-size:1.3rem;display:flex;align-items:center;justify-content:center;">4</div>
+                  <div style="width:46px;height:46px;border-radius:12px;background:#FEF08A;border:2.5px dashed #CA8A04;color:#854D0E;font-weight:900;font-size:1.4rem;display:flex;align-items:center;justify-content:center;">?</div>
+                </div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">1 • 2 • 3 • 4 • <b>[ ? ]</b></div>
+              </div>`,
+            choices: [
+              { emoji: '5', label: 'Angka 5', voice: 'Angka Lima!', correct: true },
+              { emoji: '2', label: 'Angka 2', voice: 'Angka Dua', correct: false },
+              { emoji: '3', label: 'Angka 3', voice: 'Angka Tiga', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 10: MEMBANDINGKAN JUMLAH BENDA ====================
+      {
+        id: 10,
+        kategori: 'angka',
+        pillarName: '🔢 Membandingkan Jumlah Benda',
+        pillarBg: '#DCFCE7',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Pac-Man suka mengumpulkan koin emas! Coba {name} perhatikan pilihan di bawah, kotak mana yang koin emasnya PALING BANYAK?',
+            voiceSuccess: 'Waka waka! Betul {name}! Lima koin emas paling banyak!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:12px;justify-content:center;">
+                <div style="font-size:2.6rem;">🟡🪙</div>
+                <div style="text-align:left;max-width:210px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Cari yang PALING BANYAK!</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih kotak dengan jumlah koin emas <b>terbanyak</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🪙', label: '1 Koin', voice: 'Satu koin masih sedikit', correct: false },
+              { emoji: '🪙🪙🪙🪙🪙', label: '5 Koin', voice: 'Lima koin! Paling banyak!', correct: true },
+              { emoji: '🪙🪙', label: '2 Koin', voice: 'Dua koin', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Sekarang sebaliknya ya {name}: Coba cari kotak mana yang jumlah Bintangnya PALING SEDIKIT?',
+            voiceSuccess: 'Jeli sekali {name}! Satu bintang adalah yang paling sedikit!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:12px;justify-content:center;">
+                <div style="font-size:2.6rem;">⭐🔍</div>
+                <div style="text-align:left;max-width:210px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Cari yang PALING SEDIKIT!</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih kotak dengan jumlah bintang <b>paling sedikit</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '⭐', label: '1 Bintang', voice: 'Satu bintang! Paling sedikit!', correct: true },
+              { emoji: '⭐⭐⭐⭐', label: '4 Bintang', voice: 'Empat bintang itu banyak', correct: false },
+              { emoji: '⭐⭐⭐⭐⭐', label: '5 Bintang', voice: 'Lima bintang itu paling banyak', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Lihat garasi mobil ini {name}! Kotak mana yang punya Mobil Balap PALING BANYAK?',
+            voiceSuccess: 'Mantap {name}! Empat mobil balap adalah yang paling banyak!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:12px;justify-content:center;">
+                <div style="font-size:2.6rem;">🏎️🏁</div>
+                <div style="text-align:left;max-width:210px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Cari yang PALING BANYAK!</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih kotak dengan mobil balap <b>paling banyak</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🏎️🏎️🏎️🏎️', label: '4 Mobil', voice: 'Empat mobil! Paling banyak!', correct: true },
+              { emoji: '🏎️', label: '1 Mobil', voice: 'Satu mobil', correct: false },
+              { emoji: '🏎️🏎️', label: '2 Mobil', voice: 'Dua mobil', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 11: MENGENAL KENDARAAN & SUARA ====================
+      {
+        id: 11,
+        kategori: 'benda_suara',
+        pillarName: '🚒 Mengenal Kendaraan & Suara',
+        pillarBg: '#E0F2FE',
+        variants: [
+          {
+            type: 'sound_detective',
+            soundEffectType: 'siren',
+            soundLabel: 'Ketuk Speaker: Sirine "Ninu-Ninu!"',
+            voiceIntro: 'Dengarkan suara sirine ini {name}: Ninu, ninu, ninu! Kendaraan warna merah apa yang berbunyi seperti itu untuk memadamkan api?',
+            voiceSuccess: 'Keren {name}! Itu adalah Mobil Pemadam Kebakaran!',
+            choices: [
+              { emoji: '🚒', label: 'Pemadam', voice: 'Mobil Pemadam Kebakaran!', correct: true },
+              { emoji: '🚲', label: 'Sepeda', voice: 'Sepeda bunyinya kring-kring', correct: false },
+              { emoji: '⛵', label: 'Perahu', voice: 'Perahu berlayar di laut', correct: false }
+            ]
+          },
+          {
+            type: 'sound_detective',
+            soundEffectType: 'train',
+            soundLabel: 'Ketuk Speaker: "Tut-Tut-Guuug!"',
+            voiceIntro: 'Dengarkan suara kendaraan panjang yang berjalan di atas rel ini {name}: Tut, tut, guuug! Kendaraan apakah itu?',
+            voiceSuccess: 'Betul sekali {name}! Itu adalah Kereta Api!',
+            choices: [
+              { emoji: '🚂', label: 'Kereta Api', voice: 'Kereta Api! Tut tut guuug!', correct: true },
+              { emoji: '🚁', label: 'Helikopter', voice: 'Helikopter terbang di langit', correct: false },
+              { emoji: '🚲', label: 'Sepeda', voice: 'Ini Sepeda', correct: false }
+            ]
+          },
+          {
+            type: 'sound_detective',
+            soundEffectType: 'horn',
+            soundLabel: 'Ketuk Speaker: Klakson "Tiiin-Tiiin!"',
+            voiceIntro: 'Dengarkan bunyi klakson di jalan raya ini {name}: Tiiin, tiiin! Kendaraan beroda empat apa yang berbunyi seperti itu?',
+            voiceSuccess: 'Hebat {name}! Itu suara klakson Mobil!',
+            choices: [
+              { emoji: '🚗', label: 'Mobil', voice: 'Mobil! Tiiin tiiin!', correct: true },
+              { emoji: '⛵', label: 'Perahu Layar', voice: 'Ini Perahu Layar', correct: false },
+              { emoji: '🚀', label: 'Roket', voice: 'Roket terbang ke luar angkasa', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 12: MENGENAL HEWAN & SUARANYA ====================
+      {
+        id: 12,
+        kategori: 'benda_suara',
+        pillarName: '🦁 Mengenal Hewan & Suaranya',
+        pillarBg: '#E0F2FE',
+        variants: [
+          {
+            type: 'sound_detective',
+            soundEffectType: 'cat',
+            soundLabel: 'Ketuk Speaker: Suara "Meooong~"',
+            voiceIntro: 'Pasang telinga hebat {name}! Ketuk tombol speaker dan dengarkan... Meooong! Meooong! Hewan apa yang suaranya seperti itu?',
+            voiceSuccess: 'Betul sekali {name}! Itu suara Kucing!',
+            choices: [
+              { emoji: '🐱', label: 'Kucing', voice: 'Kucing! Meooong!', correct: true },
+              { emoji: '🐮', label: 'Sapi', voice: 'Sapi bunyinya Moooo', correct: false },
+              { emoji: '🦆', label: 'Bebek', voice: 'Bebek bunyinya Kwek-kwek', correct: false }
+            ]
+          },
+          {
+            type: 'sound_detective',
+            soundEffectType: 'duck',
+            soundLabel: 'Ketuk Speaker: Suara "Kwek-Kwek!"',
+            voiceIntro: 'Dengarkan suara hewan yang suka berenang di kolam ini {name}: Kwek, kwek, kwek! Hewan apakah itu?',
+            voiceSuccess: 'Pintar {name}! Itu suara Bebek!',
+            choices: [
+              { emoji: '🦆', label: 'Bebek', voice: 'Bebek! Kwek kwek!', correct: true },
+              { emoji: '🐱', label: 'Kucing', voice: 'Kucing bunyinya Meong', correct: false },
+              { emoji: '🐘', label: 'Gajah', voice: 'Ini Gajah besar', correct: false }
+            ]
+          },
+          {
+            type: 'sound_detective',
+            soundEffectType: 'bird',
+            soundLabel: 'Ketuk Speaker: Suara "Cit-Cit-Cit!"',
+            voiceIntro: 'Dengarkan suara nyaring di atas pohon ini {name}: Cit, cit, cit! Hewan kecil bersayap apa yang berkicau seperti itu?',
+            voiceSuccess: 'Telinga {name} tajam sekali! Itu suara Burung Kecil!',
+            choices: [
+              { emoji: '🐦', label: 'Burung', voice: 'Burung berkicau! Cit cit cit!', correct: true },
+              { emoji: '🐮', label: 'Sapi', voice: 'Sapi bunyinya Moooo', correct: false },
+              { emoji: '🐟', label: 'Ikan', voice: 'Ikan berenang di air', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 13: MISI 2 BENDA BERURUTAN ====================
+      {
+        id: 13,
+        kategori: 'benda_suara',
+        pillarName: '🎒 Misi Ingatan 2 Benda Berurutan',
+        pillarBg: '#E0F2FE',
+        variants: [
+          {
+            type: 'sequence_2',
+            step1Target: 'helm',
+            step2Target: 'sepatu',
+            step1Label: '1. Topi Helm ⛑️',
+            step2Label: '2. Sepatu 👟',
+            voiceIntro: 'Misi Dua Langkah untuk {name}! Dengarkan urutannya baik-baik ya: PERTAMA, sentuh TOPI HELM. KEDUA, sentuh SEPATU!',
+            voiceStep1Done: 'Bagus {name}! Topi helm sudah dipilih! Sekarang langkah kedua: sentuh SEPATU!',
+            voiceSuccess: 'Hebat sekali {name}! Kamu ingat urutan dua benda dengan tepat!',
+            items: [
+              { id: 'helm', emoji: '⛑️', label: 'Topi Helm' },
+              { id: 'sepatu', emoji: '👟', label: 'Sepatu' },
+              { id: 'payung', emoji: '☂️', label: 'Payung' },
+              { id: 'bola', emoji: '⚽', label: 'Bola' }
+            ]
+          },
+          {
+            type: 'sequence_2',
+            step1Target: 'baju',
+            step2Target: 'tas',
+            step1Label: '1. Baju 👕',
+            step2Label: '2. Tas Ransel 🎒',
+            voiceIntro: 'Ayo bersiap berangkat sekolah {name}! Ingat 2 urutannya ya: PERTAMA, sentuh BAJU. KEDUA, sentuh TAS RANSEL!',
+            voiceStep1Done: 'Pintar {name}! Baju sudah siap! Sekarang langkah kedua: sentuh TAS RANSEL!',
+            voiceSuccess: 'Luar biasa {name}! Baju dan Tas Ransel sudah siap!',
+            items: [
+              { id: 'baju', emoji: '👕', label: 'Baju' },
+              { id: 'tas', emoji: '🎒', label: 'Tas Ransel' },
+              { id: 'roti', emoji: '🍞', label: 'Roti' },
+              { id: 'topi', emoji: '🧢', label: 'Topi' }
+            ]
+          },
+          {
+            type: 'sequence_2',
+            step1Target: 'roti',
+            step2Target: 'susu',
+            step1Label: '1. Roti 🍞',
+            step2Label: '2. Susu 🥛',
+            voiceIntro: 'Waktunya sarapan sehat {name}! Dengarkan 2 urutannya ya: PERTAMA, sentuh ROTI. KEDUA, sentuh SUSU!',
+            voiceStep1Done: 'Mantap {name}! Roti sudah diambil! Sekarang langkah kedua: sentuh SUSU!',
+            voiceSuccess: 'Keren {name}! Sarapan Roti dan Susu membuat tubuh kuat!',
+            items: [
+              { id: 'roti', emoji: '🍞', label: 'Roti' },
+              { id: 'susu', emoji: '🥛', label: 'Susu' },
+              { id: 'buku', emoji: '📘', label: 'Buku' },
+              { id: 'sepatu', emoji: '👟', label: 'Sepatu' }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 14: LOGIKA FUNGSI BENDA ====================
+      {
+        id: 14,
+        kategori: 'logika',
+        pillarName: '🛡️ Mengenal Fungsi Benda',
+        pillarBg: '#FEF3C7',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Wah {name}, tiba-tiba turun hujan deras dari langit! Benda apa yang dipakai supaya kepala dan badan tidak basah kehujanan?',
+            voiceSuccess: 'Pintar sekali {name}! Saat hujan turun, kita memakai Payung!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div style="font-size:3rem;">🌧️💧</div>
+                <div style="text-align:left;max-width:200px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Hujan Turun Deras!</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih benda pelindung dari air hujan!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '☂️', label: 'Payung', voice: 'Payung untuk melindungi dari hujan!', correct: true },
+              { emoji: '🕶️', label: 'Kacamata', voice: 'Kacamata dipakai saat panas terik', correct: false },
+              { emoji: '⚽', label: 'Bola', voice: 'Bola untuk bermain sepak bola', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Malam hari lampu kamar mati dan suasana gelap! Benda apa yang dinyalakan {name} supaya ruangan menjadi terang?',
+            voiceSuccess: 'Cerdas {name}! Senter menyala membuat ruangan gelap menjadi terang!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div style="font-size:3rem;">🌙🌌</div>
+                <div style="text-align:left;max-width:200px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Ruangan Gelap di Malam Hari</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih benda yang menghasilkan cahaya terang!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🔦', label: 'Senter', voice: 'Senter menyala terang!', correct: true },
+              { emoji: '👟', label: 'Sepatu', voice: 'Sepatu dipakai di kaki', correct: false },
+              { emoji: '🍌', label: 'Pisang', voice: 'Pisang untuk dimakan', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Sebelum tidur, {name} rajin membersihkan gigi supaya gigi tetap putih dan sehat. Benda apa yang dipakai untuk menyikat gigi?',
+            voiceSuccess: 'Hebat sekali {name}! Kita menyikat gigi memakai Sikat Gigi!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div style="font-size:3rem;">😁✨</div>
+                <div style="text-align:left;max-width:200px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Merawat Gigi Bersih</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Pilih alat untuk membersihkan gigi!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🪥', label: 'Sikat Gigi', voice: 'Sikat Gigi!', correct: true },
+              { emoji: '✏️', label: 'Pensil', voice: 'Pensil untuk menulis dan menggambar', correct: false },
+              { emoji: '🧢', label: 'Topi', voice: 'Topi dipakai di kepala', correct: false }
+            ]
+          }
+        ]
+      },
+
+      // ==================== SLOT 15: BENTUK BENDA & POLA ====================
+      {
+        id: 15,
+        kategori: 'logika',
+        pillarName: '🟡 Mengenal Bentuk & Pola Benda',
+        pillarBg: '#FEF3C7',
+        variants: [
+          {
+            type: 'choice',
+            voiceIntro: 'Misi Terakhir {name}! Lihat Pac-Man ini, bentuknya adalah BULAT LINGKARAN! Coba pilih, benda mana di bawah ini yang bentuknya juga BULAT LINGKARAN?',
+            voiceSuccess: 'Horeee! Roda Ban Mobil bentuknya Bulat Lingkaran! Selamat ya {name}, semua 15 misi berhasil ditaklukkan!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div style="width:60px;height:60px;border-radius:50%;background:#FACC15;border:4px solid #CA8A04;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.5rem;">🟡</div>
+                <div style="text-align:left;max-width:205px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Bentuk: LINGKARAN BULAT</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Cari benda yang bentuknya <b>Bulat Lingkaran</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '🛞', label: 'Roda Ban', voice: 'Roda Ban bentuknya Bulat Lingkaran!', correct: true },
+              { emoji: '🚪', label: 'Pintu', voice: 'Pintu bentuknya persegi panjang', correct: false },
+              { emoji: '📐', label: 'Penggaris', voice: 'Penggaris ini bentuknya segitiga', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Misi Terakhir {name}! Lihat gambar bentuk SEGITIGA yang punya tiga sudut lancip ini! Benda mana di bawah ini yang bentuknya juga SEGITIGA?',
+            voiceSuccess: 'Horeee! Penggaris Segitiga bentuknya persis Segitiga! Selamat ya {name}, semua 15 misi selesai!',
+            showcaseHTML: `
+              <div style="display:flex;align-items:center;gap:14px;justify-content:center;">
+                <div style="font-size:3rem;line-height:1;">🔺</div>
+                <div style="text-align:left;max-width:205px;">
+                  <div style="font-weight:900;font-size:0.95rem;color:#1E3A8A;">Bentuk: SEGITIGA</div>
+                  <div style="font-size:0.78rem;font-weight:700;color:#334155;">Cari benda yang bentuknya <b>Segitiga</b>!</div>
+                </div>
+              </div>`,
+            choices: [
+              { emoji: '📐', label: 'Penggaris', voice: 'Penggaris Segitiga!', correct: true },
+              { emoji: '⚽', label: 'Bola', voice: 'Bola bentuknya bulat', correct: false },
+              { emoji: '📘', label: 'Buku', voice: 'Buku bentuknya kotak persegi', correct: false }
+            ]
+          },
+          {
+            type: 'choice',
+            voiceIntro: 'Misi Terakhir {name}! Lihat pola lampu warna-warni ini: Merah, Biru, Merah, Biru... Warna apa ya untuk lampu berikutnya?',
+            voiceSuccess: 'Horeee! Merah, Biru, Merah, Biru, lalu MERAH! Selamat ya {name}, semua 15 misi selesai!',
+            showcaseHTML: `
+              <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+                <div style="display:flex;gap:8px;font-size:1.8rem;">
+                  <span>🔴</span><span>🔵</span><span>🔴</span><span>🔵</span><span>❓</span>
+                </div>
+                <div style="font-size:0.78rem;font-weight:800;color:#334155;">Merah • Biru • Merah • Biru • <b>... ?</b></div>
+              </div>`,
+            choices: [
+              { emoji: '🔴', label: 'Merah', voice: 'Warna Merah!', correct: true },
+              { emoji: '🔵', label: 'Biru', voice: 'Warna Biru', correct: false },
+              { emoji: '🟢', label: 'Hijau', voice: 'Warna Hijau', correct: false }
+            ]
+          }
+        ]
+      }
+    ];
+
+    // Track which variant index was used per slot so every replay cycles to a fresh variant!
+    let slotVariantCursor = {};
+    QUESTION_SLOTS.forEach(s => {
+      slotVariantCursor[s.id] = (playRoundCounter - 1) % s.variants.length;
+    });
+
+    function buildQuestionFromSlot(slot, forceNextVariant = false) {
+      if (forceNextVariant) {
+        slotVariantCursor[slot.id] = ((slotVariantCursor[slot.id] || 0) + 1) % slot.variants.length;
+      }
+      const vIdx = slotVariantCursor[slot.id] || 0;
+      const chosenVar = slot.variants[vIdx];
+      return {
+        id: slot.id,
+        kategori: slot.kategori,
+        pillarName: slot.pillarName,
+        pillarBg: slot.pillarBg,
+        ...chosenVar,
+        choices: chosenVar.choices ? shuffleArray(chosenVar.choices) : undefined
+      };
+    }
+
+    function generateSessionQuestions(categoryFilter = 'semua') {
+      const slots = categoryFilter === 'semua'
+        ? QUESTION_SLOTS
+        : QUESTION_SLOTS.filter(s => s.kategori === categoryFilter);
+      return slots.map(slot => buildQuestionFromSlot(slot, false));
+    }
+
+    /*************************************************************************
+     * 2. WEB AUDIO API SYNTHESIZER
+     *************************************************************************/
+    let audioCtx = null;
+    let bgmPlaying = true;
+    let bgmInterval = null;
+    let isSpeakingVO = false;
+
+    function getAudioCtx() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playTapSound() {
+      try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(760, ctx.currentTime + 0.07);
+        gain.gain.setValueAtTime(0.16, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } catch (e) {}
+    }
+
+    function playWakaSound() {
+      try {
+        const ctx = getAudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(320, ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(640, ctx.currentTime + 0.07);
+        gain.gain.setValueAtTime(0.14, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.085);
+      } catch (e) {}
+    }
+
+    function playCountNote(stepIndex) {
+      try {
+        const ctx = getAudioCtx();
+        const notes = [523.25, 587.33, 659.25, 698.46, 783.99];
+        const freq = notes[(stepIndex - 1) % notes.length];
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.24, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.26);
+      } catch (e) {}
+    }
+
+    function playCorrectSound() {
+      try {
+        const ctx = getAudioCtx();
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          const startTime = ctx.currentTime + idx * 0.08;
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.24, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.3);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.32);
+        });
+      } catch (e) {}
+    }
+
+    function playGentleRetrySound() {
+      try {
+        const ctx = getAudioCtx();
+        const notes = [392.00, 329.63];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          const startTime = ctx.currentTime + idx * 0.13;
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.15, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.24);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.25);
+        });
+      } catch (e) {}
+    }
+
+    function playMysterySoundEffect(type) {
+      try {
+        const ctx = getAudioCtx();
+        if (type === 'siren') {
+          [0, 0.36].forEach((offset) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            const t = ctx.currentTime + offset;
+            osc.frequency.setValueAtTime(660, t);
+            osc.frequency.setValueAtTime(880, t + 0.18);
+            gain.gain.setValueAtTime(0.2, t);
+            gain.gain.exponentialRampToValueAtTime(0.01, t + 0.34);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.35);
+          });
+          setTimeout(() => speakNatural(`Ninu, ninu, ninu! Kendaraan apa itu ya ${childName}?`), 700);
+        } else if (type === 'train') {
+          [0, 0.28].forEach((offset) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            const t = ctx.currentTime + offset;
+            osc.frequency.setValueAtTime(293.66, t);
+            osc.frequency.setValueAtTime(349.23, t + 0.08);
+            gain.gain.setValueAtTime(0.15, t);
+            gain.gain.exponentialRampToValueAtTime(0.01, t + 0.22);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.24);
+          });
+          setTimeout(() => speakNatural(`Tut, tut, guuug! Kendaraan apa itu ya ${childName}?`), 600);
+        } else if (type === 'horn') {
+          [0, 0.22].forEach((offset) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'square';
+            const t = ctx.currentTime + offset;
+            osc.frequency.setValueAtTime(440, t);
+            gain.gain.setValueAtTime(0.14, t);
+            gain.gain.exponentialRampToValueAtTime(0.01, t + 0.16);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.17);
+          });
+          setTimeout(() => speakNatural(`Tiiin, tiiin! Suara klakson apa itu ya ${childName}?`), 500);
+        } else if (type === 'cat') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          const now = ctx.currentTime;
+          osc.frequency.setValueAtTime(480, now);
+          osc.frequency.linearRampToValueAtTime(760, now + 0.22);
+          osc.frequency.linearRampToValueAtTime(420, now + 0.65);
+          gain.gain.setValueAtTime(0.22, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.68);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.7);
+          setTimeout(() => speakNatural(`Meooong... Meooong! Itu suara hewan apa ya ${childName}?`), 380);
+        } else if (type === 'duck') {
+          [0, 0.22].forEach((offset) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            const t = ctx.currentTime + offset;
+            osc.frequency.setValueAtTime(380, t);
+            osc.frequency.linearRampToValueAtTime(290, t + 0.14);
+            gain.gain.setValueAtTime(0.16, t);
+            gain.gain.exponentialRampToValueAtTime(0.01, t + 0.15);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.16);
+          });
+          setTimeout(() => speakNatural(`Kwek, kwek, kwek! Itu suara hewan apa ya ${childName}?`), 500);
+        } else if (type === 'bird') {
+          [0, 0.16, 0.32].forEach((offset) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            const t = ctx.currentTime + offset;
+            osc.frequency.setValueAtTime(1900, t);
+            osc.frequency.exponentialRampToValueAtTime(2800, t + 0.08);
+            gain.gain.setValueAtTime(0.16, t);
+            gain.gain.exponentialRampToValueAtTime(0.01, t + 0.12);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(t);
+            osc.stop(t + 0.13);
+          });
+          setTimeout(() => speakNatural(`Cit, cit, cit! Itu suara hewan apa ya ${childName}?`), 500);
+        }
+      } catch (e) {}
+    }
+
+    function startGentleBGM() {
+      if (bgmInterval) clearInterval(bgmInterval);
+      const melody = [523.25, 659.25, 783.99, 659.25, 587.33, 698.46, 783.99, 523.25];
+      let step = 0;
+      bgmInterval = setInterval(() => {
+        if (!bgmPlaying || isSpeakingVO || !audioCtx || audioCtx.state !== 'running') return;
+        try {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(melody[step % melody.length], audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0008, audioCtx.currentTime + 0.5);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.52);
+          step++;
+        } catch (e) {}
+      }, 680);
+    }
+
+    /*************************************************************************
+     * 3. NATURAL INDONESIAN VOICE OVER ENGINE
+     *************************************************************************/
+    let availableVoices = [];
+    let selectedVoice = null;
+    let speechRate = 0.92;
+    let voiceQueueTimer = null;
+
+    function loadIndonesianVoices() {
+      if (!('speechSynthesis' in window)) return;
+      const all = window.speechSynthesis.getVoices();
+      if (!all || !all.length) return;
+
+      const idVoices = all.filter(v =>
+        v.lang.toLowerCase().includes('id') ||
+        v.lang.toLowerCase().includes('ind') ||
+        v.name.toLowerCase().includes('indonesia') ||
+        v.name.toLowerCase().includes('gadis') ||
+        v.name.toLowerCase().includes('ardi') ||
+        v.name.toLowerCase().includes('damayanti')
+      );
+
+      idVoices.sort((a, b) => {
+        const score = (v) => {
+          let s = 0;
+          const n = v.name.toLowerCase();
+          if (n.includes('natural') || n.includes('online')) s += 50;
+          if (n.includes('gadis') || n.includes('ardi') || n.includes('google') || n.includes('damayanti')) s += 30;
+          if (v.lang.toLowerCase() === 'id-id') s += 10;
+          return s;
+        };
+        return score(b) - score(a);
+      });
+
+      availableVoices = idVoices.length ? idVoices : all;
+      selectedVoice = availableVoices[0] || null;
+
+      const sel = document.getElementById('voiceSelect');
+      if (sel) {
+        sel.innerHTML = '';
+        availableVoices.forEach((v, idx) => {
+          const opt = document.createElement('option');
+          opt.value = idx;
+          opt.textContent = `${v.name} (${v.lang})`;
+          sel.appendChild(opt);
+        });
+      }
+    }
+
+    if ('speechSynthesis' in window) {
+      loadIndonesianVoices();
+      window.speechSynthesis.onvoiceschanged = loadIndonesianVoices;
+    }
+
+    function setMascotSpeaking(active) {
+      isSpeakingVO = active;
+      const mascot = document.getElementById('mascotAvatar');
+      const bubble = document.getElementById('speechBubble');
+      if (mascot) mascot.classList.toggle('speaking', active);
+      if (bubble) bubble.classList.toggle('speaking-active', active);
+    }
+
+    function speakNatural(rawText, onDoneCallback) {
+      const displayText = personalizeText(rawText);
+      const speechTextEl = document.getElementById('speechText');
+      if (speechTextEl && displayText) speechTextEl.textContent = displayText;
+
+      if (!('speechSynthesis' in window)) {
+        if (onDoneCallback) onDoneCallback();
+        return;
+      }
+
+      if (voiceQueueTimer) {
+        clearTimeout(voiceQueueTimer);
+        voiceQueueTimer = null;
+      }
+      window.speechSynthesis.cancel();
+
+      // Voice Over membaca "Ka' Reza", sedangkan tampilan teks UI tetap "Kak Reza"
+      const spokenText = toSpokenVoiceText(displayText);
+      const cleanText = spokenText
+        .replace(/\.\.\./g, ' | ')
+        .replace(/([!?;:])/g, '$1 | ')
+        .replace(/,/g, ', | ');
+
+      const chunks = cleanText.split('|').map(s => s.trim()).filter(Boolean);
+      if (!chunks.length) {
+        setMascotSpeaking(false);
+        if (onDoneCallback) onDoneCallback();
+        return;
+      }
+
+      let idx = 0;
+      setMascotSpeaking(true);
+
+      function speakNextChunk() {
+        if (idx >= chunks.length) {
+          setMascotSpeaking(false);
+          if (onDoneCallback) onDoneCallback();
+          return;
+        }
+        const phrase = chunks[idx++];
+        const utter = new SpeechSynthesisUtterance(phrase);
+        utter.lang = 'id-ID';
+        if (selectedVoice) utter.voice = selectedVoice;
+
+        const isExclaim = phrase.includes('!');
+        const isQuestion = phrase.includes('?');
+        utter.rate = speechRate;
+        utter.pitch = isExclaim ? 1.12 : (isQuestion ? 1.08 : 1.04);
+
+        utter.onend = () => {
+          voiceQueueTimer = setTimeout(speakNextChunk, 120);
+        };
+        utter.onerror = () => {
+          setMascotSpeaking(false);
+          if (onDoneCallback) onDoneCallback();
+        };
+        window.speechSynthesis.speak(utter);
+      }
+
+      speakNextChunk();
+    }
+
+    /*************************************************************************
+     * 4. CONFETTI PARTICLE SYSTEM
+     *************************************************************************/
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    const cCtx = confettiCanvas.getContext('2d');
+    let confettiPieces = [];
+    let confettiAnimId = null;
+
+    function resizeConfetti() {
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    function launchConfetti(amount = 50) {
+      const colors = ['#FACC15', '#EF4444', '#38BDF8', '#10B981', '#A855F7', '#F97316'];
+      for (let i = 0; i < amount; i++) {
+        confettiPieces.push({
+          x: window.innerWidth / 2 + (Math.random() - 0.5) * 160,
+          y: window.innerHeight * 0.45,
+          vx: (Math.random() - 0.5) * 12,
+          vy: -Math.random() * 11 - 4,
+          size: Math.random() * 8 + 6,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rot: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 12,
+          life: 1
+        });
+      }
+      if (!confettiAnimId) animateConfetti();
+    }
+
+    function animateConfetti() {
+      cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      confettiPieces.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.35;
+        p.rot += p.vRot;
+        p.life -= 0.014;
+        cCtx.save();
+        cCtx.translate(p.x, p.y);
+        cCtx.rotate((p.rot * Math.PI) / 180);
+        cCtx.fillStyle = p.color;
+        cCtx.globalAlpha = Math.max(0, p.life);
+        cCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+        cCtx.restore();
+      });
+      confettiPieces = confettiPieces.filter(p => p.life > 0 && p.y < confettiCanvas.height + 30);
+      if (confettiPieces.length > 0) {
+        confettiAnimId = requestAnimationFrame(animateConfetti);
+      } else {
+        confettiAnimId = null;
+        cCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+    }
+
+    /*************************************************************************
+     * 5. GAME STATE & DYNAMIC VARIATION ENGINE
+     *************************************************************************/
+    let activeCategory = 'semua';
+    let activeQuestions = generateSessionQuestions('semua');
+    let currentQIdx = 0;
+    let solvedSet = new Set();
+    let questionLocked = false;
+
+    function updateProgressBar() {
+      const total = activeQuestions.length;
+      const doneInActive = activeQuestions.filter(q => solvedSet.has(q.id)).length;
+      document.getElementById('starCountText').textContent = solvedSet.size;
+      const pct = total ? Math.round((doneInActive / total) * 100) : 0;
+      document.getElementById('progressBarFill').style.width = `${pct}%`;
+    }
+
+    function showView(viewId) {
+      document.querySelectorAll('.screen-view').forEach(v => v.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      updateNameOnUI();
+    }
+
+    function startCategoryQuiz(cat, advanceVariantRound = false) {
+      getAudioCtx();
+      startGentleBGM();
+      if (advanceVariantRound) {
+        playRoundCounter++;
+        localStorage.setItem('tk_round_count', String(playRoundCounter));
+        QUESTION_SLOTS.forEach(s => {
+          slotVariantCursor[s.id] = ((slotVariantCursor[s.id] || 0) + 1) % s.variants.length;
+        });
+        solvedSet.clear();
+      }
+      activeCategory = cat;
+      activeQuestions = generateSessionQuestions(cat);
+      currentQIdx = 0;
+      updateProgressBar();
+      showView('viewQuestion');
+      renderCurrentQuestion();
+    }
+
+    function setFeedback(status, message, showNext = false) {
+      const bar = document.getElementById('feedbackBar');
+      const msg = document.getElementById('feedbackMsg');
+      const nextBtn = document.getElementById('btnNextQuestion');
+      bar.className = 'feedback-bar ' + (status || '');
+      msg.textContent = personalizeText(message);
+      nextBtn.classList.toggle('show', showNext);
+    }
+
+    function handleCorrectAnswer(q) {
+      if (questionLocked) return;
+      questionLocked = true;
+      solvedSet.add(q.id);
+      updateProgressBar();
+      playCorrectSound();
+      launchConfetti(45);
+
+      const mascot = document.getElementById('mascotAvatar');
+      mascot.classList.add('happy-jump');
+      setTimeout(() => mascot.classList.remove('happy-jump'), 1600);
+
+      setFeedback('success', `🌟 Hebat ${childName}! Misi Berhasil!`, true);
+      speakNatural(q.voiceSuccess);
+    }
+
+    function handleRetryAnswer(customVoice) {
+      playGentleRetrySound();
+      const msg = personalizeText(customVoice || `Belum tepat ${childName}, ayo coba lagi!`);
+      setFeedback('retry', '💡 ' + msg, false);
+      speakNatural(msg);
+    }
+
+    /*************************************************************************
+     * 6. RENDERERS FOR EACH QUESTION TYPE
+     *************************************************************************/
+    function renderCurrentQuestion() {
+      questionLocked = false;
+      const q = activeQuestions[currentQIdx];
+      if (!q) return;
+
+      const badge = document.getElementById('pillarBadge');
+      badge.textContent = q.pillarName;
+      badge.style.background = q.pillarBg;
+      badge.style.color = '#0F172A';
+
+      document.getElementById('qIndexBadge').textContent = `Misi ${currentQIdx + 1} / ${activeQuestions.length}`;
+      setFeedback('', `Ayo ${childName}, ikuti petunjuk suara Kapten Rex! ⚡`, false);
+
+      const stage = document.getElementById('questionStageBody');
+      stage.innerHTML = '';
+
+      if (q.type === 'trace_pacman') {
+        renderPacManTraceQuestion(q, stage);
+      } else if (q.type === 'name_builder') {
+        renderNameBuilderQuestion(q, stage);
+      } else if (q.type === 'touch_count') {
+        renderTouchCountQuestion(q, stage);
+      } else if (q.type === 'sound_detective') {
+        renderSoundDetectiveQuestion(q, stage);
+      } else if (q.type === 'sequence_2') {
+        renderSequence2Question(q, stage);
+      } else {
+        renderChoiceQuestion(q, stage);
+      }
+
+      updateNameOnUI();
+      speakNatural(q.voiceIntro);
+    }
+
+    /* --- TYPE 1: STRICT SEQUENTIAL PAC-MAN TRACE (100% Until Endpoint) --- */
+    function renderPacManTraceQuestion(q, stage) {
+      const wrap = document.createElement('div');
+      wrap.className = 'trace-wrapper';
+      wrap.innerHTML = `
+        <div style="font-size:0.82rem;font-weight:900;color:#1E3A8A;text-align:center;">
+          ${personalizeText(q.instruction)}
+        </div>
+        <div class="trace-canvas-box">
+          <canvas id="traceCanvas" width="340" height="175"></canvas>
+        </div>
+        <div class="trace-helper-bar">
+          <button class="pill-action-btn" id="btnResetTrace">🔄 Ulangi dari Awal</button>
+          <button class="pill-action-btn" id="btnDemoTrace">👆 Contohkan</button>
+        </div>
+      `;
+      stage.appendChild(wrap);
+
+      const canvas = document.getElementById('traceCanvas');
+      const ctx = canvas.getContext('2d');
+      let isDrawing = false;
+
+      const startX = 42;
+      const endX = 298;
+      const trackY = 88;
+      const numDots = 9;
+      let dots = [];
+      for (let i = 0; i < numDots; i++) {
+        dots.push({
+          x: startX + (i * (endX - startX)) / (numDots - 1),
+          y: trackY,
+          eaten: i === 0
+        });
+      }
+      let currentDotIndex = 0;
+      let pacmanX = startX;
+
+      function drawPacTrack(demoX = null) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = '#2563EB';
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(20, trackY - 38);
+        ctx.lineTo(320, trackY - 38);
+        ctx.moveTo(20, trackY + 38);
+        ctx.lineTo(320, trackY + 38);
+        ctx.stroke();
+
+        const activeX = demoX !== null ? demoX : pacmanX;
+        if (activeX > startX) {
+          ctx.strokeStyle = 'rgba(250, 204, 21, 0.45)';
+          ctx.lineWidth = 14;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(startX, trackY);
+          ctx.lineTo(activeX, trackY);
+          ctx.stroke();
+        }
+
+        dots.forEach((d, idx) => {
+          if (idx === numDots - 1) {
+            ctx.save();
+            ctx.fillStyle = d.eaten ? '#10B981' : '#EF4444';
+            ctx.beginPath();
+            ctx.arc(d.x, d.y, 22, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#FEF08A';
+            ctx.stroke();
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 22px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(q.targetLetter || 'R', d.x, d.y + 1);
+            ctx.restore();
+          } else if (!d.eaten) {
+            ctx.beginPath();
+            ctx.arc(d.x, d.y, 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#FDE047';
+            ctx.fill();
+          }
+        });
+
+        ctx.save();
+        ctx.translate(activeX, trackY);
+        ctx.fillStyle = '#FACC15';
+        ctx.beginPath();
+        const openMouth = ((Math.floor(activeX / 8) % 2) === 0) ? 0.24 : 0.06;
+        ctx.arc(0, 0, 20, openMouth * Math.PI, (2 - openMouth) * Math.PI);
+        ctx.lineTo(0, 0);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = '#0F172A';
+        ctx.beginPath();
+        ctx.arc(2, -10, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        if (demoX !== null) {
+          ctx.font = '26px sans-serif';
+          ctx.fillText('👆', demoX - 8, trackY + 28);
+        }
+      }
+
+      function getCanvasPos(evt) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+        const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+        return {
+          x: ((clientX - rect.left) / rect.width) * canvas.width,
+          y: ((clientY - rect.top) / rect.height) * canvas.height
+        };
+      }
+
+      function updatePacManPosition(pt) {
+        if (questionLocked) return;
+        if (Math.abs(pt.y - trackY) > 48) return;
+
+        if (pt.x >= pacmanX - 15 && pt.x <= pacmanX + 42) {
+          pacmanX = Math.max(startX, Math.min(endX, pt.x));
+
+          const nextIdx = currentDotIndex + 1;
+          if (nextIdx < numDots) {
+            const nextDot = dots[nextIdx];
+            if (pacmanX >= nextDot.x - 6) {
+              nextDot.eaten = true;
+              currentDotIndex = nextIdx;
+              playWakaSound();
+
+              if (currentDotIndex === numDots - 1 && pacmanX >= endX - 6) {
+                pacmanX = endX;
+                drawPacTrack();
+                handleCorrectAnswer(q);
+                return;
+              }
+            }
+          }
+          drawPacTrack();
+        }
+      }
+
+      function startDraw(e) {
+        if (questionLocked) return;
+        e.preventDefault();
+        const pt = getCanvasPos(e);
+        if (Math.hypot(pt.x - pacmanX, pt.y - trackY) < 42) {
+          isDrawing = true;
+          updatePacManPosition(pt);
+        } else {
+          setFeedback('retry', `👆 Sentuh Pac-Man kuning di kiri dulu ya ${childName}, lalu geser ke kanan!`, false);
+        }
+      }
+
+      function moveDraw(e) {
+        if (!isDrawing || questionLocked) return;
+        e.preventDefault();
+        const pt = getCanvasPos(e);
+        updatePacManPosition(pt);
+      }
+
+      function endDraw() {
+        isDrawing = false;
+      }
+
+      canvas.addEventListener('mousedown', startDraw);
+      canvas.addEventListener('mousemove', moveDraw);
+      window.addEventListener('mouseup', endDraw);
+      canvas.addEventListener('touchstart', startDraw, { passive: false });
+      canvas.addEventListener('touchmove', moveDraw, { passive: false });
+      canvas.addEventListener('touchend', endDraw);
+
+      document.getElementById('btnResetTrace').onclick = () => {
+        playTapSound();
+        currentDotIndex = 0;
+        pacmanX = startX;
+        dots.forEach((d, i) => (d.eaten = i === 0));
+        drawPacTrack();
+      };
+
+      document.getElementById('btnDemoTrace').onclick = () => {
+        playTapSound();
+        let dx = startX;
+        const anim = setInterval(() => {
+          dx += 8;
+          drawPacTrack(dx);
+          if (dx >= endX) {
+            clearInterval(anim);
+            drawPacTrack(null);
+          }
+        }, 25);
+      };
+
+      drawPacTrack();
+    }
+
+    /* --- TYPE 2: INTERACTIVE WORD / NAME BUILDER --- */
+    function renderNameBuilderQuestion(q, stage) {
+      let currentIdx = 0;
+      const box = document.createElement('div');
+      box.style.width = '100%';
+      box.style.display = 'flex';
+      box.style.flexDirection = 'column';
+      box.style.gap = '10px';
+
+      box.innerHTML = `
+        <div class="visual-showcase">
+          <div style="font-size:0.84rem;font-weight:900;color:#1E3A8A;">
+            🔤 Susun Huruf: <b>${q.wordLabel}</b>
+          </div>
+          <div class="word-slots-row">
+            ${q.targetWord.map((ltr, i) => `
+              <div class="letter-slot ${i === 0 ? 'active-slot' : ''}" id="nameSlot_${i}">
+                ${i === 0 ? '?' : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="choices-grid" style="grid-template-columns: repeat(4, 1fr);" id="letterChoicesGrid"></div>
+      `;
+      stage.appendChild(box);
+
+      const grid = document.getElementById('letterChoicesGrid');
+      const shuffled = shuffleArray(q.targetWord.map((ltr, idx) => ({ ltr, idx })));
+      const palette = ['#EF4444', '#2563EB', '#10B981', '#F59E0B'];
+
+      shuffled.forEach((item, btnIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'choice-card';
+        btn.style.background = palette[btnIdx % palette.length];
+        btn.style.color = '#FFFFFF';
+        btn.style.borderColor = '#FFFFFF';
+        btn.innerHTML = `<span style="font-size:2rem;font-weight:900;">${item.ltr}</span>`;
+        btn.onclick = () => {
+          if (questionLocked) return;
+          const expected = q.targetWord[currentIdx];
+          if (item.ltr === expected) {
+            playCountNote(currentIdx + 1);
+            btn.style.opacity = '0.3';
+            btn.style.pointerEvents = 'none';
+            const slot = document.getElementById(`nameSlot_${currentIdx}`);
+            slot.className = 'letter-slot filled-slot';
+            slot.textContent = item.ltr;
+            currentIdx++;
+
+            if (currentIdx < q.targetWord.length) {
+              const nextSlot = document.getElementById(`nameSlot_${currentIdx}`);
+              nextSlot.classList.add('active-slot');
+              nextSlot.textContent = '?';
+              speakNatural(`Betul huruf ${item.ltr}! Selanjutnya ketuk huruf ${q.targetWord[currentIdx]}!`);
+            } else {
+              handleCorrectAnswer(q);
+            }
+          } else {
+            btn.classList.add('wrong-pick');
+            setTimeout(() => btn.classList.remove('wrong-pick'), 450);
+            handleRetryAnswer(`Ayo ${childName}, cari huruf ${expected} dulu ya!`);
+          }
+        };
+        grid.appendChild(btn);
+      });
+    }
+
+    /* --- TYPE 3: TOUCH & COUNT ITEMS --- */
+    function renderTouchCountQuestion(q, stage) {
+      let countedNow = 0;
+      const numberWords = ['Satu!', 'Dua!', 'Tiga!', 'Empat!', 'Lima!'];
+
+      const box = document.createElement('div');
+      box.style.width = '100%';
+      box.style.display = 'flex';
+      box.style.flexDirection = 'column';
+      box.style.gap = '8px';
+
+      box.innerHTML = `
+        <div class="visual-showcase">
+          <div style="font-size:0.8rem;font-weight:900;color:#1E3A8A;margin-bottom:4px;" id="countInstructionText">
+            👆 Sentuh semua ${q.itemName} satu per satu! (Terhitung: 0)
+          </div>
+          <div class="tap-items-row" id="tapItemsRow"></div>
+        </div>
+        <div class="choices-grid" id="countChoicesGrid" style="opacity:0.4;pointer-events:none;"></div>
+      `;
+      stage.appendChild(box);
+
+      const row = document.getElementById('tapItemsRow');
+      for (let i = 0; i < q.targetCount; i++) {
+        const itemBtn = document.createElement('button');
+        itemBtn.className = 'tappable-item';
+        itemBtn.innerHTML = `${q.itemEmoji}`;
+        itemBtn.onclick = () => {
+          if (itemBtn.classList.contains('counted')) return;
+          countedNow++;
+          itemBtn.classList.add('counted');
+          itemBtn.innerHTML = `${q.itemEmoji}<span class="count-badge">${countedNow}</span>`;
+          playCountNote(countedNow);
+          document.getElementById('countInstructionText').textContent =
+            `✅ Terhitung ${countedNow} ${q.itemName} — Pilih angkanya di bawah!`;
+
+          if (countedNow < q.targetCount) {
+            speakNatural(numberWords[countedNow - 1]);
+          } else {
+            const grid = document.getElementById('countChoicesGrid');
+            grid.style.opacity = '1';
+            grid.style.pointerEvents = 'auto';
+            speakNatural(`${numberWords[countedNow - 1]} Jadi ada berapa ${q.itemName} semuanya ${childName}? Pilih angkanya!`);
+          }
+        };
+        row.appendChild(itemBtn);
+      }
+
+      const grid = document.getElementById('countChoicesGrid');
+      q.choices.forEach(ch => grid.appendChild(createChoiceCard(ch, q, true)));
+    }
+
+    /* --- TYPE 4: SOUND DETECTIVE --- */
+    function renderSoundDetectiveQuestion(q, stage) {
+      const box = document.createElement('div');
+      box.style.width = '100%';
+      box.style.display = 'flex';
+      box.style.flexDirection = 'column';
+      box.style.gap = '8px';
+
+      box.innerHTML = `
+        <div class="visual-showcase">
+          <button class="big-sound-orb" id="btnPlayMysterySound">🔊</button>
+          <div style="font-weight:900;font-size:0.88rem;color:#1E3A8A;margin-top:6px;">
+            ${q.soundLabel}
+          </div>
+        </div>
+        <div class="choices-grid" id="soundChoicesGrid"></div>
+      `;
+      stage.appendChild(box);
+
+      document.getElementById('btnPlayMysterySound').onclick = () => {
+        playMysterySoundEffect(q.soundEffectType);
+      };
+
+      const grid = document.getElementById('soundChoicesGrid');
+      q.choices.forEach(ch => grid.appendChild(createChoiceCard(ch, q)));
+    }
+
+    /* --- TYPE 5: SEQUENTIAL 2-STEP ITEMS --- */
+    function renderSequence2Question(q, stage) {
+      let currentStep = 1;
+      const box = document.createElement('div');
+      box.style.width = '100%';
+      box.style.display = 'flex';
+      box.style.flexDirection = 'column';
+      box.style.gap = '8px';
+
+      box.innerHTML = `
+        <div class="visual-showcase" style="max-height:110px;">
+          <div style="font-size:0.82rem;font-weight:900;color:#1E3A8A;margin-bottom:4px;">
+            🎯 Urutan Misi: <b>${q.step1Label}</b> &rarr; <b>${q.step2Label}</b>
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;">
+            <div id="seqBadge1" style="padding:6px 12px;border-radius:12px;background:#FEF2F2;border:2px solid #EF4444;font-weight:900;font-size:0.8rem;">1. ❓</div>
+            <span>➡️</span>
+            <div id="seqBadge2" style="padding:6px 12px;border-radius:12px;background:#FFFFFF;border:2px dashed #94A3B8;font-weight:900;font-size:0.8rem;">2. ❓</div>
+          </div>
+        </div>
+        <div class="choices-grid two-cols" id="seqItemsGrid"></div>
+      `;
+      stage.appendChild(box);
+
+      const grid = document.getElementById('seqItemsGrid');
+      shuffleArray(q.items).forEach(item => {
+        const card = document.createElement('button');
+        card.className = 'choice-card';
+        card.style.height = '76px';
+        card.innerHTML = `
+          <span class="choice-emoji" style="font-size:1.85rem;">${item.emoji}</span>
+          <span class="choice-label">${item.label}</span>
+        `;
+        card.onclick = () => {
+          if (questionLocked) return;
+          if (currentStep === 1) {
+            if (item.id === q.step1Target) {
+              playCountNote(1);
+              card.classList.add('correct-pick');
+              card.style.pointerEvents = 'none';
+              const b1 = document.getElementById('seqBadge1');
+              b1.style.background = '#DCFCE7';
+              b1.style.borderColor = '#10B981';
+              b1.textContent = `1. ${item.emoji} ${item.label}`;
+              currentStep = 2;
+              setFeedback('', `👍 Langkah 1 betul! Sekarang pilih benda kedua!`, false);
+              speakNatural(q.voiceStep1Done);
+            } else {
+              card.classList.add('wrong-pick');
+              setTimeout(() => card.classList.remove('wrong-pick'), 450);
+              handleRetryAnswer(`Ingat urutan pertama dulu ya ${childName}!`);
+            }
+          } else {
+            if (item.id === q.step2Target) {
+              playCountNote(3);
+              card.classList.add('correct-pick');
+              const b2 = document.getElementById('seqBadge2');
+              b2.style.background = '#DCFCE7';
+              b2.style.borderColor = '#10B981';
+              b2.textContent = `2. ${item.emoji} ${item.label}`;
+              handleCorrectAnswer(q);
+            } else {
+              card.classList.add('wrong-pick');
+              setTimeout(() => card.classList.remove('wrong-pick'), 450);
+              handleRetryAnswer(`Ayo ${childName}, sentuh benda kedua yang diminta!`);
+            }
+          }
+        };
+        grid.appendChild(card);
+      });
+    }
+
+    /* --- TYPE 6: STANDARD VISUAL + CHOICE CARDS --- */
+    function renderChoiceQuestion(q, stage) {
+      const box = document.createElement('div');
+      box.style.width = '100%';
+      box.style.display = 'flex';
+      box.style.flexDirection = 'column';
+      box.style.gap = '8px';
+
+      const isNumberChoice = q.choices.every(c => /^[0-9]+$/.test(c.emoji));
+
+      box.innerHTML = `
+        <div class="visual-showcase">${q.showcaseHTML || ''}</div>
+        <div class="choices-grid" id="stdChoicesGrid"></div>
+      `;
+      stage.appendChild(box);
+
+      const grid = document.getElementById('stdChoicesGrid');
+      q.choices.forEach(ch => grid.appendChild(createChoiceCard(ch, q, isNumberChoice)));
+    }
+
+    function createChoiceCard(ch, q, isBigNumber = false) {
+      const card = document.createElement('button');
+      card.className = 'choice-card';
+      card.innerHTML = `
+        <span class="choice-emoji" style="${isBigNumber ? 'font-size:2.3rem;font-weight:900;color:#1D4ED8;' : ''}">${ch.emoji}</span>
+        <span class="choice-label">${ch.label}</span>
+      `;
+      card.onclick = () => {
+        if (questionLocked) {
+          speakNatural(ch.voice || ch.label);
+          return;
+        }
+        if (ch.correct) {
+          card.classList.add('correct-pick');
+          handleCorrectAnswer(q);
+        } else {
+          card.classList.add('wrong-pick');
+          setTimeout(() => card.classList.remove('wrong-pick'), 450);
+          handleRetryAnswer(`${ch.voice || ch.label}. Ayo ${childName} pilih yang tepat!`);
+        }
+      };
+      return card;
+    }
+
+    /*************************************************************************
+     * 7. COMPLETION SCREEN
+     *************************************************************************/
+    function showFinalCelebration() {
+      showView('viewResult');
+      playCorrectSound();
+      launchConfetti(90);
+
+      const pillarSummary = [
+        { icon: '🕹️', name: 'Kontrol Jalur & Menyusun Huruf Kata', scale: 'BSB (Berkembang Sangat Baik)' },
+        { icon: '🔤', name: 'Mengenal Huruf Vokal, Konsonan & Kata', scale: 'BSB (Berkembang Sangat Baik)' },
+        { icon: '🔢', name: 'Mengenal Angka 1–5 & Kuantitas Benda', scale: 'BSB (Berkembang Sangat Baik)' },
+        { icon: '🚒', name: 'Mengenal Benda, Suara & Urutan Misi', scale: 'BSB (Berkembang Sangat Baik)' },
+        { icon: '🛡️', name: 'Logika Fungsi Benda & Bentuk Geometri', scale: 'BSB (Berkembang Sangat Baik)' }
+      ];
+
+      document.getElementById('assessmentReportList').innerHTML = pillarSummary.map(p => `
+        <div class="report-row">
+          <span>${p.icon} ${p.name}</span>
+          <span class="bsh-badge">${p.scale}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('resultSubText').textContent =
+        `${childName} berhasil menyelesaikan ${solvedSet.size} dari 15 misi (Putaran Ke-${playRoundCounter})!`;
+
+      speakNatural(`Horeee! Selamat ya ${childName}! Semua lima belas misi berhasil ${childName} selesaikan dengan sangat hebat! Yuk main lagi untuk mencoba variasi soal yang baru!`);
+    }
+
+    /*************************************************************************
+     * 8. EVENT LISTENERS
+     *************************************************************************/
+    updateNameOnUI();
+
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        playTapSound();
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        activeCategory = btn.dataset.cat;
+      });
+    });
+
+    document.getElementById('btnStartAdventure').addEventListener('click', () => {
+      playTapSound();
+      startCategoryQuiz(activeCategory, false);
+    });
+
+    // Tombol "🎲 Soal Baru" untuk langsung mengganti variasi soal saat itu juga
+    document.getElementById('btnSwapVariant').addEventListener('click', () => {
+      playTapSound();
+      const currentQ = activeQuestions[currentQIdx];
+      const slot = QUESTION_SLOTS.find(s => s.id === currentQ.id);
+      if (slot) {
+        activeQuestions[currentQIdx] = buildQuestionFromSlot(slot, true);
+        renderCurrentQuestion();
+      }
+    });
+
+    document.getElementById('btnNextQuestion').addEventListener('click', () => {
+      playTapSound();
+      if (currentQIdx + 1 < activeQuestions.length) {
+        currentQIdx++;
+        renderCurrentQuestion();
+      } else {
+        showFinalCelebration();
+      }
+    });
+
+    document.getElementById('btnHome').addEventListener('click', () => {
+      playTapSound();
+      showView('viewHome');
+      speakNatural(`Kita kembali ke menu utama ya ${childName}!`);
+    });
+
+    // Saat klik "Main Lagi", otomatis memutar paket variasi soal berikutnya!
+    document.getElementById('btnPlayAgain').addEventListener('click', () => {
+      playTapSound();
+      startCategoryQuiz(activeCategory, true);
+    });
+
+    document.getElementById('btnBackCatalog').addEventListener('click', () => {
+      playTapSound();
+      playRoundCounter++;
+      localStorage.setItem('tk_round_count', String(playRoundCounter));
+      QUESTION_SLOTS.forEach(s => {
+        slotVariantCursor[s.id] = ((slotVariantCursor[s.id] || 0) + 1) % s.variants.length;
+      });
+      solvedSet.clear();
+      updateProgressBar();
+      showView('viewHome');
+    });
+
+    document.getElementById('speechBubble').addEventListener('click', () => {
+      playTapSound();
+      speakNatural(document.getElementById('speechText').textContent);
+    });
+    document.getElementById('mascotAvatar').addEventListener('click', () => {
+      playTapSound();
+      speakNatural(document.getElementById('speechText').textContent);
+    });
+
+    document.getElementById('btnMusic').addEventListener('click', (e) => {
+      getAudioCtx();
+      bgmPlaying = !bgmPlaying;
+      e.currentTarget.classList.toggle('active-toggle', bgmPlaying);
+      e.currentTarget.textContent = bgmPlaying ? '🎵' : '🔇';
+      if (bgmPlaying) startGentleBGM();
+    });
+
+    const modal = document.getElementById('settingsModal');
+    document.getElementById('btnSettings').addEventListener('click', () => {
+      playTapSound();
+      renderJumpGrid();
+      modal.classList.add('open');
+    });
+    document.getElementById('btnCloseModal').addEventListener('click', () => {
+      playTapSound();
+      modal.classList.remove('open');
+    });
+
+    document.getElementById('childNameInput').addEventListener('input', (e) => {
+      childName = e.target.value.trim() || 'Kak Reza';
+      localStorage.setItem('tk_child_name', childName);
+      updateNameOnUI();
+    });
+
+    document.getElementById('voiceSelect').addEventListener('change', (e) => {
+      const idx = parseInt(e.target.value, 10);
+      if (availableVoices[idx]) {
+        selectedVoice = availableVoices[idx];
+        speakNatural(`Halo ${childName}! Siap bermain dan belajar bersama!`);
+      }
+    });
+
+    document.getElementById('voiceRateRange').addEventListener('input', (e) => {
+      speechRate = parseFloat(e.target.value);
+      document.getElementById('rateValText').textContent = `${speechRate.toFixed(2)}x`;
+    });
+
+    function renderJumpGrid() {
+      const grid = document.getElementById('qJumpGrid');
+      grid.innerHTML = '';
+      QUESTION_SLOTS.forEach((slot, idx) => {
+        const b = document.createElement('button');
+        b.className = 'q-jump-btn' + (solvedSet.has(slot.id) ? ' done' : '');
+        b.textContent = slot.id;
+        b.onclick = () => {
+          playTapSound();
+          activeCategory = 'semua';
+          activeQuestions = generateSessionQuestions('semua');
+          currentQIdx = idx;
+          modal.classList.remove('open');
+          showView('viewQuestion');
+          renderCurrentQuestion();
+        };
+        grid.appendChild(b);
+      });
+    }
+  </script>
+</body>
+</html>

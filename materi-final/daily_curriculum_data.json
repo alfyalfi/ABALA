@@ -1,0 +1,2672 @@
+[
+  {
+    "id": 1,
+    "name": "Hari 1",
+    "title": "Berhitung & Angka",
+    "icon": "🔢",
+    "badge": "Mulai Besok!",
+    "desc": "Membilang 1–5, perbandingan, bentuk geometri, dan logika angka awal.",
+    "questions": [
+      {
+        "topic": "Menghitung Benda",
+        "variants": [
+          {
+            "q": "Apakah mobil balap ini jumlahnya ada 3?",
+            "visual": "🏎️ 🏎️ 🏎️",
+            "correct": true,
+            "explain": "Benar! Ada 1, 2, 3 mobil balap!"
+          },
+          {
+            "q": "Apakah apel merah ini jumlahnya ada 2?",
+            "visual": "🍎 🍎",
+            "correct": true,
+            "explain": "Pintar! Ada tepat 2 buah apel merah!"
+          },
+          {
+            "q": "Apakah bintang ini jumlahnya ada 3?",
+            "visual": "⭐",
+            "correct": false,
+            "explain": "Bintangnya hanya ada 1, bukan 3 ya Kak Reza."
+          },
+          {
+            "q": "Apakah bola ini jumlahnya ada 2?",
+            "visual": "⚽ ⚽ ⚽",
+            "correct": false,
+            "explain": "Ada 3 bola, bukan 2 ya Kak Reza."
+          }
+        ]
+      },
+      {
+        "topic": "Menghitung 4–5",
+        "variants": [
+          {
+            "q": "Apakah roket luar angkasa ini ada 4?",
+            "visual": "🚀 🚀 🚀 🚀",
+            "correct": true,
+            "explain": "Tepat sekali! Ada 4 roket siap meluncur!"
+          },
+          {
+            "q": "Apakah koin emas ini ada 5?",
+            "visual": "🪙 🪙 🪙 🪙 🪙",
+            "correct": true,
+            "explain": "Hebat! Tepat ada 5 koin emas!"
+          },
+          {
+            "q": "Apakah stroberi manis ini ada 5?",
+            "visual": "🍓 🍓 🍓 🍓",
+            "correct": false,
+            "explain": "Stroberinya ada 4, kurang 1 untuk jadi 5!"
+          },
+          {
+            "q": "Apakah ikan berenang ini ada 4?",
+            "visual": "🐟 🐟 🐟 🐟 🐟",
+            "correct": false,
+            "explain": "Ikannya ada 5 ekor lho Kak Reza!"
+          }
+        ]
+      },
+      {
+        "topic": "Lambang Angka 1",
+        "variants": [
+          {
+            "q": "Apakah ini lambang Angka 1?",
+            "visual": "<div class='huge-symbol'>1</div><div class='sub-visual'>✏️ (1 Pensil)</div>",
+            "correct": true,
+            "explain": "Benar! Garis lurus ke bawah ini angka 1!"
+          },
+          {
+            "q": "Apakah ini lambang Angka 1?",
+            "visual": "<div class='huge-symbol'>4</div><div class='sub-visual'>✏️ (1 Pensil)</div>",
+            "correct": false,
+            "explain": "Itu angka 4, bukan angka 1 ya Kak Reza!"
+          },
+          {
+            "q": "Apakah ada 1 burung terbang di gambar ini?",
+            "visual": "🐦",
+            "correct": true,
+            "explain": "Benar sekali! Burungnya hanya ada 1!"
+          },
+          {
+            "q": "Apakah ini lambang Angka 1?",
+            "visual": "<div class='huge-symbol'>1</div><div class='sub-visual'>🦆 🦆 (2 Bebek)</div>",
+            "correct": false,
+            "explain": "Bebeknya ada 2, bukan 1!"
+          }
+        ]
+      },
+      {
+        "topic": "Lambang Angka 2",
+        "variants": [
+          {
+            "q": "Apakah ini lambang Angka 2?",
+            "visual": "<div class='huge-symbol'>2</div><div class='sub-visual'>🦆 🦆 (2 Bebek)</div>",
+            "correct": true,
+            "explain": "Luar biasa! Melengkung seperti bebek, ini angka 2!"
+          },
+          {
+            "q": "Apakah ini lambang Angka 2?",
+            "visual": "<div class='huge-symbol'>5</div>",
+            "correct": false,
+            "explain": "Bukan, itu lambang angka 5!"
+          },
+          {
+            "q": "Apakah mata kita jumlahnya ada 2?",
+            "visual": "👀",
+            "correct": true,
+            "explain": "Benar! Kak Reza punya 2 mata untuk melihat!"
+          },
+          {
+            "q": "Apakah mobil ini jumlahnya ada 2?",
+            "visual": "🚗",
+            "correct": false,
+            "explain": "Mobilnya cuma 1, bukan 2 ya Kak Reza!"
+          }
+        ]
+      },
+      {
+        "topic": "Lambang Angka 3",
+        "variants": [
+          {
+            "q": "Apakah ini lambang Angka 3?",
+            "visual": "<div class='huge-symbol'>3</div><div class='sub-visual'>🏎️ 🏎️ 🏎️ (3 Mobil)</div>",
+            "correct": true,
+            "explain": "Betul sekali! Dua lengkungan ini angka 3!"
+          },
+          {
+            "q": "Apakah ini lambang Angka 3?",
+            "visual": "<div class='huge-symbol'>1</div>",
+            "correct": false,
+            "explain": "Itu garis lurus angka 1, bukan angka 3!"
+          },
+          {
+            "q": "Apakah es krim ini ada 3 rasa?",
+            "visual": "🍦 🍦 🍦",
+            "correct": true,
+            "explain": "Yummy! Ada 3 es krim yang manis!"
+          },
+          {
+            "q": "Apakah ini gambar 3 kupu-kupu?",
+            "visual": "🦋 🦋",
+            "correct": false,
+            "explain": "Kupu-kupunya baru ada 2 ekor!"
+          }
+        ]
+      },
+      {
+        "topic": "Lambang Angka 4",
+        "variants": [
+          {
+            "q": "Apakah ini lambang Angka 4 seperti kursi terbalik?",
+            "visual": "<div class='huge-symbol'>4</div>",
+            "correct": true,
+            "explain": "Hebat! Angka 4 bentuknya seperti kursi terbalik!"
+          },
+          {
+            "q": "Apakah roda mobil balap jumlahnya ada 4?",
+            "visual": "🛞 🛞 🛞 🛞",
+            "correct": true,
+            "explain": "Benar! Mobil punya 4 roda yang kuat!"
+          },
+          {
+            "q": "Apakah ini lambang Angka 4?",
+            "visual": "<div class='huge-symbol'>2</div>",
+            "correct": false,
+            "explain": "Itu angka 2, bukan angka 4!"
+          },
+          {
+            "q": "Apakah kucing ini ada 4 ekor?",
+            "visual": "🐱 🐱 🐱",
+            "correct": false,
+            "explain": "Kucingnya baru ada 3 ekor!"
+          }
+        ]
+      },
+      {
+        "topic": "Lambang Angka 5",
+        "variants": [
+          {
+            "q": "Apakah ini lambang Angka 5?",
+            "visual": "<div class='huge-symbol'>5</div>",
+            "correct": true,
+            "explain": "Tepat! Perut gendut pakai topi ini angka 5!"
+          },
+          {
+            "q": "Apakah jari satu tangan kita jumlahnya ada 5?",
+            "visual": "🖐️",
+            "correct": true,
+            "explain": "Pintar! Ada 5 jari di satu tangan!"
+          },
+          {
+            "q": "Apakah ini lambang Angka 5?",
+            "visual": "<div class='huge-symbol'>3</div>",
+            "correct": false,
+            "explain": "Itu angka 3, bukan angka 5 ya!"
+          },
+          {
+            "q": "Apakah pesawat ini ada 5 buah?",
+            "visual": "✈️ ✈️",
+            "correct": false,
+            "explain": "Pesawatnya cuma ada 2 buah!"
+          }
+        ]
+      },
+      {
+        "topic": "Perbandingan Jumlah",
+        "variants": [
+          {
+            "q": "Apakah 5 koin emas lebih BANYAK dari 2 koin emas?",
+            "visual": "<div class='compare-box'><div>🪙🪙🪙🪙🪙<br><b>(5)</b></div><span class='vs'>vs</span><div>🪙🪙<br><b>(2)</b></div></div>",
+            "correct": true,
+            "explain": "Pintar! 5 koin jelas lebih banyak daripada 2 koin!"
+          },
+          {
+            "q": "Apakah 1 permen lebih BANYAK dari 4 permen?",
+            "visual": "<div class='compare-box'><div>🍬<br><b>(1)</b></div><span class='vs'>vs</span><div>🍬🍬🍬🍬<br><b>(4)</b></div></div>",
+            "correct": false,
+            "explain": "Salah, 1 permen lebih sedikit daripada 4 permen!"
+          },
+          {
+            "q": "Apakah 4 apel lebih BANYAK dari 1 apel?",
+            "visual": "<div class='compare-box'><div>🍎🍎🍎🍎<br><b>(4)</b></div><span class='vs'>vs</span><div>🍎<br><b>(1)</b></div></div>",
+            "correct": true,
+            "explain": "Benar sekali! 4 apel jauh lebih banyak!"
+          },
+          {
+            "q": "Apakah 2 bintang lebih BANYAK dari 5 bintang?",
+            "visual": "<div class='compare-box'><div>⭐⭐<br><b>(2)</b></div><span class='vs'>vs</span><div>⭐⭐⭐⭐⭐<br><b>(5)</b></div></div>",
+            "correct": false,
+            "explain": "Salah, 2 bintang itu lebih sedikit!"
+          }
+        ]
+      },
+      {
+        "topic": "Besar vs Kecil",
+        "variants": [
+          {
+            "q": "Apakah Gajah lebih BESAR daripada Kucing?",
+            "visual": "<div class='compare-box'><span style='font-size:3rem'>🐘</span><span class='vs'>vs</span><span style='font-size:1.5rem'>🐱</span></div>",
+            "correct": true,
+            "explain": "Betul! Gajah tubuhnya sangat besar!"
+          },
+          {
+            "q": "Apakah Semut lebih BESAR daripada Mobil?",
+            "visual": "<div class='compare-box'><span style='font-size:1.4rem'>🐜</span><span class='vs'>vs</span><span style='font-size:2.8rem'>🚗</span></div>",
+            "correct": false,
+            "explain": "Salah, semut itu kecil sekali dibanding mobil!"
+          },
+          {
+            "q": "Apakah Bola Basket lebih BESAR dari Kelereng?",
+            "visual": "<div class='compare-box'><span style='font-size:2.8rem'>🏀</span><span class='vs'>vs</span><span style='font-size:1.2rem'>⚪</span></div>",
+            "correct": true,
+            "explain": "Benar! Bola basket jauh lebih besar!"
+          },
+          {
+            "q": "Apakah Semangka lebih KECIL daripada Anggur?",
+            "visual": "<div class='compare-box'><span style='font-size:2.8rem'>🍉</span><span class='vs'>vs</span><span style='font-size:1.4rem'>🍇</span></div>",
+            "correct": false,
+            "explain": "Salah, buah semangka itu besar, anggur yang kecil!"
+          }
+        ]
+      },
+      {
+        "topic": "Konsep Kosong (Nol)",
+        "variants": [
+          {
+            "q": "Apakah piring ini KOSONG (berisi 0 makanan)?",
+            "visual": "<div class='plate-box'>🍽️ (Piring Bersih Kosong)</div>",
+            "correct": true,
+            "explain": "Benar! Piring kosong artinya jumlah makanannya 0!"
+          },
+          {
+            "q": "Apakah toples ini KOSONG?",
+            "visual": "<div class='plate-box'>🫙 🍬 🍬 🍬 (Toples Penuh Permen)</div>",
+            "correct": false,
+            "explain": "Bukan, toples itu ada isinya 3 permen!"
+          },
+          {
+            "q": "Apakah sangkar ini KOSONG tanpa burung?",
+            "visual": "<div class='plate-box'>🛖 (Sangkar Kosong)</div>",
+            "correct": true,
+            "explain": "Tepat! Tidak ada burung di dalamnya alias 0!"
+          },
+          {
+            "q": "Apakah keranjang ini KOSONG?",
+            "visual": "<div class='plate-box'>🧺 🍎 🍎 (Ada 2 Apel)</div>",
+            "correct": false,
+            "explain": "Salah, di keranjang ada 2 buah apel!"
+          }
+        ]
+      },
+      {
+        "topic": "Urutan Angka Awal",
+        "variants": [
+          {
+            "q": "Apakah setelah angka 1 adalah angka 2?",
+            "visual": "<div class='number-row'><span>1</span> ➔ <span>2</span> ➔ <span>3</span></div>",
+            "correct": true,
+            "explain": "Benar! Urutannya satu, dua, lalu tiga!"
+          },
+          {
+            "q": "Apakah urutan angka ini BENAR: 1, 4, 3?",
+            "visual": "<div class='number-row'><span>1</span> ➔ <span style='color:#ef4444'>4</span> ➔ <span>3</span></div>",
+            "correct": false,
+            "explain": "Salah, harusnya setelah 1 adalah 2!"
+          },
+          {
+            "q": "Apakah sebelum angka 3 adalah angka 2?",
+            "visual": "<div class='number-row'><span>1</span> ➔ <span>2</span> ➔ <span>3</span></div>",
+            "correct": true,
+            "explain": "Pintar! Angka 2 ada tepat sebelum angka 3!"
+          },
+          {
+            "q": "Apakah setelah angka 2 langsung melompat ke angka 5?",
+            "visual": "<div class='number-row'><span>2</span> ➔ <span style='color:#ef4444'>5</span></div>",
+            "correct": false,
+            "explain": "Salah, setelah angka 2 adalah angka 3!"
+          }
+        ]
+      },
+      {
+        "topic": "Urutan Angka Lanjutan",
+        "variants": [
+          {
+            "q": "Apakah setelah angka 4 adalah angka 5?",
+            "visual": "<div class='number-row'><span>3</span> ➔ <span>4</span> ➔ <span>5</span></div>",
+            "correct": true,
+            "explain": "Hebat! Tiga, empat, lima!"
+          },
+          {
+            "q": "Apakah urutan ini BENAR: 3, 2, 5?",
+            "visual": "<div class='number-row'><span>3</span> ➔ <span style='color:#ef4444'>2</span> ➔ <span>5</span></div>",
+            "correct": false,
+            "explain": "Salah, setelah 3 seharusnya angka 4!"
+          },
+          {
+            "q": "Apakah angka yang hilang di tengah adalah angka 4: [ 3 , ? , 5 ]?",
+            "visual": "<div class='number-row'><span>3</span> ➔ <span style='color:#6366f1;font-weight:900;'>?</span> ➔ <span>5</span></div>",
+            "correct": true,
+            "explain": "Betul! Angka di tengah antara 3 dan 5 adalah 4!"
+          },
+          {
+            "q": "Apakah setelah angka 4 kembali ke angka 1?",
+            "visual": "<div class='number-row'><span>4</span> ➔ <span style='color:#ef4444'>1</span></div>",
+            "correct": false,
+            "explain": "Salah, setelah 4 adalah angka 5!"
+          }
+        ]
+      },
+      {
+        "topic": "Bentuk Lingkaran",
+        "variants": [
+          {
+            "q": "Apakah Roda Mobil ini berbentuk LINGKARAN (Bulat)?",
+            "visual": "<div class='shape-visual'>🛞</div>",
+            "correct": true,
+            "explain": "Benar! Roda bulat sempurna seperti lingkaran!"
+          },
+          {
+            "q": "Apakah Donat manis ini berbentuk LINGKARAN?",
+            "visual": "<div class='shape-visual'>🍩</div>",
+            "correct": true,
+            "explain": "Pintar! Donat berbentuk bulat melingkar!"
+          },
+          {
+            "q": "Apakah Buku Cerita ini berbentuk LINGKARAN?",
+            "visual": "<div class='shape-visual'>📕</div>",
+            "correct": false,
+            "explain": "Bukan, buku berbentuk persegi panjang, bukan bulat!"
+          },
+          {
+            "q": "Apakah Kotak Kado ini berbentuk LINGKARAN?",
+            "visual": "<div class='shape-visual'>🎁</div>",
+            "correct": false,
+            "explain": "Salah, kotak kado berbentuk kotak persegi!"
+          }
+        ]
+      },
+      {
+        "topic": "Bentuk Segitiga",
+        "variants": [
+          {
+            "q": "Apakah potongan Pizza ini berbentuk SEGITIGA?",
+            "visual": "<div class='shape-visual'>🍕</div>",
+            "correct": true,
+            "explain": "Tepat! Ujung potongan pizza meruncing seperti segitiga!"
+          },
+          {
+            "q": "Apakah Tenda Kemah ini berbentuk SEGITIGA?",
+            "visual": "<div class='shape-visual'>⛺</div>",
+            "correct": true,
+            "explain": "Benar! Tenda punya 3 sudut runcing segitiga!"
+          },
+          {
+            "q": "Apakah Bola Sepak ini berbentuk SEGITIGA?",
+            "visual": "<div class='shape-visual'>⚽</div>",
+            "correct": false,
+            "explain": "Salah, bola berbentuk lingkaran/bulat!"
+          },
+          {
+            "q": "Apakah Televisi ini berbentuk SEGITIGA?",
+            "visual": "<div class='shape-visual'>📺</div>",
+            "correct": false,
+            "explain": "Salah, televisi berbentuk kotak persegi!"
+          }
+        ]
+      },
+      {
+        "topic": "Bentuk Persegi",
+        "variants": [
+          {
+            "q": "Apakah Kotak Kado ini berbentuk PERSEGI (Kotak)?",
+            "visual": "<div class='shape-visual'>🎁</div>",
+            "correct": true,
+            "explain": "Luar biasa! Kotak kado punya 4 sisi sama panjang!"
+          },
+          {
+            "q": "Apakah Dadu Mainan ini berbentuk KOTAK?",
+            "visual": "<div class='shape-visual'>🎲</div>",
+            "correct": true,
+            "explain": "Pintar! Dadu bentuknya kotak persegi!"
+          },
+          {
+            "q": "Apakah Roda Sepeda berbentuk KOTAK?",
+            "visual": "<div class='shape-visual'>🚲 🛞</div>",
+            "correct": false,
+            "explain": "Salah, roda itu bulat, kalau kotak sepedanya tidak bisa jalan!"
+          },
+          {
+            "q": "Apakah Bulan Purnama berbentuk KOTAK?",
+            "visual": "<div class='shape-visual'>🌕</div>",
+            "correct": false,
+            "explain": "Bulan purnama bentuknya bulat seperti bola!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Hari 2",
+    "title": "Membaca & Huruf",
+    "icon": "🔤",
+    "badge": "Fonik & Huruf REZA",
+    "desc": "Mengenal huruf vokal, konsonan, huruf nama REZA, dan suku kata terbuka.",
+    "questions": [
+      {
+        "topic": "Huruf Depan REZA",
+        "variants": [
+          {
+            "q": "Apakah huruf 'R' adalah huruf pertama nama KAK REZA?",
+            "visual": "<div class='huge-symbol'>R</div><div class='sub-visual'>🦸‍♂️ R - E - Z - A</div>",
+            "correct": true,
+            "explain": "Benar sekali! R untuk Reza dan Robot!"
+          },
+          {
+            "q": "Apakah kata 'RO-TI' diawali dengan huruf 'R'?",
+            "visual": "<div class='huge-symbol'>R</div><div class='sub-visual'>🍞 R - O - T - I</div>",
+            "correct": true,
+            "explain": "Hebat! R-O-T-I berawalan huruf R!"
+          },
+          {
+            "q": "Apakah ini huruf 'R'?",
+            "visual": "<div class='huge-symbol'>M</div>",
+            "correct": false,
+            "explain": "Itu huruf M, bukan huruf R ya Kak Reza!"
+          },
+          {
+            "q": "Apakah kata 'A-PEL' diawali dengan huruf 'R'?",
+            "visual": "<div class='huge-symbol'>🍎</div>",
+            "correct": false,
+            "explain": "Salah, Apel diawali dengan huruf A!"
+          }
+        ]
+      },
+      {
+        "topic": "Huruf E",
+        "variants": [
+          {
+            "q": "Apakah huruf 'E' ada di dalam nama Kak R-E-Z-A?",
+            "visual": "<div class='huge-symbol'>E</div><div class='sub-visual'>R - <b style='color:#6366f1'>E</b> - Z - A</div>",
+            "correct": true,
+            "explain": "Benar! Huruf E adalah huruf kedua nama Reza!"
+          },
+          {
+            "q": "Apakah 'EMBER' diawali dengan huruf 'E'?",
+            "visual": "<div class='huge-symbol'>🪣</div><div class='sub-visual'>E - M - B - E - R</div>",
+            "correct": true,
+            "explain": "Pintar! Ember diawali bunyi E!"
+          },
+          {
+            "q": "Apakah ini huruf 'E'?",
+            "visual": "<div class='huge-symbol'>O</div>",
+            "correct": false,
+            "explain": "Bukan, itu huruf O yang bulat!"
+          },
+          {
+            "q": "Apakah 'BOLA' diawali dengan huruf 'E'?",
+            "visual": "<div class='huge-symbol'>⚽</div>",
+            "correct": false,
+            "explain": "Salah, Bola diawali dengan huruf B!"
+          }
+        ]
+      },
+      {
+        "topic": "Huruf Z",
+        "variants": [
+          {
+            "q": "Apakah huruf 'Z' yang berbentuk zig-zag ada di nama REZA?",
+            "visual": "<div class='huge-symbol'>Z</div><div class='sub-visual'>R - E - <b style='color:#6366f1'>Z</b> - A</div>",
+            "correct": true,
+            "explain": "Tepat! Huruf Z yang keren ada di nama Reza!"
+          },
+          {
+            "q": "Apakah hewan 'ZEBRA' diawali dengan huruf 'Z'?",
+            "visual": "<div class='huge-symbol'>🦓</div><div class='sub-visual'>Z - E - B - R - A</div>",
+            "correct": true,
+            "explain": "Hebat! Z untuk Zebra belang-belang!"
+          },
+          {
+            "q": "Apakah ini huruf 'Z'?",
+            "visual": "<div class='huge-symbol'>C</div>",
+            "correct": false,
+            "explain": "Itu huruf C melengkung, bukan huruf Z!"
+          },
+          {
+            "q": "Apakah 'IKAN' diawali dengan huruf 'Z'?",
+            "visual": "<div class='huge-symbol'>🐟</div>",
+            "correct": false,
+            "explain": "Salah, Ikan diawali huruf I!"
+          }
+        ]
+      },
+      {
+        "topic": "Huruf A",
+        "variants": [
+          {
+            "q": "Apakah ini huruf 'A'?",
+            "visual": "<div class='huge-symbol'>A</div>",
+            "correct": true,
+            "explain": "Benar! Kaki segitiga bertali ini huruf A!"
+          },
+          {
+            "q": "Apakah kata 'A-PEL' diawali dengan huruf 'A'?",
+            "visual": "<div class='huge-symbol'>🍎</div><div class='sub-visual'>A - P - E - L</div>",
+            "correct": true,
+            "explain": "Pintar! A untuk Apel manis!"
+          },
+          {
+            "q": "Apakah 'AYAM' diawali huruf 'A'?",
+            "visual": "<div class='huge-symbol'>🐔</div><div class='sub-visual'>A - Y - A - M</div>",
+            "correct": true,
+            "explain": "Benar sekali! A untuk Ayam!"
+          },
+          {
+            "q": "Apakah ini huruf 'A'?",
+            "visual": "<div class='huge-symbol'>B</div>",
+            "correct": false,
+            "explain": "Bukan, itu huruf B perut gembung!"
+          }
+        ]
+      },
+      {
+        "topic": "Huruf Vokal I",
+        "variants": [
+          {
+            "q": "Apakah ini huruf 'I' garis lurus bertitik di atas?",
+            "visual": "<div class='huge-symbol'>i</div>",
+            "correct": true,
+            "explain": "Benar! Garis lurus dengan titik di atas adalah huruf i!"
+          },
+          {
+            "q": "Apakah kata 'I-KAN' diawali huruf 'I'?",
+            "visual": "<div class='huge-symbol'>🐟</div><div class='sub-visual'>I - K - A - N</div>",
+            "correct": true,
+            "explain": "Hebat! I untuk Ikan berenang!"
+          },
+          {
+            "q": "Apakah 'GAJAH' diawali huruf 'I'?",
+            "visual": "<div class='huge-symbol'>🐘</div>",
+            "correct": false,
+            "explain": "Salah, Gajah diawali huruf G!"
+          },
+          {
+            "q": "Apakah ini huruf 'I'?",
+            "visual": "<div class='huge-symbol'>U</div>",
+            "correct": false,
+            "explain": "Itu huruf U mangkok, bukan i!"
+          }
+        ]
+      },
+      {
+        "topic": "Huruf Vokal U",
+        "variants": [
+          {
+            "q": "Apakah huruf 'U' melengkung seperti mangkok ke atas?",
+            "visual": "<div class='huge-symbol'>U</div>",
+            "correct": true,
+            "explain": "Benar! Lengkungan mangkok ke atas adalah huruf U!"
+          },
+          {
+            "q": "Apakah kata 'U-DANG' diawali huruf 'U'?",
+            "visual": "<div class='huge-symbol'>🦐</div><div class='sub-visual'>U - D - A - N - G</div>",
+            "correct": true,
+            "explain": "Pintar! U untuk Udang di laut!"
+          },
+          {
+            "q": "Apakah kata 'U-LAT' diawali huruf 'U'?",
+            "visual": "<div class='huge-symbol'>🐛</div><div class='sub-visual'>U - L - A - T</div>",
+            "correct": true,
+            "explain": "Betul! U untuk Ulat bulu!"
+          },
+          {
+            "q": "Apakah 'KUCING' diawali huruf 'U'?",
+            "visual": "<div class='huge-symbol'>🐱</div>",
+            "correct": false,
+            "explain": "Salah, Kucing diawali huruf K!"
+          }
+        ]
+      },
+      {
+        "topic": "Huruf Vokal O",
+        "variants": [
+          {
+            "q": "Apakah huruf 'O' berbentuk bulat seperti roda?",
+            "visual": "<div class='huge-symbol'>O</div>",
+            "correct": true,
+            "explain": "Tepat! Huruf O bulat sempurna seperti donat!"
+          },
+          {
+            "q": "Apakah kata 'O-BAT' diawali huruf 'O'?",
+            "visual": "<div class='huge-symbol'>💊</div><div class='sub-visual'>O - B - A - T</div>",
+            "correct": true,
+            "explain": "Benar! O untuk Obat!"
+          },
+          {
+            "q": "Apakah 'ORANGUTAN' diawali huruf 'O'?",
+            "visual": "<div class='huge-symbol'>🦧</div><div class='sub-visual'>O - R - A - N - G - U - T - A - N</div>",
+            "correct": true,
+            "explain": "Hebat! O untuk Orangutan!"
+          },
+          {
+            "q": "Apakah 'SEPATU' diawali huruf 'O'?",
+            "visual": "<div class='huge-symbol'>👟</div>",
+            "correct": false,
+            "explain": "Salah, Sepatu diawali huruf S!"
+          }
+        ]
+      },
+      {
+        "topic": "Huruf B",
+        "variants": [
+          {
+            "q": "Apakah kata 'BO-LA' diawali huruf 'B'?",
+            "visual": "<div class='huge-symbol'>⚽</div><div class='sub-visual'>B - O - L - A</div>",
+            "correct": true,
+            "explain": "Benar! B untuk Bola bulat!"
+          },
+          {
+            "q": "Apakah kata 'BU-KU' diawali huruf 'B'?",
+            "visual": "<div class='huge-symbol'>📚</div><div class='sub-visual'>B - U - K - U</div>",
+            "correct": true,
+            "explain": "Pintar! B untuk Buku cerita!"
+          },
+          {
+            "q": "Apakah ini huruf 'B'?",
+            "visual": "<div class='huge-symbol'>B</div>",
+            "correct": true,
+            "explain": "Betul! Garis lurus dengan perut gembung ini huruf B!"
+          },
+          {
+            "q": "Apakah 'ROBOT' diawali huruf 'B'?",
+            "visual": "<div class='huge-symbol'>🤖</div>",
+            "correct": false,
+            "explain": "Salah, Robot diawali huruf R seperti nama Reza!"
+          }
+        ]
+      },
+      {
+        "topic": "Suku Kata BO-LA",
+        "variants": [
+          {
+            "q": "Apakah benda ini dibaca: BO - LA?",
+            "visual": "<div class='huge-symbol'>⚽</div><div class='sub-visual'><b>BO - LA</b></div>",
+            "correct": true,
+            "explain": "Hebat! Ini adalah BO - LA!"
+          },
+          {
+            "q": "Apakah benda ini dibaca: BO - LA?",
+            "visual": "<div class='huge-symbol'>🚗</div><div class='sub-visual'><b>BO - LA</b></div>",
+            "correct": false,
+            "explain": "Bukan, itu gambar Mobil, bukan Bola!"
+          },
+          {
+            "q": "Apakah kata 'BOLA' terdiri dari 2 suku kata: BO dan LA?",
+            "visual": "<div class='word-tag'>BO + LA = BOLA ⚽</div>",
+            "correct": true,
+            "explain": "Pintar! BO dan LA digabung jadi BOLA!"
+          },
+          {
+            "q": "Apakah ini gambar BOLA?",
+            "visual": "<div class='huge-symbol'>🍌</div>",
+            "correct": false,
+            "explain": "Salah, itu gambar pisang!"
+          }
+        ]
+      },
+      {
+        "topic": "Suku Kata RO-TI",
+        "variants": [
+          {
+            "q": "Apakah makanan ini dibaca: RO - TI?",
+            "visual": "<div class='huge-symbol'>🍞</div><div class='sub-visual'><b>RO - TI</b></div>",
+            "correct": true,
+            "explain": "Benar! R-O (RO), T-I (TI) dibaca ROTI!"
+          },
+          {
+            "q": "Apakah benda ini dibaca: RO - TI?",
+            "visual": "<div class='huge-symbol'>🛞</div><div class='sub-visual'><b>RO - TI</b></div>",
+            "correct": false,
+            "explain": "Salah, itu gambar Roda, bukan Roti!"
+          },
+          {
+            "q": "Apakah kata 'ROTI' diawali bunyi 'RO'?",
+            "visual": "<div class='word-tag'>RO - TI 🍞</div>",
+            "correct": true,
+            "explain": "Tepat sekali! RO diawali huruf R!"
+          },
+          {
+            "q": "Apakah ini gambar ROTI?",
+            "visual": "<div class='huge-symbol'>🍚</div>",
+            "correct": false,
+            "explain": "Itu semangkuk nasi, bukan roti ya Kak Reza!"
+          }
+        ]
+      },
+      {
+        "topic": "Suku Kata SU-SU",
+        "variants": [
+          {
+            "q": "Apakah minuman sehat ini dibaca: SU - SU?",
+            "visual": "<div class='huge-symbol'>🥛</div><div class='sub-visual'><b>SU - SU</b></div>",
+            "correct": true,
+            "explain": "Benar! Susu putih membuat tulang kuat!"
+          },
+          {
+            "q": "Apakah minuman ini dibaca: SU - SU?",
+            "visual": "<div class='huge-symbol'>🧃</div><div class='sub-visual'><b>SU - SU</b></div>",
+            "correct": false,
+            "explain": "Itu jus buah kemasan kotak, bukan susu gelas!"
+          },
+          {
+            "q": "Apakah kata 'SUSU' diawali huruf 'S'?",
+            "visual": "<div class='word-tag'>S - U - S - U 🥛</div>",
+            "correct": true,
+            "explain": "Pintar! Huruf S meliuk seperti ular!"
+          },
+          {
+            "q": "Apakah 'SUSU' diawali huruf 'P'?",
+            "visual": "<div class='word-tag'>P - U - S - U ❌</div>",
+            "correct": false,
+            "explain": "Salah, Susu diawali huruf S!"
+          }
+        ]
+      },
+      {
+        "topic": "Huruf M",
+        "variants": [
+          {
+            "q": "Apakah kata 'MO-BIL' diawali huruf 'M'?",
+            "visual": "<div class='huge-symbol'>🚗</div><div class='sub-visual'>M - O - B - I - L</div>",
+            "correct": true,
+            "explain": "Benar! M untuk Mobil melaju kencang!"
+          },
+          {
+            "q": "Apakah kata 'ME-JA' diawali huruf 'M'?",
+            "visual": "<div class='huge-symbol'>🪑</div><div class='sub-visual'>M - E - J - A</div>",
+            "correct": true,
+            "explain": "Tepat! M untuk Meja belajar!"
+          },
+          {
+            "q": "Apakah ini huruf 'M' dua bukit kembar?",
+            "visual": "<div class='huge-symbol'>M</div>",
+            "correct": true,
+            "explain": "Pintar! Bentuknya seperti dua bukit kembar!"
+          },
+          {
+            "q": "Apakah 'PESAWAT' diawali huruf 'M'?",
+            "visual": "<div class='huge-symbol'>✈️</div>",
+            "correct": false,
+            "explain": "Salah, Pesawat diawali huruf P!"
+          }
+        ]
+      },
+      {
+        "topic": "Rima / Irama Bunyi Akhir",
+        "variants": [
+          {
+            "q": "Apakah kata 'KUDA' dan 'RODA' punya bunyi akhir yang sama (da - da)?",
+            "visual": "<div class='compare-box'><div>🐴 KU-<b>DA</b></div><span class='vs'>&</span><div>🛞 RO-<b>DA</b></div></div>",
+            "correct": true,
+            "explain": "Hebat! Ujung bunyinya sama-sama DA!"
+          },
+          {
+            "q": "Apakah kata 'KUCING' dan 'SEPATU' bunyi akhirnya sama?",
+            "visual": "<div class='compare-box'><div>🐱 KU-<b>CING</b></div><span class='vs'>&</span><div>👟 SE-PA-<b>TU</b></div></div>",
+            "correct": false,
+            "explain": "Salah, ujung bunyinya berbeda jauh!"
+          },
+          {
+            "q": "Apakah kata 'SAPI' dan 'TOPI' bunyi akhirnya sama (pi - pi)?",
+            "visual": "<div class='compare-box'><div>🐮 SA-<b>PI</b></div><span class='vs'>&</span><div>🧢 TO-<b>PI</b></div></div>",
+            "correct": true,
+            "explain": "Pintar! Sama-sama berakhiran PI!"
+          },
+          {
+            "q": "Apakah kata 'BUKU' dan 'PISANG' bunyi akhirnya sama?",
+            "visual": "<div class='compare-box'><div>📖 BU-<b>KU</b></div><span class='vs'>&</span><div>🍌 PI-<b>SANG</b></div></div>",
+            "correct": false,
+            "explain": "Salah, bunyinya tidak sama!"
+          }
+        ]
+      },
+      {
+        "topic": "Tepuk Suku Kata",
+        "variants": [
+          {
+            "q": "Kata 'RE - ZA' saat ditepuk tangan bunyinya ada 2 KALI TEPUKAN?",
+            "visual": "<div class='huge-symbol'>👏 👏</div><div class='sub-visual'><b>RE (tepuk) - ZA (tepuk)</b></div>",
+            "correct": true,
+            "explain": "Benar! RE-ZA ada 2 tepukan suku kata!"
+          },
+          {
+            "q": "Kata 'BU - KU' saat ditepuk bunyinya ada 2 KALI TEPUKAN?",
+            "visual": "<div class='huge-symbol'>👏 👏</div><div class='sub-visual'><b>BU - KU</b></div>",
+            "correct": true,
+            "explain": "Pintar! Ada 2 suku kata!"
+          },
+          {
+            "q": "Kata 'MO - BIL' ada 5 KALI TEPUKAN?",
+            "visual": "<div class='huge-symbol'>👏 👏 👏 👏 👏</div>",
+            "correct": false,
+            "explain": "Salah, Mobil cuma 2 tepukan: MO - BIL!"
+          },
+          {
+            "q": "Kata 'A - PEL' ada 10 KALI TEPUKAN?",
+            "visual": "<div class='huge-symbol'>👏 👏 👏 👏 👏 👏 👏 👏 👏 👏</div>",
+            "correct": false,
+            "explain": "Terlalu banyak! Apel cuma 2 tepukan!"
+          }
+        ]
+      },
+      {
+        "topic": "Arah Membaca",
+        "variants": [
+          {
+            "q": "Apakah kita membaca dari arah KIRI ke KANAN ➔ ?",
+            "visual": "<div class='huge-symbol'>KIRI ➔ KANAN</div>",
+            "correct": true,
+            "explain": "Benar sekali! Membaca selalu dari kiri meluncur ke kanan!"
+          },
+          {
+            "q": "Apakah kita membaca buku terbalik dari BAWAH ke ATAS?",
+            "visual": "<div class='huge-symbol'>⬆️ BAWAH KE ATAS</div>",
+            "correct": false,
+            "explain": "Salah, membaca tidak terbalik dari bawah ke atas!"
+          },
+          {
+            "q": "Apakah buku dibuka dari depan ke belakang?",
+            "visual": "<div class='huge-symbol'>📖 ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Buku dibuka rapi dari halaman depan!"
+          },
+          {
+            "q": "Apakah membaca huruf dimulai dari huruf paling belakang dulu?",
+            "visual": "<div class='huge-symbol'>⬅️ DARI BELAKANG</div>",
+            "correct": false,
+            "explain": "Salah, membaca selalu dari depan / kiri!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Hari 3",
+    "title": "Menyimak & Suara",
+    "icon": "👂",
+    "badge": "Dunia Suara",
+    "desc": "Diskriminasi auditori, suara hewan, sirine kendaraan, alam, dan memori kerja.",
+    "questions": [
+      {
+        "topic": "Suara Kucing",
+        "variants": [
+          {
+            "q": "Apakah kucing bersuara 'Meooong... Meooong'?",
+            "visual": "<div class='huge-symbol'>🐱</div><div class='sub-visual'><i>'Meoong...'</i></div>",
+            "correct": true,
+            "explain": "Benar! Kucing manis bunyinya Meong!"
+          },
+          {
+            "q": "Apakah kucing bersuara 'Guk... Guk... Guk'?",
+            "visual": "<div class='huge-symbol'>🐱</div><div class='sub-visual'><i>'Guk guk...'</i></div>",
+            "correct": false,
+            "explain": "Salah, itu suara anjing! Kucing bunyinya Meong!"
+          },
+          {
+            "q": "Apakah suara 'Meong' berasal dari hewan berkumis ini?",
+            "visual": "<div class='huge-symbol'>🐱 🐾</div>",
+            "correct": true,
+            "explain": "Pintar! Kucing punya kumis lucu dan bersuara Meong!"
+          },
+          {
+            "q": "Apakah kucing bersuara 'Kukuruyuuuk' di pagi hari?",
+            "visual": "<div class='huge-symbol'>🐱 ☀️</div>",
+            "correct": false,
+            "explain": "Salah, yang berkokok pagi hari itu ayam jago!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Sapi",
+        "variants": [
+          {
+            "q": "Apakah sapi bersuara 'Moooo... Moooo'?",
+            "visual": "<div class='huge-symbol'>🐮</div><div class='sub-visual'><i>'Moo... Moo...'</i></div>",
+            "correct": true,
+            "explain": "Benar! Sapi gemuk pemakan rumput bunyinya Moooo!"
+          },
+          {
+            "q": "Apakah sapi bersuara 'Kwek... Kwek... Kwek'?",
+            "visual": "<div class='huge-symbol'>🐮</div><div class='sub-visual'><i>'Kwek kwek...'</i></div>",
+            "correct": false,
+            "explain": "Salah, itu suara bebek berenang!"
+          },
+          {
+            "q": "Apakah hewan penghasil susu ini bersuara 'Mooo'?",
+            "visual": "<div class='huge-symbol'>🥛 🐮</div>",
+            "correct": true,
+            "explain": "Hebat! Sapi menghasilkan susu sehat dan bersuara Mooo!"
+          },
+          {
+            "q": "Apakah sapi bersuara 'Cuit... Cuit... Cuit'?",
+            "visual": "<div class='huge-symbol'>🐮</div>",
+            "correct": false,
+            "explain": "Salah, itu suara burung kecil!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Bebek",
+        "variants": [
+          {
+            "q": "Apakah bebek bersuara 'Kwek... Kwek... Kwek'?",
+            "visual": "<div class='huge-symbol'>🦆</div><div class='sub-visual'><i>'Kwek kwek kwek...'</i></div>",
+            "correct": true,
+            "explain": "Tepat! Bebek berbaris bunyinya Kwek kwek!"
+          },
+          {
+            "q": "Apakah bebek bersuara 'Meooong'?",
+            "visual": "<div class='huge-symbol'>🦆</div><div class='sub-visual'><i>'Meoong...'</i></div>",
+            "correct": false,
+            "explain": "Salah, itu suara kucing!"
+          },
+          {
+            "q": "Apakah hewan berkaki dua berselaput ini bunyinya 'Kwek kwek'?",
+            "visual": "<div class='huge-symbol'>🦆 🌊</div>",
+            "correct": true,
+            "explain": "Pintar! Bebek pandai berenang sambil bersuara kwek kwek!"
+          },
+          {
+            "q": "Apakah bebek bersuara seperti raungan singa 'Auumm'?",
+            "visual": "<div class='huge-symbol'>🦆</div>",
+            "correct": false,
+            "explain": "Salah, bebek tidak mengaum!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Ayam Jago",
+        "variants": [
+          {
+            "q": "Apakah ayam jago berkokok 'Kukuruyuuuk' saat matahari terbit?",
+            "visual": "<div class='huge-symbol'>🐓 🌅</div><div class='sub-visual'><i>'Kukuruyuuuk!'</i></div>",
+            "correct": true,
+            "explain": "Benar! Ayam jago membangunkan kita di pagi hari!"
+          },
+          {
+            "q": "Apakah ayam jago bersuara 'Mbeeek... Mbeeek'?",
+            "visual": "<div class='huge-symbol'>🐓</div><div class='sub-visual'><i>'Mbeeek...'</i></div>",
+            "correct": false,
+            "explain": "Salah, itu suara kambing makan rumput!"
+          },
+          {
+            "q": "Apakah ayam betina berkotek 'Petok... Petok...'?",
+            "visual": "<div class='huge-symbol'>🐔 🥚</div><div class='sub-visual'><i>'Petok-petok!'</i></div>",
+            "correct": true,
+            "explain": "Pintar! Ayam bertelur sambil berkotek petok-petok!"
+          },
+          {
+            "q": "Apakah ayam jago mengaum seperti macan?",
+            "visual": "<div class='huge-symbol'>🐓</div>",
+            "correct": false,
+            "explain": "Salah, ayam berkokok bukan mengaum!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Sirine",
+        "variants": [
+          {
+            "q": "Apakah Mobil Pemadam Kebakaran membunyikan sirine 'Ninu... Ninu... Ninu'?",
+            "visual": "<div class='huge-symbol'>🚒 🚨</div><div class='sub-visual'><i>'Ninu-ninu-ninu!'</i></div>",
+            "correct": true,
+            "explain": "Benar! Sirine berbunyi kencang agar mobil lain memberi jalan!"
+          },
+          {
+            "q": "Apakah mobil polisi membunyikan sirine saat bertugas?",
+            "visual": "<div class='huge-symbol'>🚓 🚨</div>",
+            "correct": true,
+            "explain": "Hebat! Lampu rotator berputar dan sirine berbunyi nyaring!"
+          },
+          {
+            "q": "Apakah sirine pemadam kebakaran bunyinya seperti bisikan lembut?",
+            "visual": "<div class='huge-symbol'>🚒 🤫</div>",
+            "correct": false,
+            "explain": "Salah, sirine suaranya sangat keras dan nyaring!"
+          },
+          {
+            "q": "Apakah gerobak es krim membunyikan sirine darurat pemadam kebakaran?",
+            "visual": "<div class='huge-symbol'>🍦 🚨</div>",
+            "correct": false,
+            "explain": "Salah, gerobak es krim memutar lagu musik riang!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Kereta Api",
+        "variants": [
+          {
+            "q": "Apakah kereta api bersuara 'Tut... Tut... Gujes... Gujes...' di atas rel?",
+            "visual": "<div class='huge-symbol'>🚂 💨</div><div class='sub-visual'><i>'Tut-tut gujes-gujes!'</i></div>",
+            "correct": true,
+            "explain": "Benar sekali! Kereta api panjang melaju di atas rel!"
+          },
+          {
+            "q": "Apakah klakson kereta api berbunyi semboyan 'Semboyan 35 / Tut Tut' yang keras?",
+            "visual": "<div class='huge-symbol'>🚆 📢</div>",
+            "correct": true,
+            "explain": "Pintar! Klakson kereta sangat kencang!"
+          },
+          {
+            "q": "Apakah kereta api bersuara 'Meoong meoong'?",
+            "visual": "<div class='huge-symbol'>🚂 🐱</div>",
+            "correct": false,
+            "explain": "Salah, kereta api mesinnya bukan bersuara kucing!"
+          },
+          {
+            "q": "Apakah kereta api berjalan tanpa suara dan terbang di awan?",
+            "visual": "<div class='huge-symbol'>🚂 ☁️</div>",
+            "correct": false,
+            "explain": "Salah, kereta berjalan di atas rel besi!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Alam",
+        "variants": [
+          {
+            "q": "Apakah air hujan yang jatuh di atas genteng berbunyi 'Tik... Tik... Tik'?",
+            "visual": "<div class='huge-symbol'>🌧️ 🏠</div><div class='sub-visual'><i>'Tik tik tik bunyi hujan...'</i></div>",
+            "correct": true,
+            "explain": "Tepat! Lagu anak: Tik-tik-tik bunyi hujan di atas genting!"
+          },
+          {
+            "q": "Apakah suara petir di langit bergemuruh keras 'Duuuaaarr'?",
+            "visual": "<div class='huge-symbol'>⚡ 🌩️</div><div class='sub-visual'><i>'Duuarr!'</i></div>",
+            "correct": true,
+            "explain": "Benar! Petir suaranya menggelegar kencang!"
+          },
+          {
+            "q": "Apakah suara petir terdengar sangat pelan seperti bisikan semut?",
+            "visual": "<div class='huge-symbol'>⚡ 🐜</div>",
+            "correct": false,
+            "explain": "Salah, suara petir itu keras dan menggelegar!"
+          },
+          {
+            "q": "Apakah air hujan rasanya pedas dan panas mendidih?",
+            "visual": "<div class='huge-symbol'>🌧️ 🔥</div>",
+            "correct": false,
+            "explain": "Salah, air hujan itu dingin dan segar!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Burung",
+        "variants": [
+          {
+            "q": "Apakah burung kecil berkicau merdu 'Cuit... Cuit... Cuit'?",
+            "visual": "<div class='huge-symbol'>🐦 🎵</div><div class='sub-visual'><i>'Cuit cuit cuit...'</i></div>",
+            "correct": true,
+            "explain": "Benar! Burung bernyanyi merdu di atas ranting pohon!"
+          },
+          {
+            "q": "Apakah burung berkicau menggonggong seperti anjing penjaga?",
+            "visual": "<div class='huge-symbol'>🐦 🐶</div>",
+            "correct": false,
+            "explain": "Salah, burung tidak menggonggong!"
+          },
+          {
+            "q": "Apakah burung punya sayap untuk terbang sambil berkicau?",
+            "visual": "<div class='huge-symbol'>🕊️ ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Burung terbang tinggi di angkasa!"
+          },
+          {
+            "q": "Apakah burung bernyanyi dengan suara klakson kapal laut?",
+            "visual": "<div class='huge-symbol'>🐦 🚢</div>",
+            "correct": false,
+            "explain": "Salah, suara burung itu kecil dan nyaring!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Singa",
+        "variants": [
+          {
+            "q": "Apakah Singa mengaum keras 'Rrrrooaaarrr / Auuumm'?",
+            "visual": "<div class='huge-symbol'>🦁 👑</div><div class='sub-visual'><i>'Roaaarr!'</i></div>",
+            "correct": true,
+            "explain": "Hebat! Singa si raja hutan mengaum gagah!"
+          },
+          {
+            "q": "Apakah Singa bersuara 'Kwek-kwek' seperti bebek di kolam?",
+            "visual": "<div class='huge-symbol'>🦁 🦆</div>",
+            "correct": false,
+            "explain": "Salah, Singa mengaum sangat keras!"
+          },
+          {
+            "q": "Apakah auman singa terdengar sangat gagah dan berwibawa?",
+            "visual": "<div class='huge-symbol'>🦁 💪</div>",
+            "correct": true,
+            "explain": "Benar sekali! Singa hewan yang sangat kuat!"
+          },
+          {
+            "q": "Apakah Singa bersuara mencicit seperti tikus kecil?",
+            "visual": "<div class='huge-symbol'>🦁 🐭</div>",
+            "correct": false,
+            "explain": "Salah, auman singa terdengar hingga berkilo-kilo meter!"
+          }
+        ]
+      },
+      {
+        "topic": "Keras vs Pelan",
+        "variants": [
+          {
+            "q": "Apakah bisikan rahasia ke telinga adalah suara yang PELAN?",
+            "visual": "<div class='huge-symbol'>🤫 👂</div><div class='sub-visual'><i>(Bisik-bisik...)</i></div>",
+            "correct": true,
+            "explain": "Benar! Bisikan itu suaranya sangat pelan dan lembut!"
+          },
+          {
+            "q": "Apakah suara petir menggelegar adalah suara yang KERAS?",
+            "visual": "<div class='huge-symbol'>⚡ 📢</div>",
+            "correct": true,
+            "explain": "Pintar! Petir menghasilkan suara yang sangat keras!"
+          },
+          {
+            "q": "Apakah sirine pemadam kebakaran adalah suara yang sangat PELAN?",
+            "visual": "<div class='huge-symbol'>🚒 🚨</div>",
+            "correct": false,
+            "explain": "Salah, sirine damkar itu suaranya keras sekali!"
+          },
+          {
+            "q": "Apakah deru mesin pesawat saat lepas landas itu PELAN?",
+            "visual": "<div class='huge-symbol'>✈️ 🛫</div>",
+            "correct": false,
+            "explain": "Salah, suara mesin pesawat sangat keras!"
+          }
+        ]
+      },
+      {
+        "topic": "Memori Menyimak",
+        "variants": [
+          {
+            "q": "Jika Bunda berkata: 'Ambil HELM lalu SEPATU', apakah yang diambil pertama adalah HELM?",
+            "visual": "<div class='huge-symbol'>⛑️ ➔ 👟</div><div class='sub-visual'>1. Helm ➔ 2. Sepatu</div>",
+            "correct": true,
+            "explain": "Hebat ingatan Kak Reza! Helm dulu, baru sepatu!"
+          },
+          {
+            "q": "Jika Ayah berkata: 'Ambil BOLA lalu BUKU', apakah yang diambil pertama adalah BUKU?",
+            "visual": "<div class='huge-symbol'>⚽ ➔ 📖</div><div class='sub-visual'>1. Bola ➔ 2. Buku</div>",
+            "correct": false,
+            "explain": "Kurang tepat, yang disebut pertama adalah Bola!"
+          },
+          {
+            "q": "Jika Guru berkata: 'Buka TAS lalu ambil PENSIL', apakah pensil diambil setelah tas dibuka?",
+            "visual": "<div class='huge-symbol'>🎒 ➔ ✏️</div>",
+            "correct": true,
+            "explain": "Tepat sekali! Buka tas dulu, baru ambil pensil!"
+          },
+          {
+            "q": "Apakah 'Cuci tangan lalu makan', artinya kita makan dulu baru cuci tangan?",
+            "visual": "<div class='huge-symbol'>🧼 ➔ 🍛</div>",
+            "correct": false,
+            "explain": "Salah, kita harus cuci tangan dulu sebelum makan!"
+          }
+        ]
+      },
+      {
+        "topic": "Suara Jam Dinding",
+        "variants": [
+          {
+            "q": "Apakah jarum jam dinding berbunyi 'Tik... Tok... Tik... Tok'?",
+            "visual": "<div class='huge-symbol'>⏰ ⏱️</div><div class='sub-visual'><i>'Tik-tok tik-tok...'</i></div>",
+            "correct": true,
+            "explain": "Benar! Detik jam berbunyi tik-tok teratur!"
+          },
+          {
+            "q": "Apakah alarm jam beker berbunyi 'Kring... Kring... Kring'?",
+            "visual": "<div class='huge-symbol'>⏰ 🔔</div><div class='sub-visual'><i>'Kringgg!'</i></div>",
+            "correct": true,
+            "explain": "Pintar! Jam alarm berdering membangunkan tidur!"
+          },
+          {
+            "q": "Apakah jam dinding bersuara menggonggong?",
+            "visual": "<div class='huge-symbol'>⏰ 🐶</div>",
+            "correct": false,
+            "explain": "Salah, jam tidak bersuara hewan!"
+          },
+          {
+            "q": "Apakah jam berbunyi seperti klakson mobil?",
+            "visual": "<div class='huge-symbol'>⏰ 🚗</div>",
+            "correct": false,
+            "explain": "Salah, jam berdetik tik-tok!"
+          }
+        ]
+      },
+      {
+        "topic": "Klakson Kendaraan",
+        "variants": [
+          {
+            "q": "Apakah klakson mobil berbunyi 'Tin... Tin... Tin'?",
+            "visual": "<div class='huge-symbol'>🚗 📢</div><div class='sub-visual'><i>'Tin-tin!'</i></div>",
+            "correct": true,
+            "explain": "Benar! Klakson mobil berbunyi tin-tin untuk mengingatkan!"
+          },
+          {
+            "q": "Apakah bel sepeda berbunyi 'Kring... Kring... Kring'?",
+            "visual": "<div class='huge-symbol'>🚲 🔔</div><div class='sub-visual'><i>'Kring-kring ada sepeda!'</i></div>",
+            "correct": true,
+            "explain": "Hebat! Bel sepeda berdering riang kring-kring!"
+          },
+          {
+            "q": "Apakah bel sepeda berbunyi seperti ledakan meriam?",
+            "visual": "<div class='huge-symbol'>🚲 💣</div>",
+            "correct": false,
+            "explain": "Salah, bel sepeda suaranya manis berdering!"
+          },
+          {
+            "q": "Apakah mobil membunyikan klakson dengan bersiul seperti burung?",
+            "visual": "<div class='huge-symbol'>🚗 🐦</div>",
+            "correct": false,
+            "explain": "Salah, klakson mobil bunyinya tin-tin!"
+          }
+        ]
+      },
+      {
+        "topic": "Menyimak Instruksi",
+        "variants": [
+          {
+            "q": "Jika permainan berkata: 'Sentuh HIDUNG!', apakah Kak Reza menyentuh hidung?",
+            "visual": "<div class='huge-symbol'>👃 👈</div><div class='sub-visual'>Sentuh Hidung!</div>",
+            "correct": true,
+            "explain": "Pintar! Kak Reza fokus menyimak instruksi!"
+          },
+          {
+            "q": "Jika instruksi berkata: 'Angkat TANGAN!', apakah Kak Reza mengangkat kaki ke kepala?",
+            "visual": "<div class='huge-symbol'>🙋‍♂️</div>",
+            "correct": false,
+            "explain": "Salah, yang diminta diangkat adalah tangan!"
+          },
+          {
+            "q": "Jika instruksi berkata: 'Tepuk Tangan 2 kali!', apakah kita bertepuk 👏 👏?",
+            "visual": "<div class='huge-symbol'>👏 👏</div>",
+            "correct": true,
+            "explain": "Tepat sekali! Dua kali tepukan tangan!"
+          },
+          {
+            "q": "Jika instruksi berkata: 'Pegang Telinga!', apakah kita memegang jempol kaki?",
+            "visual": "<div class='huge-symbol'>👂 👈</div>",
+            "correct": false,
+            "explain": "Salah, telinga ada di samping kepala!"
+          }
+        ]
+      },
+      {
+        "topic": "Menyimak Tata Tertib",
+        "variants": [
+          {
+            "q": "Apakah saat guru bercerita di depan kelas, kita mendengarkan dengan tertib?",
+            "visual": "<div class='huge-symbol'>👩‍🏫 👂 ✨</div>",
+            "correct": true,
+            "explain": "Hebat! Superhero Reza selalu menyimak dengan baik!"
+          },
+          {
+            "q": "Apakah saat teman sedang berbicara, kita harus berteriak memotong pembicaraannya?",
+            "visual": "<div class='huge-symbol'>🗣️ 💥 🙅‍♂️</div>",
+            "correct": false,
+            "explain": "Salah, kita tunggu teman selesai berbicara dulu baru bergantian!"
+          },
+          {
+            "q": "Apakah saat mendengar nama kita dipanggil, kita menjawab 'Hadir / Ya'?",
+            "visual": "<div class='huge-symbol'>🙋‍♂️ 'Ya Bunda!'</div>",
+            "correct": true,
+            "explain": "Pintar! Menjawab panggilan dengan sopan adalah sikap terpuji!"
+          },
+          {
+            "q": "Apakah saat dipanggil orang tua kita pura-pura tidur dan tidak peduli?",
+            "visual": "<div class='huge-symbol'>😴 🙅‍♂️</div>",
+            "correct": false,
+            "explain": "Salah, kita harus segera merespons panggilan orang tua!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Hari 4",
+    "title": "Logika & Nalar",
+    "icon": "💡",
+    "badge": "Penalaran Cilik",
+    "desc": "Sebab-akibat, pasangan benda, klasifikasi fungsi, sains awal, dan logika sederhana.",
+    "questions": [
+      {
+        "topic": "Pasangan Benda",
+        "variants": [
+          {
+            "q": "Apakah SENDOK berpasangan dengan GARPU saat makan?",
+            "visual": "<div class='huge-symbol'>🥄 ✨ 🍴</div>",
+            "correct": true,
+            "explain": "Benar! Sendok di tangan kanan, garpu di tangan kiri!"
+          },
+          {
+            "q": "Apakah SENDOK pasangannya adalah SAPU LANTAI?",
+            "visual": "<div class='huge-symbol'>🥄 🧹</div>",
+            "correct": false,
+            "explain": "Salah! Sapu untuk membersihkan lantai, bukan untuk makan!"
+          },
+          {
+            "q": "Apakah MANGKUK cocok sebagai wadah untuk SUP BERKUAH?",
+            "visual": "<div class='huge-symbol'>🥣 🍲</div>",
+            "correct": true,
+            "explain": "Pintar! Mangkuk menampung kuah sup agar tidak tumpah!"
+          },
+          {
+            "q": "Apakah kita makan nasi memakai SEPATU OLAHRAGA?",
+            "visual": "<div class='huge-symbol'>🍛 👟</div>",
+            "correct": false,
+            "explain": "Lucu sekali, sepatu dipakai di kaki bukan untuk makan!"
+          }
+        ]
+      },
+      {
+        "topic": "Pasangan Pakaian",
+        "variants": [
+          {
+            "q": "Apakah SEPATU dipakai bersama KAUS KAKI agar kaki nyaman?",
+            "visual": "<div class='huge-symbol'>🧦 ✨ 👟</div>",
+            "correct": true,
+            "explain": "Benar! Pakai kaus kaki dulu baru pakai sepatu!"
+          },
+          {
+            "q": "Apakah KAUS KAKI dipakai di kedua TELINGA?",
+            "visual": "<div class='huge-symbol'>🧦 👂</div>",
+            "correct": false,
+            "explain": "Salah! Kaus kaki dipakai di kaki, bukan di telinga!"
+          },
+          {
+            "q": "Apakah SARUNG TANGAN dipakai untuk menghangatkan TANGAN?",
+            "visual": "<div class='huge-symbol'>🧤 🖐️</div>",
+            "correct": true,
+            "explain": "Pintar! Sarung tangan melindungi jari-jari tangan!"
+          },
+          {
+            "q": "Apakah TOPI KEPALA dipakai di TELAPAK KAKI?",
+            "visual": "<div class='huge-symbol'>🧢 🦶</div>",
+            "correct": false,
+            "explain": "Salah, topi dipakai di atas kepala!"
+          }
+        ]
+      },
+      {
+        "topic": "Fungsi Benda",
+        "variants": [
+          {
+            "q": "Saat hujan turun lebat, apakah kita memakai PAYUNG agar tidak basah?",
+            "visual": "<div class='huge-symbol'>🌧️ ☂️ 👦</div>",
+            "correct": true,
+            "explain": "Benar! Payung dan jas hujan melindungi kita dari air hujan!"
+          },
+          {
+            "q": "Saat hujan lebat, apakah kita memakai KACAMATA HITAM di pantai?",
+            "visual": "<div class='huge-symbol'>🌧️ 🕶️</div>",
+            "correct": false,
+            "explain": "Salah, kacamata hitam dipakai saat terik matahari pantai!"
+          },
+          {
+            "q": "Apakah JAS HUJAN tahan air sehingga pakaian kita tetap kering?",
+            "visual": "<div class='huge-symbol'>🌧️ 🧥 ✨</div>",
+            "correct": true,
+            "explain": "Hebat! Jas hujan terbuat dari bahan kedap air!"
+          },
+          {
+            "q": "Apakah saat hujan kita berlindung di bawah KERTAS TISU?",
+            "visual": "<div class='huge-symbol'>🌧️ 🧻</div>",
+            "correct": false,
+            "explain": "Salah, tisu akan basah dan robek kena air!"
+          }
+        ]
+      },
+      {
+        "topic": "Makanan Hewan",
+        "variants": [
+          {
+            "q": "Apakah Kelinci suka makan WORTEL renyah?",
+            "visual": "<div class='huge-symbol'>🐰 🥕 ✨</div>",
+            "correct": true,
+            "explain": "Benar! Kelinci sangat suka wortel dan sayuran hijau!"
+          },
+          {
+            "q": "Apakah Kelinci suka makan BATU KERIKIL keras?",
+            "visual": "<div class='huge-symbol'>🐰 🪨</div>",
+            "correct": false,
+            "explain": "Salah! Hewan tidak makan batu kerikil!"
+          },
+          {
+            "q": "Apakah Monyet suka makan buah PISANG manis?",
+            "visual": "<div class='huge-symbol'>🐵 🍌 ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Monyet sangat pandai mengupas pisang!"
+          },
+          {
+            "q": "Apakah Kucing suka makan KAYU BALOK?",
+            "visual": "<div class='huge-symbol'>🐱 🪵</div>",
+            "correct": false,
+            "explain": "Salah! Kucing suka makan ikan, bukan kayu!"
+          }
+        ]
+      },
+      {
+        "topic": "Tempat Hidup",
+        "variants": [
+          {
+            "q": "Apakah Ikan berenang dan hidup di dalam AIR?",
+            "visual": "<div class='huge-symbol'>🐟 🌊 🐠</div>",
+            "correct": true,
+            "explain": "Benar! Ikan bernapas menggunakan insang di dalam air!"
+          },
+          {
+            "q": "Apakah Ikan hidup dan terbang di atas POHON?",
+            "visual": "<div class='huge-symbol'>🐟 🌳</div>",
+            "correct": false,
+            "explain": "Salah, ikan tidak bisa hidup di atas pohon kering!"
+          },
+          {
+            "q": "Apakah Burung terbang bebas di ANGKASA LANGIT?",
+            "visual": "<div class='huge-symbol'>🦅 ☁️ 🕊️</div>",
+            "correct": true,
+            "explain": "Tepat! Burung mengepakkan sayap di langit biru!"
+          },
+          {
+            "q": "Apakah Unta adalah hewan yang kuat di PADANG PASIR?",
+            "visual": "<div class='huge-symbol'>🐪 🏜️</div>",
+            "correct": true,
+            "explain": "Pintar! Unta bisa bertahan di gurun pasir yang panas!"
+          }
+        ]
+      },
+      {
+        "topic": "Memilah Benda Ganjil",
+        "variants": [
+          {
+            "q": "Di antara [🍎 Apel, 🍌 Pisang, 🍊 Jeruk, 🚗 Mobil], apakah MOBIL yang BUKAN BUAH?",
+            "visual": "<div class='box-group'>🍎 🍌 🍊 <b style='color:#ef4444'>🚗</b></div>",
+            "correct": true,
+            "explain": "Pintar! Apel, pisang, jeruk adalah buah. Mobil adalah kendaraan!"
+          },
+          {
+            "q": "Di antara [🐱 Kucing, 🐰 Kelinci, 🐶 Anjing, 📕 Buku], apakah BUKU adalah HEWAN?",
+            "visual": "<div class='box-group'>🐱 🐰 🐶 <b style='color:#6366f1'>📕</b></div>",
+            "correct": false,
+            "explain": "Salah, buku itu benda mati untuk membaca, bukan hewan!"
+          },
+          {
+            "q": "Di antara [👕 Kaos, 👖 Celana, 👗 Rok, 🥄 Sendok], apakah SENDOK yang BUKAN PAKAIAN?",
+            "visual": "<div class='box-group'>👕 👖 👗 <b style='color:#ef4444'>🥄</b></div>",
+            "correct": true,
+            "explain": "Hebat! Sendok adalah alat makan, bukan pakaian!"
+          },
+          {
+            "q": "Apakah BOLA BASKET termasuk jenis sayur-sayuran?",
+            "visual": "<div class='huge-symbol'>🏀 🥦</div>",
+            "correct": false,
+            "explain": "Salah, bola basket itu mainan olahraga!"
+          }
+        ]
+      },
+      {
+        "topic": "Sensori Panas & Dingin",
+        "variants": [
+          {
+            "q": "Apakah ES KRIM rasanya DINGIN dan menyegarkan?",
+            "visual": "<div class='huge-symbol'>🍦 ❄️ 🧊</div>",
+            "correct": true,
+            "explain": "Benar! Es krim terasa dingin di lidah!"
+          },
+          {
+            "q": "Apakah SUP yang baru diangkat dari kompor terasa PANAS?",
+            "visual": "<div class='huge-symbol'>🍲 ♨️ 🥣</div>",
+            "correct": true,
+            "explain": "Tepat! Makanan panas harus ditiup pelan-pelan dulu!"
+          },
+          {
+            "q": "Apakah ES BATU rasanya PANAS membakar?",
+            "visual": "<div class='huge-symbol'>🧊 🔥</div>",
+            "correct": false,
+            "explain": "Salah, es batu itu sangat dingin dan beku!"
+          },
+          {
+            "q": "Apakah API UNGGUN terasa DINGIN seperti kulkas?",
+            "visual": "<div class='huge-symbol'>🔥 ❄️</div>",
+            "correct": false,
+            "explain": "Salah, api itu panas dan jangan disentuh ya!"
+          }
+        ]
+      },
+      {
+        "topic": "Sains Awal: Air",
+        "variants": [
+          {
+            "q": "Apakah BEBEK KARET plastik mengapung di atas air bak mandi?",
+            "visual": "<div class='huge-symbol'>🦆 🌊 🛁</div>",
+            "correct": true,
+            "explain": "Benar! Bebek plastik ringan sehingga terapung di permukaan air!"
+          },
+          {
+            "q": "Apakah BATU yang berat akan TENGGELAM ke dasar air?",
+            "visual": "<div class='huge-symbol'>🪨 ⬇️ 🌊</div>",
+            "correct": true,
+            "explain": "Pintar! Batu yang padat dan berat akan tenggelam ke dasar!"
+          },
+          {
+            "q": "Apakah PERAHU KERTAS tenggelam seperti batu besi berat?",
+            "visual": "<div class='huge-symbol'>⛵ 🌊</div>",
+            "correct": false,
+            "explain": "Perahu kertas terapung di atas air sebelum basah kuyup!"
+          },
+          {
+            "q": "Apakah balon berisi udara akan tenggelam sampai ke dasar kolam?",
+            "visual": "<div class='huge-symbol'>🎈 ⬇️</div>",
+            "correct": false,
+            "explain": "Salah, balon yang ringan akan terapung di atas air!"
+          }
+        ]
+      },
+      {
+        "topic": "Tekstur Benda",
+        "variants": [
+          {
+            "q": "Apakah bulu BONEKA BERUANG terasa LEMBUT dan HALUS?",
+            "visual": "<div class='huge-symbol'>🧸 ✨</div>",
+            "correct": true,
+            "explain": "Benar! Boneka empuk terasa halus saat dipeluk!"
+          },
+          {
+            "q": "Apakah kulit buah DURIAN terasa berduri dan KASAR?",
+            "visual": "<div class='huge-symbol'>🍈 🌵</div>",
+            "correct": true,
+            "explain": "Pintar! Kulit durian tajam dan kasar!"
+          },
+          {
+            "q": "Apakah BATU AMPLAS terasa sehalus kapas sutra?",
+            "visual": "<div class='huge-symbol'>🪨 ☁️</div>",
+            "correct": false,
+            "explain": "Salah, amplas itu kasar untuk menggosok kayu!"
+          },
+          {
+            "q": "Apakah kaca cermin yang bersih terasa bergelombang dan berduri?",
+            "visual": "<div class='huge-symbol'>🪞 ✨</div>",
+            "correct": false,
+            "explain": "Salah, kaca cermin itu rata dan licin halus!"
+          }
+        ]
+      },
+      {
+        "topic": "Waktu & Alam",
+        "variants": [
+          {
+            "q": "Apakah MATAHARI bersinar terang menerangi bumi di SIANG HARI?",
+            "visual": "<div class='huge-symbol'>☀️ 🏙️ 🌳</div>",
+            "correct": true,
+            "explain": "Benar! Siang hari terang karena cahaya matahari!"
+          },
+          {
+            "q": "Apakah BULAN dan BINTANG berkelap-kelip indah di MALAM HARI?",
+            "visual": "<div class='huge-symbol'>🌙 ⭐ 🌌</div>",
+            "correct": true,
+            "explain": "Pintar! Saat langit gelap malam hari, bintang terlihat berkilau!"
+          },
+          {
+            "q": "Apakah matahari bersinar terik pada tengah malam saat kita tidur nyenyak?",
+            "visual": "<div class='huge-symbol'>🌙 ☀️ 😴</div>",
+            "correct": false,
+            "explain": "Salah, tengah malam suasana gelap dan matahari tidak ada!"
+          },
+          {
+            "q": "Apakah burung hantu aktif terbang mencari makan di malam hari?",
+            "visual": "<div class='huge-symbol'>🦉 🌙</div>",
+            "correct": true,
+            "explain": "Hebat! Burung hantu adalah hewan malam yang hebat!"
+          }
+        ]
+      },
+      {
+        "topic": "Sebab & Akibat",
+        "variants": [
+          {
+            "q": "Jika Kak Reza merasa HAUS setelah lari, apakah Kak Reza MINUM AIR?",
+            "visual": "<div class='huge-symbol'>🏃‍♂️ ➔ 🥛 😋</div>",
+            "correct": true,
+            "explain": "Benar! Minum air putih membuat tenggorokan segar kembali!"
+          },
+          {
+            "q": "Jika kita mengantuk di malam hari, apakah kita beristirahat TIDUR?",
+            "visual": "<div class='huge-symbol'>🥱 ➔ 🛏️ 💤</div>",
+            "correct": true,
+            "explain": "Pintar! Tidur mengembalikan tenaga tubuh kita!"
+          },
+          {
+            "q": "Jika tangan kotor terkena tanah, apakah kita langsung makan tanpa cuci tangan?",
+            "visual": "<div class='huge-symbol'>🖐️ 💩 ➔ 🍛 ❌</div>",
+            "correct": false,
+            "explain": "Salah! Tangan kotor harus dicuci pakai sabun dulu!"
+          },
+          {
+            "q": "Jika perut lapar, apakah kita makan kerikil tajam?",
+            "visual": "<div class='huge-symbol'>😋 ➔ 🪨 ❌</div>",
+            "correct": false,
+            "explain": "Salah, kita makan makanan sehat seperti nasi dan sayur!"
+          }
+        ]
+      },
+      {
+        "topic": "Logika Warna Alam",
+        "variants": [
+          {
+            "q": "Apakah DAUN pohon umumnya berwarna HIJAU segar?",
+            "visual": "<div class='huge-symbol'>🍃 🌳 🌿</div>",
+            "correct": true,
+            "explain": "Benar! Daun segar berwarna hijau royo-royo!"
+          },
+          {
+            "q": "Apakah LANGIT cerah di siang hari berwarna BIRU?",
+            "visual": "<div class='huge-symbol'>☁️ ☀️ 🌤️</div>",
+            "correct": true,
+            "explain": "Tepat! Langit cerah berwarna biru indah!"
+          },
+          {
+            "q": "Apakah rumput di taman secara alami berwarna UNGU cerah?",
+            "visual": "<div class='huge-symbol'>🌱 🟣</div>",
+            "correct": false,
+            "explain": "Salah, rumput warnanya hijau!"
+          },
+          {
+            "q": "Apakah warna darah atau buah stroberi matang itu MERAH?",
+            "visual": "<div class='huge-symbol'>🍓 🔴</div>",
+            "correct": true,
+            "explain": "Pintar! Buah stroberi matang warnanya merah ranum!"
+          }
+        ]
+      },
+      {
+        "topic": "Timbangan & Berat",
+        "variants": [
+          {
+            "q": "Apakah SEHELAI BULU AYAM lebih RINGAN daripada SEBONGKAH BATU?",
+            "visual": "<div class='compare-box'><span>🪶 (Bulu)</span><span class='vs'>vs</span><span>🪨 (Batu)</span></div>",
+            "correct": true,
+            "explain": "Benar! Bulu ayam sangat ringan bisa melayang di udara!"
+          },
+          {
+            "q": "Apakah MOBIL TRUK lebih RINGAN daripada SEPEDA RODA TIGA?",
+            "visual": "<div class='compare-box'><span>🚛 (Truk)</span><span class='vs'>vs</span><span>🚲 (Sepeda)</span></div>",
+            "correct": false,
+            "explain": "Salah! Mobil truk itu sangat berat dan besar!"
+          },
+          {
+            "q": "Apakah KAPAS lebih RINGAN daripada BESI?",
+            "visual": "<div class='compare-box'><span>☁️ (Kapas)</span><span class='vs'>vs</span><span>🔩 (Besi)</span></div>",
+            "correct": true,
+            "explain": "Tepat sekali! Kapas empuk dan sangat ringan!"
+          },
+          {
+            "q": "Apakah GAJAH lebih RINGAN daripada KUPU-KUPU?",
+            "visual": "<div class='compare-box'><span>🐘 (Gajah)</span><span class='vs'>vs</span><span>🦋 (Kupu)</span></div>",
+            "correct": false,
+            "explain": "Salah, gajah bobotnya berton-ton, kupu-kupu yang ringan!"
+          }
+        ]
+      },
+      {
+        "topic": "Sains Bayangan",
+        "variants": [
+          {
+            "q": "Apakah BAYANGAN tubuh kita muncul saat ada SINAR CAHAYA?",
+            "visual": "<div class='huge-symbol'>☀️ ➔ 🏃‍♂️ ➔ 👤</div>",
+            "correct": true,
+            "explain": "Benar! Cahaya matahari atau lampu membuat bayangan tubuh kita!"
+          },
+          {
+            "q": "Di dalam kamar yang GELAP GULITA tanpa cahaya, apakah bayangan tetap kelihatan jelas?",
+            "visual": "<div class='huge-symbol'>🌑 👤 ❓</div>",
+            "correct": false,
+            "explain": "Salah, kalau gelap gulita tidak ada bayangan yang terlihat!"
+          },
+          {
+            "q": "Saat kita berjalan di bawah terik matahari, apakah bayangan mengikuti gerakan kita?",
+            "visual": "<div class='huge-symbol'>🚶‍♂️ 👣 👤</div>",
+            "correct": true,
+            "explain": "Pintar! Bayangan selalu menempel dan bergerak mengikuti kita!"
+          },
+          {
+            "q": "Apakah bayangan bisa berbicara dan makan bakso sendiri?",
+            "visual": "<div class='huge-symbol'>👤 🍲 🗣️</div>",
+            "correct": false,
+            "explain": "Lucu sekali, bayangan itu hanya siluet gelap tanpa suara!"
+          }
+        ]
+      },
+      {
+        "topic": "Sains Mencair",
+        "variants": [
+          {
+            "q": "Jika ES BATU diletakkan di tempat panas, apakah es akan MENCAIR menjadi AIR?",
+            "visual": "<div class='huge-symbol'>🧊 ➔ ☀️ ➔ 💧</div>",
+            "correct": true,
+            "explain": "Hebat! Es beku yang terkena panas akan mencair jadi air!"
+          },
+          {
+            "q": "Jika air dimasukkan ke dalam freezer kulkas, apakah air akan MEMBEKU menjadi ES?",
+            "visual": "<div class='huge-symbol'>💧 ➔ ❄️ ➔ 🧊</div>",
+            "correct": true,
+            "explain": "Pintar! Udara dingin membekukan air jadi es batu yang keras!"
+          },
+          {
+            "q": "Apakah es krim yang dijemur di bawah matahari terik akan tetap beku selamanya?",
+            "visual": "<div class='huge-symbol'>🍦 ☀️ ⏳</div>",
+            "correct": false,
+            "explain": "Salah, es krim akan meleleh dan mencair kalau kepanasan!"
+          },
+          {
+            "q": "Apakah lilin yang dipanaskan api akan meleleh?",
+            "visual": "<div class='huge-symbol'>🕯️ 🔥 ✨</div>",
+            "correct": true,
+            "explain": "Benar sekali! Lilin melunak dan meleleh karena panas api!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Hari 5",
+    "title": "Bentuk, Pola & Spasial",
+    "icon": "🔷",
+    "badge": "Geometri & Arah",
+    "desc": "Bentuk geometri, pola urutan AB/ABB, arah spasial (atas-bawah, dalam-luar, depan-belakang).",
+    "questions": [
+      {
+        "topic": "Bentuk Lingkaran",
+        "variants": [
+          {
+            "q": "Apakah KOIN EMAS Pac-Man ini berbentuk LINGKARAN (Bulat)?",
+            "visual": "<div class='huge-symbol'>🪙</div>",
+            "correct": true,
+            "explain": "Benar! Koin emas bulat melingkar tanpa sudut lancip!"
+          },
+          {
+            "q": "Apakah BULAN PURNAMA berbentuk BULAT LINGKARAN?",
+            "visual": "<div class='huge-symbol'>🌕</div>",
+            "correct": true,
+            "explain": "Pintar! Bulan purnama bulat sempurna di angkasa!"
+          },
+          {
+            "q": "Apakah PINTU KAMAR berbentuk LINGKARAN?",
+            "visual": "<div class='huge-symbol'>🚪</div>",
+            "correct": false,
+            "explain": "Salah, pintu kamar berbentuk persegi panjang!"
+          },
+          {
+            "q": "Apakah BUKU TULIS berbentuk LINGKARAN?",
+            "visual": "<div class='huge-symbol'>📒</div>",
+            "correct": false,
+            "explain": "Salah, buku tulis memiliki sudut siku-siku persegi!"
+          }
+        ]
+      },
+      {
+        "topic": "Bentuk Persegi",
+        "variants": [
+          {
+            "q": "Apakah BANTAL DUDUK ini berbentuk PERSEGI (Kotak 4 sisi sama)?",
+            "visual": "<div class='huge-symbol'>🟧</div>",
+            "correct": true,
+            "explain": "Benar! Kotak persegi punya 4 sisi yang sama panjang!"
+          },
+          {
+            "q": "Apakah DADU PERMAINAN permukaannya berbentuk KOTAK?",
+            "visual": "<div class='huge-symbol'>🎲</div>",
+            "correct": true,
+            "explain": "Pintar! Setiap muka dadu berbentuk persegi!"
+          },
+          {
+            "q": "Apakah BOLA BASKET permukaannya berbentuk KOTAK?",
+            "visual": "<div class='huge-symbol'>🏀</div>",
+            "correct": false,
+            "explain": "Salah, bola basket bulat menggelinding!"
+          },
+          {
+            "q": "Apakah PIRING MAKAN umumnya berbentuk KOTAK SEGITIGA?",
+            "visual": "<div class='huge-symbol'>🍽️</div>",
+            "correct": false,
+            "explain": "Salah, piring makan umumnya bulat melingkar!"
+          }
+        ]
+      },
+      {
+        "topic": "Bentuk Segitiga",
+        "variants": [
+          {
+            "q": "Apakah ATAP RUMAH TRADISIONAL memiliki bentuk SEGITIGA?",
+            "visual": "<div class='huge-symbol'>🏠 🔺</div>",
+            "correct": true,
+            "explain": "Benar! Atap rumah mengerucut segitiga agar air hujan mengalir!"
+          },
+          {
+            "q": "Apakah RAMBU HATI-HATI di jalan raya berbentuk SEGITIGA?",
+            "visual": "<div class='huge-symbol'>⚠️</div>",
+            "correct": true,
+            "explain": "Tepat! Rambu kuning hati-hati berbentuk segitiga!"
+          },
+          {
+            "q": "Apakah RODA BAN MOBIL berbentuk SEGITIGA?",
+            "visual": "<div class='huge-symbol'>🛞 🔺 ❌</div>",
+            "correct": false,
+            "explain": "Salah, roda harus bulat agar bisa berputar mulus!"
+          },
+          {
+            "q": "Apakah DONAT berbentuk SEGITIGA runcing?",
+            "visual": "<div class='huge-symbol'>🍩 🔺 ❌</div>",
+            "correct": false,
+            "explain": "Salah, donat bentuknya melingkar bulat!"
+          }
+        ]
+      },
+      {
+        "topic": "Bentuk Simbol",
+        "variants": [
+          {
+            "q": "Apakah BINTANG SUPERHERO memiliki sudut-sudut runcing ke luar?",
+            "visual": "<div class='huge-symbol'>⭐ ✨</div>",
+            "correct": true,
+            "explain": "Benar! Bintang emas punya lima ujung runcing yang indah!"
+          },
+          {
+            "q": "Apakah lambang HATI melambangkan rasa cinta dan kasih sayang?",
+            "visual": "<div class='huge-symbol'>❤️ ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Lambang hati warna merah simbol kasih sayang!"
+          },
+          {
+            "q": "Apakah BINTANG di langit bentuknya kotak seperti kardus kulkas?",
+            "visual": "<div class='huge-symbol'>⭐ 📦</div>",
+            "correct": false,
+            "explain": "Salah, bintang berkelap-kelip dengan sudut runcing!"
+          },
+          {
+            "q": "Apakah lambang hati bentuknya bulat seperti roda sepeda?",
+            "visual": "<div class='huge-symbol'>❤️ 🛞</div>",
+            "correct": false,
+            "explain": "Salah, lambang hati punya dua lengkungan manis di atasnya!"
+          }
+        ]
+      },
+      {
+        "topic": "Pola Warna AB",
+        "variants": [
+          {
+            "q": "Perhatikan pola: 🔴 Merah - 🔵 Biru - 🔴 Merah. Apakah berikutnya adalah 🔵 BIRU?",
+            "visual": "<div class='number-row'><span style='color:#ef4444'>🔴</span> ➔ <span style='color:#3b82f6'>🔵</span> ➔ <span style='color:#ef4444'>🔴</span> ➔ <span style='color:#3b82f6;font-weight:900;'>[ ❓ ]</span></div>",
+            "correct": true,
+            "explain": "Hebat! Polanya selang-seling: Merah, Biru, Merah, BIRU!"
+          },
+          {
+            "q": "Perhatikan pola: 🟡 Kuning - 🟢 Hijau - 🟡 Kuning. Apakah berikutnya adalah 🟡 KUNING lagi?",
+            "visual": "<div class='number-row'><span style='color:#eab308'>🟡</span> ➔ <span style='color:#22c55e'>🟢</span> ➔ <span style='color:#eab308'>🟡</span> ➔ <span style='font-weight:900;'>[ ❓ ]</span></div>",
+            "correct": false,
+            "explain": "Kurang tepat, setelah Kuning harusnya Hijau!"
+          },
+          {
+            "q": "Perhatikan pola: 🟢 Hijau - ⚪ Putih - 🟢 Hijau. Apakah berikutnya adalah ⚪ PUTIH?",
+            "visual": "<div class='number-row'><span>🟢</span> ➔ <span>⚪</span> ➔ <span>🟢</span> ➔ <span>[ ❓ ]</span></div>",
+            "correct": true,
+            "explain": "Pintar sekali! Giliran warna Putih yang muncul!"
+          },
+          {
+            "q": "Apakah pola warna [Merah, Merah, Merah, Merah] adalah pola selang-seling?",
+            "visual": "<div class='number-row'><span>🔴</span> <span>🔴</span> <span>🔴</span> <span>🔴</span></div>",
+            "correct": false,
+            "explain": "Salah, itu semua warnanya sama, tidak selang-seling!"
+          }
+        ]
+      },
+      {
+        "topic": "Pola Benda AB",
+        "variants": [
+          {
+            "q": "Perhatikan pola: 🏎️ Mobil - ⚽ Bola - 🏎️ Mobil. Apakah berikutnya adalah ⚽ BOLA?",
+            "visual": "<div class='number-row'><span>🏎️</span> ➔ <span>⚽</span> ➔ <span>🏎️</span> ➔ <span>[ ❓ ]</span></div>",
+            "correct": true,
+            "explain": "Tepat sekali! Mobil, Bola, Mobil, lalu BOLA!"
+          },
+          {
+            "q": "Perhatikan pola: 🍎 Apel - 🍌 Pisang - 🍎 Apel. Apakah berikutnya adalah 🍎 APEL lagi?",
+            "visual": "<div class='number-row'><span>🍎</span> ➔ <span>🍌</span> ➔ <span>🍎</span> ➔ <span>[ ❓ ]</span></div>",
+            "correct": false,
+            "explain": "Salah, setelah apel adalah giliran buah PISANG!"
+          },
+          {
+            "q": "Perhatikan pola: 🚀 Roket - ⭐ Bintang - 🚀 Roket. Apakah berikutnya ⭐ BINTANG?",
+            "visual": "<div class='number-row'><span>🚀</span> ➔ <span>⭐</span> ➔ <span>🚀</span> ➔ <span>[ ❓ ]</span></div>",
+            "correct": true,
+            "explain": "Luar biasa! Setelah roket adalah bintang!"
+          },
+          {
+            "q": "Perhatikan pola: 🐱 Kucing - 🐶 Anjing - 🐱 Kucing. Apakah berikutnya 🐘 GAJAH?",
+            "visual": "<div class='number-row'><span>🐱</span> ➔ <span>🐶</span> ➔ <span>🐱</span> ➔ <span>[ ❓ ]</span></div>",
+            "correct": false,
+            "explain": "Salah, polanya kucing dan anjing, bukan gajah!"
+          }
+        ]
+      },
+      {
+        "topic": "Pola Ukuran",
+        "variants": [
+          {
+            "q": "Perhatikan pola: 🐘 BESAR - 🐜 KECIL - 🐘 BESAR. Apakah berikutnya 🐜 KECIL?",
+            "visual": "<div class='compare-box'><span style='font-size:2.5rem'>🐘</span> ➔ <span style='font-size:1.2rem'>🐜</span> ➔ <span style='font-size:2.5rem'>🐘</span> ➔ <span>[ ❓ ]</span></div>",
+            "correct": true,
+            "explain": "Pintar! Besar, Kecil, Besar, lalu KECIL!"
+          },
+          {
+            "q": "Perhatikan pola bola: ⚽ BESAR - ⚪ KECIL - ⚽ BESAR. Apakah berikutnya ⚽ BESAR?",
+            "visual": "<div class='compare-box'><span style='font-size:2.5rem'>⚽</span> ➔ <span style='font-size:1.2rem'>⚪</span> ➔ <span style='font-size:2.5rem'>⚽</span> ➔ <span>[ ❓ ]</span></div>",
+            "correct": false,
+            "explain": "Salah, harusnya setelah bola besar adalah bola kecil!"
+          },
+          {
+            "q": "Apakah urutan lingkaran ini mengecil dari BESAR ke KECIL?",
+            "visual": "<div class='compare-box'><span style='font-size:2.8rem'>🔵</span> ➔ <span style='font-size:2rem'>🔵</span> ➔ <span style='font-size:1.2rem'>🔵</span></div>",
+            "correct": true,
+            "explain": "Benar! Dari paling besar, sedang, hingga paling kecil!"
+          },
+          {
+            "q": "Apakah ukuran pohon kelapa sama kecilnya dengan kecambah tauge?",
+            "visual": "<div class='huge-symbol'>🌴 🌱</div>",
+            "correct": false,
+            "explain": "Salah, pohon kelapa raksasa sangat besar!"
+          }
+        ]
+      },
+      {
+        "topic": "Posisi Spasial: Atas & Bawah",
+        "variants": [
+          {
+            "q": "Apakah LAMPU GANTUNG posisinya berada DI ATAS meja?",
+            "visual": "<div class='huge-symbol'>💡<br><span style='font-size:1.5rem'>⬆️ DI ATAS</span><br>🛋️</div>",
+            "correct": true,
+            "explain": "Benar! Lampu gantung terpasang di langit-langit atas meja!"
+          },
+          {
+            "q": "Apakah SEPATU dipakai DI ATAS KEPALA seperti mahkota?",
+            "visual": "<div class='huge-symbol'>👟 👦</div>",
+            "correct": false,
+            "explain": "Salah! Sepatu dipakai di bawah kaki, bukan di atas kepala!"
+          },
+          {
+            "q": "Apakah KARPET LANTAI dihamparkan DI BAWAH kaki kita?",
+            "visual": "<div class='huge-symbol'>👦<br>⬇️<br>🟩 (Karpet)</div>",
+            "correct": true,
+            "explain": "Pintar! Karpet ada di lantai bagian bawah!"
+          },
+          {
+            "q": "Apakah BURUNG terbang melayang DI BAWAH tanah cacing?",
+            "visual": "<div class='huge-symbol'>🐦 🪱</div>",
+            "correct": false,
+            "explain": "Salah, burung terbang tinggi di atas udara!"
+          }
+        ]
+      },
+      {
+        "topic": "Posisi: Dalam & Luar",
+        "variants": [
+          {
+            "q": "Apakah IKAN EMAS ini berenang DI DALAM toples akuarium?",
+            "visual": "<div class='huge-symbol'>🫙 🐟</div><div class='sub-visual'>Ikan di dalam toples</div>",
+            "correct": true,
+            "explain": "Benar! Ikan hidup aman di dalam air toples!"
+          },
+          {
+            "q": "Apakah BURUNG ini terkurung DI LUAR sangkar?",
+            "visual": "<div class='huge-symbol'>🛖 🕊️ (Burung bebas di luar)</div>",
+            "correct": false,
+            "explain": "Kalau di luar sangkar berarti burungnya bebas terbang, tidak terkurung!"
+          },
+          {
+            "q": "Apakah PENSIL dimasukkan DI DALAM kotak pensil?",
+            "visual": "<div class='huge-symbol'>✏️ ➔ 👝</div>",
+            "correct": true,
+            "explain": "Pintar! Alat tulis disimpan rapi di dalam kotak pensil!"
+          },
+          {
+            "q": "Apakah kita tidur malam DI LUAR rumah di atas genteng?",
+            "visual": "<div class='huge-symbol'>😴 🏠 ❓</div>",
+            "correct": false,
+            "explain": "Salah, kita tidur nyaman di dalam kamar tidur!"
+          }
+        ]
+      },
+      {
+        "topic": "Depan & Belakang",
+        "variants": [
+          {
+            "q": "Apakah HIDUNG dan MATA kita berada di bagian DEPAN wajah?",
+            "visual": "<div class='huge-symbol'>👦 👀 👃</div>",
+            "correct": true,
+            "explain": "Benar! Mata dan hidung ada di wajah bagian depan!"
+          },
+          {
+            "q": "Apakah RANSEL SEKOLAH digendong di bagian BELAKANG punggung?",
+            "visual": "<div class='huge-symbol'>🎒 👦</div>",
+            "correct": true,
+            "explain": "Hebat! Tas ransel menempel di punggung belakang kita!"
+          },
+          {
+            "q": "Apakah SOPIR MOBIL duduk menyetir di kursi PALING BELAKANG bagasi?",
+            "visual": "<div class='huge-symbol'>🚗 🧑‍✈️</div>",
+            "correct": false,
+            "explain": "Salah, sopir duduk di kursi depan memegang setir!"
+          },
+          {
+            "q": "Apakah kita bisa melihat pemandangan depan menggunakan punggung belakang?",
+            "visual": "<div class='huge-symbol'>👀 🔙</div>",
+            "correct": false,
+            "explain": "Salah, kita melihat memakai mata di depan!"
+          }
+        ]
+      },
+      {
+        "topic": "Tinggi vs Rendah",
+        "variants": [
+          {
+            "q": "Apakah JERAPAH dengan leher panjang lebih TINGGI dari KELINCI?",
+            "visual": "<div class='compare-box'><span>🦒 (Tinggi)</span><span class='vs'>vs</span><span>🐰 (Pendek)</span></div>",
+            "correct": true,
+            "explain": "Benar! Jerapah hewan paling tinggi lehernya!"
+          },
+          {
+            "q": "Apakah GEDUNG PENCAKAR LANGIT lebih TINGGI dari KOTAK SEPATU?",
+            "visual": "<div class='compare-box'><span>🏢</span><span class='vs'>vs</span><span>📦</span></div>",
+            "correct": true,
+            "explain": "Pintar! Gedung bertingkat tinggi menjulang ke awan!"
+          },
+          {
+            "q": "Apakah RUMPUT KECIL lebih TINGGI dari POHON KELAPA?",
+            "visual": "<div class='compare-box'><span>🌱</span><span class='vs'>vs</span><span>🌴</span></div>",
+            "correct": false,
+            "explain": "Salah, pohon kelapa jauh lebih tinggi!"
+          },
+          {
+            "q": "Apakah anak bayi yang merangkak lebih TINGGI dari Ayah yang berdiri?",
+            "visual": "<div class='compare-box'><span>👶</span><span class='vs'>vs</span><span>👨</span></div>",
+            "correct": false,
+            "explain": "Salah, Ayah yang berdiri jauh lebih tinggi!"
+          }
+        ]
+      },
+      {
+        "topic": "Panjang vs Pendek",
+        "variants": [
+          {
+            "q": "Apakah KERETA API gerbongnya jauh lebih PANJANG dari SEPEDA MOTOR?",
+            "visual": "<div class='compare-box'><span>🚆 🚆 🚆</span><span class='vs'>vs</span><span>🏍️</span></div>",
+            "correct": true,
+            "explain": "Benar! Kereta punya banyak gerbong panjang!"
+          },
+          {
+            "q": "Apakah PENSIL BARU lebih PANJANG dari PENGHAPUS KECIL?",
+            "visual": "<div class='compare-box'><span>✏️✏️✏️</span><span class='vs'>vs</span><span>🧼</span></div>",
+            "correct": true,
+            "explain": "Pintar! Pensil baru panjang dan ramping!"
+          },
+          {
+            "q": "Apakah CACING TANAH lebih PANJANG dari KERETA CEPAT?",
+            "visual": "<div class='compare-box'><span>🪱</span><span class='vs'>vs</span><span>🚅</span></div>",
+            "correct": false,
+            "explain": "Salah, cacing tanah pendek dibanding kereta api!"
+          },
+          {
+            "q": "Apakah penggaris 30 cm lebih PENDEK dari sebutir beras?",
+            "visual": "<div class='compare-box'><span>📏</span><span class='vs'>vs</span><span>🌾</span></div>",
+            "correct": false,
+            "explain": "Salah, sebutir beras itu kecil dan pendek sekali!"
+          }
+        ]
+      },
+      {
+        "topic": "Jarak: Dekat & Jauh",
+        "variants": [
+          {
+            "q": "Apakah BULAN dan BINTANG di angkasa jaraknya SANGAT JAUH dari bumi?",
+            "visual": "<div class='huge-symbol'>🌍 ➔ ➔ ➔ 🌙</div>",
+            "correct": true,
+            "explain": "Benar! Bulan ada di luar angkasa yang sangat jauh!"
+          },
+          {
+            "q": "Apakah BUKU yang sedang Kak Reza pegang di tangan jaraknya DEKAT?",
+            "visual": "<div class='huge-symbol'>📖 🖐️</div>",
+            "correct": true,
+            "explain": "Pintar! Benda di tangan kita jaraknya sangat dekat!"
+          },
+          {
+            "q": "Apakah kita bisa menyentuh AWAN di langit hanya dengan melangkah satu langkah?",
+            "visual": "<div class='huge-symbol'>☁️ 🚶‍♂️</div>",
+            "correct": false,
+            "explain": "Salah, awan itu tinggi dan jauh di atas langit!"
+          },
+          {
+            "q": "Apakah kancing baju di baju kita jaraknya berjuta-juta kilometer jauhnya?",
+            "visual": "<div class='huge-symbol'>👕 🔘</div>",
+            "correct": false,
+            "explain": "Salah, kancing menempel dekat di baju kita!"
+          }
+        ]
+      },
+      {
+        "topic": "Arah Kanan & Kiri",
+        "variants": [
+          {
+            "q": "Apakah tangan yang biasanya dipakai bersalaman dengan sopan adalah tangan KANAN?",
+            "visual": "<div class='huge-symbol'>🤝 🫱</div>",
+            "correct": true,
+            "explain": "Benar! Bersalaman menggunakan tangan kanan yang sopan!"
+          },
+          {
+            "q": "Apakah kita memiliki TANGAN KANAN dan TANGAN KIRI?",
+            "visual": "<div class='huge-symbol'>🫲 (Kiri) ✨ (Kanan) 🫱</div>",
+            "correct": true,
+            "explain": "Pintar! Kita dikaruniai tangan kanan dan tangan kiri yang hebat!"
+          },
+          {
+            "q": "Apakah semua orang hanya punya tangan kanan tanpa tangan kiri?",
+            "visual": "<div class='huge-symbol'>🫱 🫱 ❓</div>",
+            "correct": false,
+            "explain": "Salah, kita punya tangan kanan dan tangan kiri seimbang!"
+          },
+          {
+            "q": "Apakah arah panah ini [ ➔ ] menunjuk ke arah KANAN?",
+            "visual": "<div class='huge-symbol'>➔ (Panah ke Kanan)</div>",
+            "correct": true,
+            "explain": "Hebat! Panah itu meluncur ke arah kanan!"
+          }
+        ]
+      },
+      {
+        "topic": "Arah Maju",
+        "variants": [
+          {
+            "q": "Untuk melangkah ke depan menuju garis finish, apakah kita berjalan MAJU?",
+            "visual": "<div class='huge-symbol'>🏃‍♂️ ➔ 🏁</div>",
+            "correct": true,
+            "explain": "Benar! Melangkah maju membuat kita sampai ke tujuan!"
+          },
+          {
+            "q": "Apakah mobil berjalan maju dengan memutar roda ke arah depan?",
+            "visual": "<div class='huge-symbol'>🚗 💨 ➔</div>",
+            "correct": true,
+            "explain": "Pintar! Mobil melaju maju di jalan raya!"
+          },
+          {
+            "q": "Apakah untuk melihat ke depan kita harus terus berjalan mundur tanpa melihat?",
+            "visual": "<div class='huge-symbol'>⬅️ 🚶‍♂️ 💥</div>",
+            "correct": false,
+            "explain": "Salah, jalan mundur tanpa melihat bisa menabrak!"
+          },
+          {
+            "q": "Apakah anak superhero pantang mundur saat belajar hal baru?",
+            "visual": "<div class='huge-symbol'>🦸‍♂️ ⚡ 💪</div>",
+            "correct": true,
+            "explain": "Luar biasa! Kak Reza selalu semangat melangkah maju!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Hari 6",
+    "title": "Kemandirian & Superhero",
+    "icon": "🦸‍♂️",
+    "badge": "Misi Kebaikan",
+    "desc": "Kemandirian hidup, sopan santun, kebersihan diri, kesehatan, dan sikap superhero sejati.",
+    "questions": [
+      {
+        "topic": "Kebersihan Diri",
+        "variants": [
+          {
+            "q": "Mencuci tangan pakai sabun sebelum makan adalah tindakan ANAK HEBAT?",
+            "visual": "<div class='huge-symbol'>🧼 🫧 🖐️</div>",
+            "correct": true,
+            "explain": "Benar! Kuman hilang dan perut kita jadi sehat!"
+          },
+          {
+            "q": "Apakah kita boleh langsung menyendok makanan dengan tangan penuh lumpur kotor?",
+            "visual": "<div class='huge-symbol'>🖐️ 💩 ➔ 🍛</div>",
+            "correct": false,
+            "explain": "Salah! Kuman dari lumpur bisa bikin perut sakit!"
+          },
+          {
+            "q": "Apakah air mengalir dan sabun ampuh membersihkan kotoran di tangan?",
+            "visual": "<div class='huge-symbol'>🚰 🫧 ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Cuci tangan 20 detik bikin tangan wangi bersih!"
+          },
+          {
+            "q": "Apakah mengelap tangan kotor di baju baru adalah cara cuci tangan yang benar?",
+            "visual": "<div class='huge-symbol'>👕 🖐️ 💩</div>",
+            "correct": false,
+            "explain": "Salah! Nanti bajunya jadi kotor terkena kuman!"
+          }
+        ]
+      },
+      {
+        "topic": "Kesehatan Gigi",
+        "variants": [
+          {
+            "q": "Menggosok gigi pagi dan malam sebelum tidur membuat gigi putih dan KUAT?",
+            "visual": "<div class='huge-symbol'>🪥 🦷 ✨</div>",
+            "correct": true,
+            "explain": "Benar! Gigi bersih bebas dari kuman ulat gigi!"
+          },
+          {
+            "q": "Apakah kita tidak perlu sikat gigi sama sekali setelah makan permen manis?",
+            "visual": "<div class='huge-symbol'>🍬 🍭 🦷 ❌</div>",
+            "correct": false,
+            "explain": "Salah! Gula permen bisa bikin gigi berlubang kalau tidak disikat!"
+          },
+          {
+            "q": "Apakah pasta gigi khusus anak terasa segar dan aman dipakai menggosok gigi?",
+            "visual": "<div class='huge-symbol'>🪥 🍓 ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Sikat gigi secara teratur membuat senyum Kak Reza cemerlang!"
+          },
+          {
+            "q": "Apakah kita menggosok gigi menggunakan sapu ijuk pembersih lantai?",
+            "visual": "<div class='huge-symbol'>🧹 🦷 ❓</div>",
+            "correct": false,
+            "explain": "Lucu sekali, menggosok gigi memakai sikat gigi berbulu lembut!"
+          }
+        ]
+      },
+      {
+        "topic": "Tanggung Jawab Mainan",
+        "variants": [
+          {
+            "q": "Setelah selesai bermain mobil-mobilan, apakah mainan dirapikan kembali ke tempatnya?",
+            "visual": "<div class='huge-symbol'>🏎️ ➔ 📦 ✨</div>",
+            "correct": true,
+            "explain": "Hebat! Superhero Reza selalu merapikan mainan sendiri!"
+          },
+          {
+            "q": "Apakah mainan boleh dibiarkan berserakan di lantai agar orang lain tersandung?",
+            "visual": "<div class='huge-symbol'>🚗 🛞 🦶 💥</div>",
+            "correct": false,
+            "explain": "Salah! Mainan berserakan bisa bikin Bunda atau Ayah tersandung jatuh!"
+          },
+          {
+            "q": "Kamar yang rapi dan bersih membuat hati kita senang dan nyaman?",
+            "visual": "<div class='huge-symbol'>🏠 🧹 ✨ 😊</div>",
+            "correct": true,
+            "explain": "Pintar sekali! Rumah rapi membuat seluruh keluarga bahagia!"
+          },
+          {
+            "q": "Apakah setelah makan es krim bungkusnya dilempar ke kolong tempat tidur?",
+            "visual": "<div class='huge-symbol'>🍦 🛏️ 🙅‍♂️</div>",
+            "correct": false,
+            "explain": "Salah! Bungkus sampah harus dibuang ke tempat sampah!"
+          }
+        ]
+      },
+      {
+        "topic": "Kemandirian Berpakaian",
+        "variants": [
+          {
+            "q": "Kak Reza anak pintar yang bisa memakai SEPATU SENDIRI?",
+            "visual": "<div class='huge-symbol'>👟 👦 ✨</div>",
+            "correct": true,
+            "explain": "Luar biasa! Mandiri memakai sepatu adalah ciri anak hebat!"
+          },
+          {
+            "q": "Apakah sepatu sebelah kanan dipakai di kaki sebelah kiri?",
+            "visual": "<div class='huge-symbol'>👟 🦶 🔄</div>",
+            "correct": false,
+            "explain": "Salah, sepatu kanan untuk kaki kanan, jangan tertukar ya!"
+          },
+          {
+            "q": "Apakah melepas sepatu dan menaruhnya di rak sepatu adalah sikap terpuji?",
+            "visual": "<div class='huge-symbol'>👟 ➔ 🚪 🗄️</div>",
+            "correct": true,
+            "explain": "Pintar! Menaruh sepatu di rak bikin rumah selalu rapi!"
+          },
+          {
+            "q": "Apakah sepatu boleh dipakai tidur di atas kasur bantal?",
+            "visual": "<div class='huge-symbol'>🛏️ 👟 ❌</div>",
+            "correct": false,
+            "explain": "Salah! Kasur tempat bersih, sepatu kotor tidak boleh ke kasur!"
+          }
+        ]
+      },
+      {
+        "topic": "Cinta Kebersihan",
+        "variants": [
+          {
+            "q": "Apakah bungkus biskuit dan kulit pisang harus DIBUANG KE TEMPAT SAMPAH?",
+            "visual": "<div class='huge-symbol'>🍌 ➔ 🗑️ ✨</div>",
+            "correct": true,
+            "explain": "Benar! Buang sampah pada tempatnya menjaga bumi bersih!"
+          },
+          {
+            "q": "Apakah sampah boleh dibuang sembarangan ke sungai atau selokan?",
+            "visual": "<div class='huge-symbol'>🗑️ ➔ 🌊 🚫</div>",
+            "correct": false,
+            "explain": "Salah! Buang sampah di sungai bisa menyebabkan banjir!"
+          },
+          {
+            "q": "Apakah melihat tempat sampah yang tertutup rapi adalah contoh kebersihan?",
+            "visual": "<div class='huge-symbol'>🗑️ 🌿 ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Tempat sampah tertutup mencegah bau dan lalat!"
+          },
+          {
+            "q": "Apakah kulit pisang dilempar di lantai agar orang terpeleset?",
+            "visual": "<div class='huge-symbol'>🍌 🦶 💥</div>",
+            "correct": false,
+            "explain": "Bahaya sekali! Kulit pisang licin dan harus dibuang ke tempat sampah!"
+          }
+        ]
+      },
+      {
+        "topic": "Sopan Santun: Tolong",
+        "variants": [
+          {
+            "q": "Saat kita butuh bantuan Ayah atau Bunda, apakah kita mengucapkan kata 'TOLONG'?",
+            "visual": "<div class='huge-symbol'>🙏 'Tolong ya Bunda'</div>",
+            "correct": true,
+            "explain": "Hebat! Kata 'Tolong' adalah kata ajaib yang sangat santun!"
+          },
+          {
+            "q": "Apakah kita meminta bantuan dengan cara berteriak marah-marah sambil menangis keras?",
+            "visual": "<div class='huge-symbol'>😡 📢 🙅‍♂️</div>",
+            "correct": false,
+            "explain": "Salah! Anak superhero berbicara dengan tenang dan sopan!"
+          },
+          {
+            "q": "Mengucapkan kata 'Tolong' membuat orang lain senang membantu kita?",
+            "visual": "<div class='huge-symbol'>😊 💕 🙏</div>",
+            "correct": true,
+            "explain": "Benar! Sikap santun disukai oleh semua orang!"
+          },
+          {
+            "q": "Apakah superhero sejati suka memerintah teman seperti komandan galak?",
+            "visual": "<div class='huge-symbol'>🦸‍♂️ 😠 👈</div>",
+            "correct": false,
+            "explain": "Salah! Superhero sejati selalu rendah hati dan bersahabat!"
+          }
+        ]
+      },
+      {
+        "topic": "Sopan Santun: Terima Kasih",
+        "variants": [
+          {
+            "q": "Saat diberi hadiah atau dibantu teman, apakah kita mengucap 'TERIMA KASIH'?",
+            "visual": "<div class='huge-symbol'>🎁 ➔ 'Terima Kasih!' 😊</div>",
+            "correct": true,
+            "explain": "Benar sekali! Ucapan terima kasih adalah tanda bersyukur!"
+          },
+          {
+            "q": "Apakah setelah diberi mainan baru kita langsung cemberut dan membuangnya?",
+            "visual": "<div class='huge-symbol'>🎁 ➔ 😠 ❌</div>",
+            "correct": false,
+            "explain": "Salah! Kita harus berterima kasih dan bersyukur!"
+          },
+          {
+            "q": "Tersenyum ramah sambil bilang 'Terima Kasih' membuat hati semua orang hangat?",
+            "visual": "<div class='huge-symbol'>😊 ✨ 💕</div>",
+            "correct": true,
+            "explain": "Pintar! Senyuman dan rasa terima kasih adalah kekuatan superhero!"
+          },
+          {
+            "q": "Apakah kita tidak perlu berterima kasih kepada Bunda yang memasakkan makanan lezat?",
+            "visual": "<div class='huge-symbol'>🍲 👩‍🍳 🙅‍♂️</div>",
+            "correct": false,
+            "explain": "Salah! Bunda sangat berjasa dan harus kita ucapkan terima kasih!"
+          }
+        ]
+      },
+      {
+        "topic": "Sopan Santun: Minta Maaf",
+        "variants": [
+          {
+            "q": "Jika kita tidak sengaja menyenggol menara balok teman sampai runtuh, apakah kita MINTA MAAF?",
+            "visual": "<div class='huge-symbol'>🧱 💥 ➔ 'Maaf ya teman' 🙏</div>",
+            "correct": true,
+            "explain": "Benar! Anak berani mengakui kesalahan dan minta maaf!"
+          },
+          {
+            "q": "Apakah jika berbuat salah kita harus menyalahkan orang lain sambil kabur?",
+            "visual": "<div class='huge-symbol'>🏃‍♂️ 💨 🤥 ❌</div>",
+            "correct": false,
+            "explain": "Salah! Superhero sejati berani bertanggung jawab dan meminta maaf!"
+          },
+          {
+            "q": "Meminta maaf dan saling memaafkan membuat kita bisa bermain gembira lagi?",
+            "visual": "<div class='huge-symbol'>🤝 😊 ✨</div>",
+            "correct": true,
+            "explain": "Hebat! Rukun bersama teman itu indah sekali!"
+          },
+          {
+            "q": "Apakah orang yang meminta maaf adalah orang yang penakut?",
+            "visual": "<div class='huge-symbol'>😨 ❓</div>",
+            "correct": false,
+            "explain": "Salah! Meminta maaf adalah bukti bahwa hati kita sangat ksatria dan berani!"
+          }
+        ]
+      },
+      {
+        "topic": "Tubuh Kuat Superhero",
+        "variants": [
+          {
+            "q": "Makan SAYUR HIJAU dan BUAH MANIS membuat tubuh Superhero Reza KUAT bertenaga?",
+            "visual": "<div class='huge-symbol'>🥦 🥕 🍎 ➔ 💪 ⚡</div>",
+            "correct": true,
+            "explain": "Benar! Vitamin dari buah dan sayur memberi energi super!"
+          },
+          {
+            "q": "Apakah makan permen manis sepanjang hari dari pagi sampai malam baik untuk tubuh?",
+            "visual": "<div class='huge-symbol'>🍭 🍬 🍫 🤢</div>",
+            "correct": false,
+            "explain": "Salah! Terlalu banyak permen bisa bikin batuk dan gigi rusak!"
+          },
+          {
+            "q": "Nasi, ikan, telur, dan tempe adalah makanan yang membuat tubuh cepat tumbuh besar?",
+            "visual": "<div class='huge-symbol'>🍚 🐟 🥚 ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Protein membuat otot dan otak Kak Reza berkembang optimal!"
+          },
+          {
+            "q": "Apakah minum minyak goreng mentah membuat kita berlari secepat kilat?",
+            "visual": "<div class='huge-symbol'>🛢️ 🏃‍♂️ ❌</div>",
+            "correct": false,
+            "explain": "Bahaya sekali! Minyak goreng mentah tidak boleh diminum!"
+          }
+        ]
+      },
+      {
+        "topic": "Air Putih Sehat",
+        "variants": [
+          {
+            "q": "Minum AIR PUTIH yang cukup setiap hari menjaga tubuh tetap segar dan fokus?",
+            "visual": "<div class='huge-symbol'>🥛 💧 ✨ 😊</div>",
+            "correct": true,
+            "explain": "Benar! Air putih sangat menyehatkan tubuh superhero kita!"
+          },
+          {
+            "q": "Apakah kita tidak boleh minum air putih sama sekali selama 3 hari berturut-turut?",
+            "visual": "<div class='huge-symbol'>🚫 💧 😫</div>",
+            "correct": false,
+            "explain": "Salah! Tubuh kita butuh minum air putih setiap hari agar tidak dehidrasi!"
+          },
+          {
+            "q": "Saat merasa haus setelah bermain lari-larian, air putih adalah minuman terbaik?",
+            "visual": "<div class='huge-symbol'>🏃‍♂️ ➔ 🥛 😋</div>",
+            "correct": true,
+            "explain": "Pintar! Air putih langsung menghilangkan rasa dahaga!"
+          },
+          {
+            "q": "Apakah air selokan kotor boleh kita minum saat haus?",
+            "visual": "<div class='huge-symbol'>🌊 💩 ❌</div>",
+            "correct": false,
+            "explain": "Bahaya! Air kotor banyak kuman, kita hanya minum air matang yang bersih!"
+          }
+        ]
+      },
+      {
+        "topic": "Istirahat Cukup",
+        "variants": [
+          {
+            "q": "Tidur malam tepat waktu tidak larut malam membuat bangun pagi segar dan ceria?",
+            "visual": "<div class='huge-symbol'>🌙 🛏️ ➔ 🌅 😃 ⚡</div>",
+            "correct": true,
+            "explain": "Benar! Otak dan tubuh kita tumbuh saat kita tidur nyenyak!"
+          },
+          {
+            "q": "Apakah menonton HP sampai jam 2 pagi baik untuk kesehatan mata dan otak anak?",
+            "visual": "<div class='huge-symbol'>📱 🕒 😵‍💫 ❌</div>",
+            "correct": false,
+            "explain": "Salah! Begadang bikin mata lelah dan besok pagi mengantuk lemas!"
+          },
+          {
+            "q": "Sebelum tidur malam, kita berdoa dan mematikan lampu agar tidur tenang?",
+            "visual": "<div class='huge-symbol'>🤲 🌙 💤 ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Tidur nyenyak membuat mimpi indah!"
+          },
+          {
+            "q": "Apakah anak TK harus begadang ronda malam sampai matahari terbit?",
+            "visual": "<div class='huge-symbol'>🦉 😴 ❌</div>",
+            "correct": false,
+            "explain": "Salah, anak-anak butuh tidur cukup 9-10 jam setiap malam!"
+          }
+        ]
+      },
+      {
+        "topic": "Bermain Bersama",
+        "variants": [
+          {
+            "q": "Mau BERBAGI MAINAN dan bermain BERGANTIAN adalah ciri teman yang baik?",
+            "visual": "<div class='huge-symbol'>🏎️ 🤝 ⚽ 😊</div>",
+            "correct": true,
+            "explain": "Hebat! Bermain bersama teman jauh lebih seru dan menyenangkan!"
+          },
+          {
+            "q": "Apakah kita boleh merebut mainan teman dengan kasar lalu memukulnya?",
+            "visual": "<div class='huge-symbol'>😠 💥 🙅‍♂️</div>",
+            "correct": false,
+            "explain": "Salah! Menyakiti teman itu perbuatan yang tidak boleh dilakukan!"
+          },
+          {
+            "q": "Menunggu giliran bermain perosotan dengan sabar adalah sikap anak tertib?",
+            "visual": "<div class='huge-symbol'>🛝 🚶‍♂️ 🚶‍♂️ ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Antre dan sabar bergantian membuat permainan aman!"
+          },
+          {
+            "q": "Apakah kita harus menyimpan semua mainan sendiri dan tidak boleh dipinjam siapa pun?",
+            "visual": "<div class='huge-symbol'>📦 🔒 😠</div>",
+            "correct": false,
+            "explain": "Salah, berbagi mainan membuat kita punya banyak teman baik!"
+          }
+        ]
+      },
+      {
+        "topic": "Keselamatan di Jalan",
+        "variants": [
+          {
+            "q": "Saat menyeberang jalan raya, apakah kita SELALU MEMEGANG TANGAN Ayah atau Bunda?",
+            "visual": "<div class='huge-symbol'>🚦 🚸 👨‍👦 ✨</div>",
+            "correct": true,
+            "explain": "Benar! Keselamatan nomor satu, selalu pegang tangan orang tua!"
+          },
+          {
+            "q": "Apakah boleh lari tiba-tiba ke tengah jalan raya yang ramai mobil melaju?",
+            "visual": "<div class='huge-symbol'>🚗 💨 🏃‍♂️ 🚫</div>",
+            "correct": false,
+            "explain": "Sangat bahaya! Jalan raya tempat mobil melaju kencang!"
+          },
+          {
+            "q": "Menyeberang di garis ZEBRA CROSS adalah tempat menyeberang yang aman?",
+            "visual": "<div class='huge-symbol'>🦓 🚶‍♂️ 🚸 ✨</div>",
+            "correct": true,
+            "explain": "Pintar! Zebra cross adalah garis penyeberangan pejalan kaki!"
+          },
+          {
+            "q": "Apakah kita boleh bermain bola tendang di tengah jalan raya?",
+            "visual": "<div class='huge-symbol'>⚽ 🚗 🛣️ ❌</div>",
+            "correct": false,
+            "explain": "Salah! Bermain bola di lapangan atau taman, bukan di jalan raya!"
+          }
+        ]
+      },
+      {
+        "topic": "Berdoa & Rasa Syukur",
+        "variants": [
+          {
+            "q": "Berdoa sebelum makan dan sebelum belajar adalah kebiasaan yang SANGAT BAIK?",
+            "visual": "<div class='huge-symbol'>🤲 📖 🍛 ✨</div>",
+            "correct": true,
+            "explain": "Benar! Berdoa memohon perlindungan dan berkah kebaikan!"
+          },
+          {
+            "q": "Apakah kita berdoa agar diberi kemudahan dalam belajar dan menolong sesama?",
+            "visual": "<div class='huge-symbol'>🤲 💡 ❤️</div>",
+            "correct": true,
+            "explain": "Pintar! Doa yang tulus membuat hati kita tenang dan cerdas!"
+          },
+          {
+            "q": "Apakah kita berdoa sambil berteriak marah-marah menendang kursi?",
+            "visual": "<div class='huge-symbol'>😠 🪑 💥 ❌</div>",
+            "correct": false,
+            "explain": "Salah, berdoa dilakukan dengan khusyuk dan tenang!"
+          },
+          {
+            "q": "Apakah bersyukur atas nikmat hari ini membuat hidup kita bahagia?",
+            "visual": "<div class='huge-symbol'>😊 🌟 🤲</div>",
+            "correct": true,
+            "explain": "Hebat! Hati yang bersyukur selalu dipenuhi kebahagiaan!"
+          }
+        ]
+      },
+      {
+        "topic": "Mental Juara Superhero",
+        "variants": [
+          {
+            "q": "Jika pertama kali menyusun puzzle belum pas, apakah Superhero Reza COBA LAGI sampai bisa?",
+            "visual": "<div class='huge-symbol'>🧩 ➔ 💪 ➔ 🏆 ✨</div>",
+            "correct": true,
+            "explain": "Luar biasa! Pantang menyerah dan terus berusaha adalah sifat juara sejati!"
+          },
+          {
+            "q": "Apakah jika gagal sekali kita harus langsung merusak semua mainan dan menangis guling-guling?",
+            "visual": "<div class='huge-symbol'>😭 💥 🙅‍♂️</div>",
+            "correct": false,
+            "explain": "Salah! Tarik napas dalam-dalam, tenangkan diri, dan coba lagi!"
+          },
+          {
+            "q": "Kak Reza adalah anak yang cerdas, hebat, mandiri, dan disayang seluruh keluarga?",
+            "visual": "<div class='huge-symbol'>🦸‍♂️ ⚡ 🥇 💖</div>",
+            "correct": true,
+            "explain": "BENAR 100%! Kak Reza adalah superhero kebanggaan keluarga!"
+          },
+          {
+            "q": "Apakah belajar hal baru itu hal yang membosankan dan menyeramkan?",
+            "visual": "<div class='huge-symbol'>📖 😨 ❓</div>",
+            "correct": false,
+            "explain": "Salah! Belajar itu petualangan seru dan mengasyikkan!"
+          }
+        ]
+      }
+    ]
+  }
+]
