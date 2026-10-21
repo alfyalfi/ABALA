@@ -52,12 +52,15 @@ export default function Home() {
       const v = slot.variants[Math.floor(Math.random() * slot.variants.length)];
       return {
         slotIndex: sIdx,
+        type: v.type,
         topic: slot.topic,
         prompt: v.prompt,
         visual: v.visual,
+        countItems: v.countItems,
+        soundFile: v.soundFile,
+        soundLabel: v.soundLabel,
         choices: v.choices,
-        realImage: v.realImage,
-        soundCue: v.soundCue
+        realImage: v.realImage
       };
     });
 
@@ -113,7 +116,11 @@ export default function Home() {
     if (sessionQuestions.length > 0 && currentQIndex < sessionQuestions.length) {
       const q = sessionQuestions[currentQIndex];
       const timer = setTimeout(() => {
-        audioService.speakText(`Kak Reza, ${q.prompt}`);
+        if (q.type === 'sound') {
+          audioService.speakText(`Kak Reza, dengarkan suara ini!`);
+        } else {
+          audioService.speakText(`Kak Reza, ${q.prompt}`);
+        }
       }, 200);
       return () => clearTimeout(timer);
     }
@@ -239,7 +246,11 @@ export default function Home() {
         onTogglePause={() => setIsPaused(!isPaused)}
         onSpeakPrompt={() => {
           if (activeQuestion) {
-            audioService.speakText(`Kak Reza, ${activeQuestion.prompt}`);
+            if (activeQuestion.type === 'sound') {
+              audioService.speakText(`Kak Reza, dengarkan suara ini!`);
+            } else {
+              audioService.speakText(`Kak Reza, ${activeQuestion.prompt}`);
+            }
           }
         }}
         onOpenParentDashboard={() => setShowParentDashboard(true)}

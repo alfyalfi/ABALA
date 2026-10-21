@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Volume2, Sparkles } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Volume2, Play, Sparkles } from 'lucide-react';
 import { ActiveQuestion } from '../types';
 import { audioService } from '../services/audioService';
 
@@ -18,20 +18,30 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   dayIcon,
   feedbackToast
 }) => {
-  const [imgLoaded, setImgLoaded] = useState(false);
   const [isPlayingSound, setIsPlayingSound] = useState(false);
 
-  const handlePlayRealSound = async () => {
+  // If question has a real sound file, play the authentic sound after prompt finishes!
+  useEffect(() => {
+    if (question.soundFile) {
+      const timer = setTimeout(() => {
+        handlePlayAuthenticSound();
+      }, 1600);
+      return () => clearTimeout(timer);
+    }
+  }, [question.soundFile, question.prompt]);
+
+  const handlePlayAuthenticSound = async () => {
+    if (!question.soundFile) return;
     setIsPlayingSound(true);
-    await audioService.playRealSound(question.prompt);
-    setTimeout(() => setIsPlayingSound(false), 1500);
+    await audioService.playSoundFile(question.soundFile);
+    setTimeout(() => setIsPlayingSound(false), 2000);
   };
 
   return (
     <main className="bg-white rounded-hero-lg border-2 border-hero-border shadow-hero-md flex-1 flex flex-col items-center justify-between p-4 sm:p-5 text-center relative mb-3 min-h-0 w-full overflow-hidden">
       {/* Toast Notification Top */}
       <div
-        className={`absolute top-3 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-white font-black text-sm shadow-lg transition-all duration-200 pointer-events-none z-20 whitespace-nowrap ${
+        className={`absolute top-3 left-1/2 -translate-x-1/2 px-5 py-1.5 rounded-full text-white font-black text-sm shadow-lg transition-all duration-200 pointer-events-none z-30 whitespace-nowrap ${
           feedbackToast.show
             ? 'opacity-100 translate-y-0 scale-100'
             : 'opacity-0 -translate-y-4 scale-90'
@@ -57,42 +67,90 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
         {question.prompt}
       </h2>
 
-      {/* Center Visual Area (Real Photo or High-Res Emoji) */}
+      {/* ======================================================== */}
+      {/* CENTER STAGE ACCORDING TO PEDAGOGICAL QUESTION TYPE */}
+      {/* ======================================================== */}
       <div className="flex-1 w-full flex flex-col items-center justify-center my-1 relative min-h-[110px]">
-        {question.realImage ? (
-          <div className="relative group max-h-36 sm:max-h-40 rounded-2xl overflow-hidden border-2 border-slate-100 shadow-sm bg-slate-50">
-            <img
-              src={question.realImage}
-              alt={question.prompt}
-              onLoad={() => setImgLoaded(true)}
-              className={`max-h-36 sm:max-h-40 object-cover rounded-2xl transition-all duration-300 ${
-                imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-              }`}
-            />
-            {/* Real Audio Cue Button Overlay if sound related */}
-            {(question.prompt.toLowerCase().includes('suara') ||
-              question.prompt.toLowerCase().includes('bunyi')) && (
-              <button
-                onClick={handlePlayRealSound}
-                className="absolute bottom-2 right-2 bg-hero-black/85 text-white p-2 rounded-full shadow-md backdrop-blur-sm hover:bg-hero-red transition-all active:scale-90 flex items-center gap-1 text-xs font-bold"
-                title="Putar Suara Asli"
-              >
-                <Volume2 size={14} className={isPlayingSound ? "animate-bounce text-hero-gold" : ""} />
-                <span>Dengar</span>
-              </button>
-            )}
+        
+        {/* CASE 1: COUNTING QUESTIONS (Menghitung Benda) */}
+        {question.type === 'counting' && question.countItems ? (
+          <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 w-full max-w-xs shadow-inner flex flex-col items-center justify-center">
+            <div className="text-[0.7rem] font-bold text-slate-400 mb-2 uppercase tracking-wider">
+              Hitung Benda di Bawah Ini:
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              {question.countItems.map((itemIco, idx) => (
+                <div
+                  key={idx}
+                  className="flex flex-col items-center justify-center bg-white p-2 rounded-xl shadow-xs border border-slate-100 min-w-[48px] min-h-[48px]"
+                >
+                  <span className="text-3xl sm:text-4xl leading-none">{itemIco}</span>
+                  <span className="text-[0.65rem] font-black text-slate-400 mt-1">{idx + 1}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        ) : question.visual ? (
-          <div
-            className="text-4xl sm:text-5xl font-black text-hero-black drop-shadow-sm flex items-center justify-center p-2"
-            dangerouslySetInnerHTML={{ __html: question.visual }}
-          />
+        ) : question.type === 'sound' && question.soundFile ? (
+          /* CASE 2: REAL SOUND IDENTIFICATION (Menyimak Suara Asli) */
+          <div className="bg-gradient-to-b from-red-50 to-white border-2 border-hero-red/30 rounded-2xl p-4 w-full max-w-xs shadow-sm flex flex-col items-center justify-center">
+            <button
+              onClick={handlePlayAuthenticSound}
+              className={`w-16 h-16 rounded-full bg-hero-red text-white flex items-center justify-center shadow-hero-red transition-all duration-200 active:scale-90 ${
+                isPlayingSound ? 'ring-8 ring-red-200 animate-pulse scale-105' : 'hover:scale-105'
+              }`}
+              title="Dengarkan Suara Asli"
+            >
+              <Volume2 size={32} className={isPlayingSound ? 'animate-bounce text-hero-gold' : ''} />
+            </button>
+
+            <span className="text-xs font-black text-hero-red mt-2.5 flex items-center gap-1">
+              <span>{isPlayingSound ? 'Sedang Memutar Suara Asli...' : 'Ketuk untuk Putar Suara Asli'}</span>
+            </span>
+
+            <span className="text-[0.68rem] font-bold text-slate-400 mt-0.5">
+              Dengarkan baik-baik, lalu tebak hewannya di bawah!
+            </span>
+          </div>
+        ) : question.type === 'sequence' ? (
+          /* CASE 3: NUMBER SEQUENCE (Urutan Angka) */
+          <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 w-full max-w-xs shadow-inner flex items-center justify-center">
+            <div className="flex items-center gap-2 sm:gap-3 text-2xl sm:text-3xl font-black text-hero-black">
+              {question.visual?.split('➔').map((chunk, cIdx) => (
+                <React.Fragment key={cIdx}>
+                  {cIdx > 0 && <span className="text-slate-300 text-lg">➔</span>}
+                  {chunk.includes('?') ? (
+                    <span className="bg-red-100 text-hero-red px-3 py-1 rounded-xl border-2 border-dashed border-hero-red animate-pulse">
+                      ?
+                    </span>
+                  ) : (
+                    <span className="bg-white px-3 py-1 rounded-xl shadow-xs border border-slate-200">
+                      {chunk.trim()}
+                    </span>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        ) : question.type === 'number_match' ? (
+          /* CASE 4: NUMBER MATCHING */
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-hero-black border-4 border-hero-red flex items-center justify-center text-3xl sm:text-4xl font-black text-hero-gold shadow-hero-md">
+              {question.visual?.replace(/[^0-9]/g, '') || question.prompt.match(/[0-9]/)?.[0] || '1'}
+            </div>
+            <span className="text-xs font-black text-slate-400 mt-2">Cari kotak yang jumlahnya cocok!</span>
+          </div>
         ) : (
-          <div className="text-4xl">⭐</div>
+          /* CASE 5: GENERAL VISUAL (Clean, Distinct Hero Subject) */
+          <div className="flex flex-col items-center justify-center">
+            <div
+              className="text-4xl sm:text-5xl font-black text-hero-black drop-shadow-sm flex items-center justify-center p-2"
+              dangerouslySetInnerHTML={{ __html: question.visual || '⭐' }}
+            />
+          </div>
         )}
       </div>
 
-      {/* Hint / Sound helper banner if available */}
+      {/* Bottom Hint */}
       <div className="w-full flex items-center justify-center gap-1 text-xs font-bold text-slate-400">
         <Sparkles size={12} className="text-hero-gold" />
         <span>Pilih jawaban yang benar di bawah ya Kak Reza!</span>

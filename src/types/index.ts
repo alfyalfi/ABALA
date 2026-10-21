@@ -6,11 +6,14 @@ export interface ChoiceOption {
 }
 
 export interface QuestionVariant {
+  type?: string;
   prompt: string;
   visual?: string;
+  countItems?: string[];
+  soundFile?: string;
+  soundLabel?: string;
   choices: ChoiceOption[];
   realImage?: string;
-  soundCue?: string;
 }
 
 export interface QuestionSlot {
@@ -30,12 +33,15 @@ export interface DayCurriculum {
 
 export interface ActiveQuestion {
   slotIndex: number;
+  type?: string;
   topic: string;
   prompt: string;
   visual?: string;
+  countItems?: string[];
+  soundFile?: string;
+  soundLabel?: string;
   choices: ChoiceOption[];
   realImage?: string;
-  soundCue?: string;
 }
 
 export interface DailyResult {

@@ -30,10 +30,11 @@ export const ChoicesGrid: React.FC<ChoicesGridProps> = ({
               ? 'bg-hero-successBg border-2 border-hero-success text-hero-success scale-[1.03] shadow-lg ring-2 ring-emerald-300'
               : 'bg-hero-dangerBg border-2 border-hero-danger text-hero-danger scale-[0.97] shadow-sm ring-2 ring-rose-300';
           } else if (isCorrectChoice) {
-            // Reveal the correct one gently if user picked wrong
             statusStyle = 'bg-emerald-50 border-2 border-emerald-400 text-emerald-800 ring-2 ring-emerald-200';
           }
         }
+
+        const isPureNumber = /^[0-9]+$/.test(choice.label.trim());
 
         return (
           <button
@@ -43,21 +44,19 @@ export const ChoicesGrid: React.FC<ChoicesGridProps> = ({
             className={`flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-hero min-h-[82px] sm:min-h-[88px] transition-all duration-150 active:scale-95 shadow-sm text-center relative overflow-hidden group ${statusStyle}`}
           >
             {/* Visual: Real Photo thumbnail or Emoji/SVG */}
-            {choice.realImage ? (
-              <img
-                src={choice.realImage}
-                alt={choice.label}
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover mb-1 border border-slate-200 shadow-2xs"
-              />
-            ) : choice.visual ? (
+            {choice.visual ? (
               <div
-                className="text-2xl sm:text-3xl leading-none mb-1 group-hover:scale-110 transition-transform"
+                className="text-2xl sm:text-3xl leading-none mb-1 group-hover:scale-105 transition-transform"
                 dangerouslySetInnerHTML={{ __html: choice.visual }}
               />
             ) : null}
 
             {/* Choice Label */}
-            <span className="text-xs sm:text-sm font-black leading-tight line-clamp-2">
+            <span
+              className={`font-black leading-tight line-clamp-2 ${
+                isPureNumber ? 'text-2xl sm:text-3xl text-hero-black' : 'text-xs sm:text-sm'
+              }`}
+            >
               {choice.label}
             </span>
           </button>

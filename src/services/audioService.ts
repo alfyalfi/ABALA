@@ -1,14 +1,10 @@
-// Audio Engine: Natural Neural AI TTS + Realistic SFX + Synthesized Feedback
-import { getRealSound } from './mediaLibrary';
-
+// Audio Engine: Natural Neural AI TTS + Real Authentic Sound Playback
 class AudioService {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = false;
   private currentAudioElement: HTMLAudioElement | null = null;
 
-  constructor() {
-    // Lazy initialize AudioContext on user interaction
-  }
+  constructor() {}
 
   private getContext(): AudioContext | null {
     if (typeof window === 'undefined') return null;
@@ -40,7 +36,7 @@ class AudioService {
       this.currentAudioElement.pause();
       this.currentAudioElement = null;
     }
-    if ('speechSynthesis' in window) {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
   }
@@ -102,21 +98,19 @@ class AudioService {
     }
   }
 
-  // Play realistic real sounds (Animal meow, siren, rain, horn, etc.)
-  public async playRealSound(keyword: string): Promise<boolean> {
-    if (this.isMuted) return false;
-    const soundUrl = getRealSound(keyword);
-    if (!soundUrl) return false;
+  // Play Real Authentic Sound Clip (From public/sounds/)
+  public async playSoundFile(soundPath: string): Promise<boolean> {
+    if (this.isMuted || !soundPath) return false;
 
     this.stopAllAudio();
     try {
-      const audio = new Audio(soundUrl);
+      const audio = new Audio(soundPath);
       this.currentAudioElement = audio;
-      audio.volume = 0.8;
+      audio.volume = 1.0;
       await audio.play();
       return true;
     } catch (e) {
-      console.warn('Could not play real sound:', e);
+      console.warn('Could not play sound file:', soundPath, e);
       return false;
     }
   }
@@ -133,9 +127,8 @@ class AudioService {
       this.currentAudioElement = audio;
       audio.volume = 1.0;
 
-      // Promise race with 2s timeout
       const playPromise = audio.play();
-      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject('timeout'), 2000));
+      const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject('timeout'), 1800));
 
       await Promise.race([playPromise, timeoutPromise]);
       return;
@@ -146,7 +139,7 @@ class AudioService {
   }
 
   private fallbackWebSpeech(text: string) {
-    if (!('speechSynthesis' in window)) return;
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     window.speechSynthesis.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
@@ -154,7 +147,6 @@ class AudioService {
     utterance.rate = 0.92;
     utterance.pitch = 1.08;
 
-    // Pick Indonesian voice if available
     const voices = window.speechSynthesis.getVoices();
     const idVoice = voices.find(v => v.lang.includes('id') || v.lang.includes('ID'));
     if (idVoice) {
