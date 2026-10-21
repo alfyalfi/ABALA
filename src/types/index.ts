@@ -5,6 +5,12 @@ export interface ChoiceOption {
   realImage?: string;
 }
 
+export interface SequenceItem {
+  id: string;
+  emoji: string;
+  label: string;
+}
+
 export interface QuestionVariant {
   type?: string;
   prompt: string;
@@ -12,6 +18,14 @@ export interface QuestionVariant {
   countItems?: string[];
   soundFile?: string;
   soundLabel?: string;
+  step1Target?: string;
+  step2Target?: string;
+  step1Label?: string;
+  step2Label?: string;
+  voiceIntro?: string;
+  voiceStep1Done?: string;
+  voiceSuccess?: string;
+  sequenceItems?: SequenceItem[];
   choices: ChoiceOption[];
   realImage?: string;
 }
@@ -40,6 +54,14 @@ export interface ActiveQuestion {
   countItems?: string[];
   soundFile?: string;
   soundLabel?: string;
+  step1Target?: string;
+  step2Target?: string;
+  step1Label?: string;
+  step2Label?: string;
+  voiceIntro?: string;
+  voiceStep1Done?: string;
+  voiceSuccess?: string;
+  sequenceItems?: SequenceItem[];
   choices: ChoiceOption[];
   realImage?: string;
 }
