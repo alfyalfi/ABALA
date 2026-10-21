@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ALL_DAYS } from './data/dailyCurriculum';
-import { ActiveQuestion, DailyResult } from './types';
-import { audioService } from './services/audioService';
-import { ProgressService } from './services/supabaseService';
-import { Header } from './components/Header';
-import { DaySelector } from './components/DaySelector';
-import { QuestionCard } from './components/QuestionCard';
-import { ChoicesGrid } from './components/ChoicesGrid';
-import { ResultModal } from './components/ResultModal';
-import { ParentDashboardModal } from './components/ParentDashboardModal';
+'use client';
 
-export const App: React.FC = () => {
+import React, { useState, useEffect, useRef } from 'react';
+import { ALL_DAYS } from '@/data/dailyCurriculum';
+import { ActiveQuestion, DailyResult } from '@/types';
+import { audioService } from '@/services/audioService';
+import { ProgressService } from '@/services/supabaseService';
+import { Header } from '@/components/Header';
+import { DaySelector } from '@/components/DaySelector';
+import { QuestionCard } from '@/components/QuestionCard';
+import { ChoicesGrid } from '@/components/ChoicesGrid';
+import { ResultModal } from '@/components/ResultModal';
+import { ParentDashboardModal } from '@/components/ParentDashboardModal';
+
+export default function Home() {
   const [currentDayIndex, setCurrentDayIndex] = useState<number>(0); // Default Day 1 (Berhitung)
   const [sessionQuestions, setSessionQuestions] = useState<ActiveQuestion[]>([]);
   const [currentQIndex, setCurrentQIndex] = useState<number>(0);
@@ -68,11 +70,10 @@ export const App: React.FC = () => {
     setTimeLeft(TIMER_DURATION);
   };
 
-  // On App Mount
+  // On Mount
   useEffect(() => {
     initializeDaySession(0); // Start Hari 1
 
-    // PWA Install Event Listener
     const handleBeforeInstall = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
@@ -85,7 +86,7 @@ export const App: React.FC = () => {
     };
   }, []);
 
-  // Question Timer Effect
+  // Timer Effect
   useEffect(() => {
     if (showResultModal || isPaused || isAnswered || sessionQuestions.length === 0) return;
 
@@ -162,7 +163,7 @@ export const App: React.FC = () => {
     }, 650);
   };
 
-  // Move to next question or finish
+  // Advance
   const advanceToNextQuestion = () => {
     setFeedbackToast(prev => ({ ...prev, show: false }));
     setSelectedChoiceIndex(null);
@@ -176,14 +177,13 @@ export const App: React.FC = () => {
     }
   };
 
-  // Finish Session & Evaluate 50% Threshold
+  // Finish Session & Evaluate 50%
   const handleFinishSession = () => {
     const total = sessionQuestions.length;
-    // Account for current question score
     const finalScore = score.correct + (selectedChoiceIndex !== null && sessionQuestions[currentQIndex]?.choices[selectedChoiceIndex]?.isCorrect ? 1 : 0);
     const finalWrong = total - finalScore;
     const percentage = Math.round((finalScore / total) * 100);
-    const passed = percentage >= 50; // Minimal 50% (8 dari 15)
+    const passed = percentage >= 50;
 
     const result: DailyResult = {
       dayId: ALL_DAYS[currentDayIndex].id,
@@ -199,7 +199,6 @@ export const App: React.FC = () => {
     setCurrentResult(result);
     setShowResultModal(true);
 
-    // Save session in background
     ProgressService.saveSession(result);
 
     if (passed) {
@@ -258,10 +257,10 @@ export const App: React.FC = () => {
       {/* 3. Status Progress & Timer */}
       <div className="w-full mb-1">
         <div className="flex items-center justify-between text-xs font-black text-slate-500 mb-1">
-          <span className="bg-red-50 text-hero-red px-2.5 py-0.5 rounded-full border border-red-100">
+          <span className="bg-red-50 text-hero-red px-2.5 py-0.5 rounded-full border border-red-100 font-sans">
             Soal {currentQIndex + 1} / {sessionQuestions.length}
           </span>
-          <span className="flex items-center gap-1 bg-amber-50 text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-200">
+          <span className="flex items-center gap-1 bg-amber-50 text-amber-700 px-2.5 py-0.5 rounded-full border border-amber-200 font-sans">
             <span>⏳</span>
             <span>{timeLeft}s</span>
           </span>
@@ -321,4 +320,4 @@ export const App: React.FC = () => {
 
     </div>
   );
-};
+}

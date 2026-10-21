@@ -44,38 +44,41 @@ Masing-masing hari memiliki **15 slot soal**, dan setiap slot dibekali **30 vari
 
 ---
 
-## 🛠️ Arsitektur Teknologi
+## 🛠️ Arsitektur Teknologi (Next.js 16+ Turbopack)
 
 ```text
 abala/
-├── api/
-│   ├── tts.js                   <-- Vercel Serverless Function: Natural Neural AI TTS
-│   └── progress.js              <-- Vercel Serverless Function: Supabase Cloud Sync
-├── public/
-│   ├── manifest.webmanifest     <-- PWA Manifest
-│   ├── favicon.ico              <-- Superhero App Icon
-│   └── icons/                   <-- PWA Icons (192px, 512px, SVG)
 ├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   ├── tts/route.ts          <-- Next.js 16 Route Handler: Natural Neural AI TTS
+│   │   │   └── progress/route.ts     <-- Next.js 16 Route Handler: Supabase Cloud Sync
+│   │   ├── layout.tsx                <-- Next.js 16 Root Layout & PWA Meta
+│   │   └── page.tsx                  <-- Interactive Learning Engine (Client App)
 │   ├── components/
-│   │   ├── Header.tsx           <-- Top Bar & Reza Avatar
-│   │   ├── DaySelector.tsx      <-- 6 Hari Navigation Bar
-│   │   ├── QuestionCard.tsx     <-- Kartu Soal & Gambar Realistis
-│   │   ├── ChoicesGrid.tsx      <-- Tombol Pilihan Jawaban Taktil
-│   │   ├── ResultModal.tsx      <-- Selebrasi Konfeti & Evaluasi 50%
-│   │   └── ParentDashboardModal.tsx <-- Rapor & Analitik Tumbuh Kembang
+│   │   ├── Header.tsx                <-- Top Bar, Controls & Reza Identity
+│   │   ├── DaySelector.tsx           <-- 6 Hari Navigation Bar
+│   │   ├── QuestionCard.tsx          <-- Kartu Soal & Gambar Fotografi Realistis
+│   │   ├── ChoicesGrid.tsx           <-- Tombol Pilihan Jawaban Taktil
+│   │   ├── ResultModal.tsx           <-- Selebrasi Konfeti & Evaluasi 50%
+│   │   └── ParentDashboardModal.tsx  <-- Rapor & Analitik Tumbuh Kembang
 │   ├── services/
-│   │   ├── audioService.ts      <-- Synthesizer + Neural TTS + Real SFX
-│   │   ├── mediaLibrary.ts      <-- Pustaka Gambar & Suara Realistis
-│   │   └── supabaseService.ts   <-- Offline-First Local + Supabase Sync
+│   │   ├── audioService.ts           <-- Synthesizer + Neural TTS + Real SFX
+│   │   ├── mediaLibrary.ts           <-- Pustaka Gambar & Suara Realistis
+│   │   └── supabaseService.ts        <-- Offline-First Local + Supabase Sync
 │   ├── data/
-│   │   └── dailyCurriculum.ts   <-- Bank 2.700 Variasi Soal
-│   ├── types/index.ts           <-- TypeScript Contracts
-│   ├── App.tsx                  <-- State Kuis & Interaktivitas
-│   └── main.tsx                 <-- React Entry & Service Worker Register
-├── schema.sql                   <-- Skrip Database Supabase
-├── vercel.json                  <-- Konfigurasi Hosting Vercel
-├── vite.config.ts               <-- Konfigurasi Vite & Vite-PWA Workbox
-└── tailwind.config.js           <-- Tema Superhero Hitam & Merah (Light Theme)
+│   │   └── dailyCurriculum.ts        <-- Bank 2.700 Variasi Soal (6 Hari x 30 Variasi)
+│   ├── types/index.ts                <-- TypeScript Contracts
+│   └── index.css                     <-- Tailwind Directives & Superhero Styling
+├── public/
+│   ├── sw.js                         <-- PWA Service Worker (Offline Cache)
+│   ├── manifest.json                 <-- Web App Manifest
+│   ├── favicon.ico                   <-- Superhero App Icon
+│   └── icons/                        <-- PWA Icons (192px, 512px, SVG)
+├── schema.sql                        <-- Skrip Database Supabase
+├── vercel.json                       <-- Konfigurasi Hosting Vercel (Next.js preset)
+├── next.config.mjs                   <-- Konfigurasi Next.js 16 (Turbopack, Remote Images)
+└── tailwind.config.js                <-- Tema Superhero Hitam & Merah (Light Theme)
 ```
 
 ---
