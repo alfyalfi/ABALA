@@ -160,7 +160,7 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
   // ========================================================
   // MODE 2: SEQUENCE 2-STEP INTERACTIVE MISSION (1-Tap Per Step)
   // ========================================================
-  if (questionType === 'sequence_2' && sequenceItems && sequenceItems.length > 0 && onSelectSequenceItem) {
+  if ((questionType === 'sequence_2' || questionType === 'sequence_2step') && sequenceItems && sequenceItems.length > 0 && onSelectSequenceItem) {
     return (
       <div className="w-full h-full flex flex-col justify-center items-center p-1 sm:p-1.5 overflow-hidden">
         <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full h-full max-w-lg overflow-hidden">

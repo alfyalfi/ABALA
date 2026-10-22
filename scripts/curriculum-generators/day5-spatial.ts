@@ -75,7 +75,7 @@ export function generateDay5Spatial() {
           skill: 'bentuk_geometri_2d',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Bentuk Geometri #${vIdx + 1}: Manakah bentuk LINGKARAN yang bulat sempurna tanpa sudut?`,
+          prompt: `Manakah bentuk LINGKARAN yang bulat tanpa sudut?`,
           visual: '⚪ Lingkaran',
           choices: [
             { label: 'Lingkaran Bulat ⚪', isCorrect: true },
@@ -97,7 +97,7 @@ export function generateDay5Spatial() {
           skill: 'bentuk_geometri_2d',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Bentuk Geometri #${vIdx + 1}: Manakah bentuk PERSEGI yang memiliki 4 sisi sama panjang?`,
+          prompt: `Manakah bentuk PERSEGI yang memiliki 4 sisi sama panjang?`,
           visual: '⬛ Persegi',
           choices: [
             { label: 'Persegi Kotak ⬛', isCorrect: true },
@@ -119,7 +119,7 @@ export function generateDay5Spatial() {
           skill: 'bentuk_geometri_2d',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Bentuk Geometri #${vIdx + 1}: Manakah bentuk SEGITIGA yang memiliki tepat 3 sudut runcing?`,
+          prompt: `Manakah bentuk SEGITIGA yang memiliki 3 sudut runcing?`,
           visual: '🔺 Segitiga',
           choices: [
             { label: 'Segitiga Runcing 🔺', isCorrect: true },
@@ -141,7 +141,7 @@ export function generateDay5Spatial() {
           skill: 'bentuk_geometri_2d',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Bintang Superhero #${vIdx + 1}: Manakah simbol BINTANG EMAS gemerlap kebanggaan Kak Reza?`,
+          prompt: `Manakah bentuk BINTANG EMAS yang bersinar indah?`,
           visual: '⭐ Bintang',
           choices: [
             { label: 'Bintang Emas ⭐', isCorrect: true },
@@ -163,7 +163,7 @@ export function generateDay5Spatial() {
           skill: 'bentuk_geometri_2d',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Kasih Sayang #${vIdx + 1}: Manakah simbol bentuk HATI yang melambangkan kasih sayang keluarga?`,
+          prompt: `Manakah bentuk HATI yang melambangkan kasih sayang?`,
           visual: '❤️ Kasih Sayang',
           choices: [
             { label: 'Bentuk Hati ❤️', isCorrect: true },
@@ -186,7 +186,7 @@ export function generateDay5Spatial() {
           skill: 'geometri_benda_nyata',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Benda Lingkaran #${vIdx + 1}: Di antara benda berikut, manakah yang memiliki bentuk dasar LINGKARAN bulat?`,
+          prompt: `Di antara benda ini, manakah yang berbentuk LINGKARAN bulat?`,
           visual: '⚪ ➔ ❓',
           choices: [
             { label: item, isCorrect: true },
@@ -209,7 +209,7 @@ export function generateDay5Spatial() {
           skill: 'geometri_benda_nyata',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Benda Kotak #${vIdx + 1}: Di antara benda di rumah, manakah yang memiliki permukaan KOTAK PERSEGI?`,
+          prompt: `Di antara benda ini, manakah yang permukaannya KOTAK / PERSEGI?`,
           visual: '⬛ ➔ ❓',
           choices: [
             { label: item, isCorrect: true },
@@ -232,7 +232,7 @@ export function generateDay5Spatial() {
           skill: 'geometri_benda_nyata',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Benda Segitiga #${vIdx + 1}: Benda manakah yang memiliki bentuk SEGITIGA berujung runcing?`,
+          prompt: `Di antara benda ini, manakah yang memiliki bentuk SEGITIGA?`,
           visual: '🔺 ➔ ❓',
           choices: [
             { label: item, isCorrect: true },
@@ -258,7 +258,7 @@ export function generateDay5Spatial() {
           skill: 'pola_visual',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pola Warna Berulang #${vIdx + 1}: Perhatikan polanya: ${seq}. Warna apakah berikutnya?`,
+          prompt: `Perhatikan polanya: ${seq}. Warna apakah berikutnya?`,
           visual: seq,
           choices: [
             { label: ans, isCorrect: true },
@@ -284,7 +284,7 @@ export function generateDay5Spatial() {
           skill: 'pola_visual',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pola Segar #${vIdx + 1}: Perhatikan barisan warna: ${seq}. Warna manakah untuk melengkapi pola?`,
+          prompt: `Perhatikan barisan warna: ${seq}. Warna apa untuk melengkapi pola?`,
           visual: seq,
           choices: [
             { label: ans, isCorrect: true },
@@ -310,7 +310,7 @@ export function generateDay5Spatial() {
           skill: 'pola_visual',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pola Mainan #${vIdx + 1}: Lihat deretan mainan Kak Reza: ${seq}. Benda apa selanjutnya?`,
+          prompt: `Lihat deretan mainan ini: ${seq}. Benda apa selanjutnya?`,
           visual: seq,
           choices: [
             { label: ans, isCorrect: true },
@@ -336,7 +336,7 @@ export function generateDay5Spatial() {
           skill: 'pola_visual',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pola Langit Malam #${vIdx + 1}: Di langit berbaris: ${seq}. Simbol apakah selanjutnya?`,
+          prompt: `Di langit berbaris: ${seq}. Simbol apakah selanjutnya?`,
           visual: seq,
           choices: [
             { label: ans, isCorrect: true },
@@ -362,7 +362,7 @@ export function generateDay5Spatial() {
           skill: 'pola_ukuran',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pola Ukuran #${vIdx + 1}: Urutan ukuran hewan: ${seq}. Hewan manakah yang tepat berikutnya?`,
+          prompt: `Urutan ukuran hewan: ${seq}. Hewan manakah yang tepat berikutnya?`,
           visual: seq,
           choices: [
             { label: ans, isCorrect: true },
@@ -393,7 +393,7 @@ export function generateDay5Spatial() {
           skill: 'perbandingan_ukuran',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Perbandingan Ukuran #${vIdx + 1}: Di antara ketiga objek ini, manakah yang berukuran PALING BESAR?`,
+          prompt: `Di antara ketiga pilihan ini, manakah yang ukurannya PALING BESAR?`,
           visual: '📏 Cari yang Paling Besar',
           choices: [
             { label: s.big, isCorrect: true },
@@ -424,7 +424,7 @@ export function generateDay5Spatial() {
           skill: 'perbandingan_ukuran',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Mungil & Raksasa #${vIdx + 1}: Di antara pilihan berikut, manakah benda/makhluk yang berukuran PALING KECIL?`,
+          prompt: `Di antara pilihan ini, manakah yang berukuran PALING KECIL?`,
           visual: '🔍 Cari yang Paling Mungil',
           choices: [
             { label: s.small, isCorrect: true },
@@ -455,7 +455,7 @@ export function generateDay5Spatial() {
           skill: 'dimensi_vertikal',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Tinggi Menjulang #${vIdx + 1}: Manakah yang berdiri menjulang PALING TINGGI ke atas?`,
+          prompt: `Manakah yang berdiri menjulang PALING TINGGI ke atas?`,
           visual: '⬆️ Cari yang Paling Tinggi',
           choices: [
             { label: s.tall, isCorrect: true },
@@ -486,7 +486,7 @@ export function generateDay5Spatial() {
           skill: 'dimensi_horizontal',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Rentang Ukuran #${vIdx + 1}: Manakah yang memiliki ukuran rentang PALING PANJANG?`,
+          prompt: `Manakah yang memiliki ukuran PALING PANJANG?`,
           visual: '↔️ Cari yang Paling Panjang',
           choices: [
             { label: s.long, isCorrect: true },
@@ -508,7 +508,7 @@ export function generateDay5Spatial() {
           skill: 'posisi_spasial',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Posisi Ruang #${vIdx + 1}: Lampu gantung berada DI ATAS meja makan. Posisi DI ATAS berarti?`,
+          prompt: `Lampu gantung berada DI ATAS meja makan. Posisi DI ATAS berarti?`,
           visual: '💡\n🪑 Meja Makan',
           choices: [
             { label: 'Berada di bagian lebih tinggi ⬆️', isCorrect: true },
@@ -530,7 +530,7 @@ export function generateDay5Spatial() {
           skill: 'posisi_spasial',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Posisi Ruang #${vIdx + 1}: Kucing bersembunyi di kolong DI BAWAH tempat tidur. Posisi DI BAWAH berarti?`,
+          prompt: `Kucing bersembunyi di kolong DI BAWAH kasur. Posisi DI BAWAH berarti?`,
           visual: '🛏️ Tempat Tidur\n🐱 (di bawah)',
           choices: [
             { label: 'Berada di bagian bawah / lantai ⬇️', isCorrect: true },
@@ -552,7 +552,7 @@ export function generateDay5Spatial() {
           skill: 'posisi_spasial',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Ruang Wadah #${vIdx + 1}: Pensil warna tersimpan rapi DI DALAM kotak pensil. Posisi DI DALAM artinya?`,
+          prompt: `Pensil warna tersimpan rapi DI DALAM kotak pensil. Posisi DI DALAM artinya?`,
           visual: '📦 [ ✏️ 🖍️ 🖊️ ]',
           choices: [
             { label: 'Masuk ke dalam bagian kotak 📥', isCorrect: true },
@@ -574,7 +574,7 @@ export function generateDay5Spatial() {
           skill: 'posisi_spasial',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Batas Ruang #${vIdx + 1}: Sepatu ditaruh DI LUAR pintu rumah. Posisi DI LUAR artinya?`,
+          prompt: `Sepatu ditaruh DI LUAR pintu rumah. Posisi DI LUAR artinya?`,
           visual: '🚪 [ Rumah ] ➔ 👟 (di luar)',
           choices: [
             { label: 'Berada di sisi luar batas pintu 📤', isCorrect: true },
@@ -596,7 +596,7 @@ export function generateDay5Spatial() {
           skill: 'posisi_spasial',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Orientasi Arah #${vIdx + 1}: Saat bermain petak umpet, Kak Reza bersembunyi DI BELAKANG pohon besar. Posisinya berada di?`,
+          prompt: `Saat petak umpet, Kak Reza bersembunyi DI BELAKANG pohon besar. Posisinya berada di mana?`,
           visual: '🌳 👤 (di balik pohon)',
           choices: [
             { label: 'Di balik pohon / tidak tampak dari depan 🔙', isCorrect: true },
@@ -618,7 +618,7 @@ export function generateDay5Spatial() {
           skill: 'persepsi_jarak',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Perspektif Jarak #${vIdx + 1}: Di antara benda-benda berikut, manakah yang posisinya berada SANGAT JAUH dari mata kita?`,
+          prompt: `Di antara benda ini, manakah yang posisinya berada SANGAT JAUH dari mata kita?`,
           visual: '🔭 Jarak Jauh',
           choices: [
             { label: 'Matahari di Angkasa ☀️', isCorrect: true },
@@ -640,7 +640,7 @@ export function generateDay5Spatial() {
           skill: 'persepsi_jarak',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Jangkauan Tangan #${vIdx + 1}: Benda manakah yang posisinya paling DEKAT dan bisa langsung disentuh oleh Kak Reza?`,
+          prompt: `Benda manakah yang posisinya paling DEKAT dan bisa langsung disentuh oleh tanganmu?`,
           visual: '👋 Jarak Dekat',
           choices: [
             { label: 'Buku di Meja Belajar 📖', isCorrect: true },
@@ -662,7 +662,7 @@ export function generateDay5Spatial() {
           skill: 'arah_navigasi',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Langkah Pahlawan #${vIdx + 1}: Kak Reza siap berjalan lurus ke arah garis depan. Arah melangkah MAJU ditunjukkan oleh tanda?`,
+          prompt: `Kak Reza siap berjalan lurus. Arah melangkah MAJU ditunjukkan oleh tanda mana?`,
           visual: '⬆️ Maju Melangkah',
           choices: [
             { label: 'Panah Lurus ke Depan ⬆️', isCorrect: true },

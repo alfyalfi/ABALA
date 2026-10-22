@@ -20,77 +20,11 @@ import { ParentalGateModal } from '../../components/ParentalGateModal';
 import { ParentDashboardModal } from '../../components/ParentDashboardModal';
 import { StorageService } from '../../services/storageService';
 import { audioService } from '../../services/audioService';
+import { CATEGORIES_META } from '../../data/categoriesMeta';
 import { LearningPillarProgress } from '../../types';
 import { ActiveLearningSessionState } from '../../types/progression';
 
-const PILLARS_LIST = [
-  {
-    id: 1,
-    name: 'Senin',
-    title: 'Matematika Superhero',
-    fullTitle: 'Senin — Matematika Superhero',
-    icon: '🔢',
-    color: 'from-blue-500 to-indigo-600',
-    badgeColor: 'liquid-tint-azure',
-    desc: 'Latihan konsep bilangan, penjumlahan visual, pengurangan konkret, perbandingan kuantitas, dan touch counting seru.',
-    curriculumTopics: '25 Misi: Hitung 1–15, Tambah Apel, Kurang Donat, Pola Bilangan, Bandingkan Jumlah, Tabung 3D',
-  },
-  {
-    id: 2,
-    name: 'Selasa',
-    title: 'Membaca & Fonik',
-    fullTitle: 'Selasa — Membaca & Fonik',
-    icon: '🔤',
-    color: 'from-emerald-500 to-teal-600',
-    badgeColor: 'liquid-tint-emerald',
-    desc: 'Pengenalan huruf kapital/kecil, suku kata awal, fonik bunyi huruf, dan permainan susun kata interaktif.',
-    curriculumTopics: '25 Misi: Huruf R-E-Z-A, Vokal A-I-U-E-O, Word Builder BOLA-MOBIL-TOPI, Rima Kata Berima',
-  },
-  {
-    id: 3,
-    name: 'Rabu',
-    title: 'Menyimak & Suara',
-    fullTitle: 'Rabu — Menyimak & Suara',
-    icon: '👂',
-    color: 'from-purple-500 to-fuchsia-600',
-    badgeColor: 'liquid-tint-ruby',
-    desc: 'Diskriminasi suara autentik hewan, sirine ambulans, deru kereta api, serta tes memori urutan 2-tahap.',
-    curriculumTopics: '25 Misi: 17 Suara Autentik MP3 (Hewan, Kendaraan, Alam) & 8 Misi Ingatan Sequence 2-Langkah',
-  },
-  {
-    id: 4,
-    name: 'Kamis',
-    title: 'Nalar & Logika',
-    fullTitle: 'Kamis — Nalar & Logika',
-    icon: '💡',
-    color: 'from-amber-500 to-orange-600',
-    badgeColor: 'liquid-tint-amber',
-    desc: 'Melatih pola pikir kritis, analogi benda, perbandingan ukuran/bobot, odd-one-out, dan pancaindra.',
-    curriculumTopics: '25 Misi: Pasangan Sendok-Garpu, Pakan Satwa, Odd-One-Out, 5 Indra Tubuh, Suhu & Benda Melayang',
-  },
-  {
-    id: 5,
-    name: 'Jumat',
-    title: 'Bentuk & Spasial',
-    fullTitle: 'Jumat — Bentuk & Spasial',
-    icon: '🔷',
-    color: 'from-cyan-500 to-sky-600',
-    badgeColor: 'liquid-tint-azure',
-    desc: 'Eksplorasi geometri 2D dasar, bentuk geometris di kehidupan sehari-hari, pola visual, dan relasi ruang.',
-    curriculumTopics: '25 Misi: Lingkaran, Persegi, Segitiga, Benda Sekitar, Pola Warna & Ukuran, Posisi Spasial',
-  },
-  {
-    id: 6,
-    name: 'Sabtu',
-    title: 'Kemandirian Superhero',
-    fullTitle: 'Sabtu — Kemandirian Superhero',
-    icon: '🦸‍♂️',
-    color: 'from-rose-500 to-red-600',
-    badgeColor: 'liquid-tint-rose',
-    desc: 'Pembiasaan karakter budi pekerti, kebersihan diri, 3 kata ajaib, empati tolong-menolong, dan hemat energi.',
-    curriculumTopics: '25 Misi: Cuci Tangan & Gigi, 3 Kata Ajaib (Tolong, Terima Kasih, Maaf), Resiliensi Pantang Menyerah',
-  },
-];
+const PILLARS_LIST = CATEGORIES_META;
 
 export default function LearnPillarsPage() {
   const router = useRouter();

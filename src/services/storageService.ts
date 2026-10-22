@@ -227,4 +227,45 @@ export class StorageService {
       progressPercent,
     };
   }
+
+  // Full reset of all progress to level 1, 0 XP, 0 pillars, empty history
+  public static resetAllProgress(): ProgressionState {
+    const defaultPlaced: Record<string, string> = {
+      slot_trophy: 'trophy_cup',
+      slot_wall: 'superhero_cape',
+    };
+
+    const initialCollectibles = ['trophy_cup', 'superhero_cape'];
+
+    const resetState: ProgressionState = {
+      version: 2,
+      totalXp: 0,
+      level: 1,
+      levelTitle: 'Penjelajah Pemula',
+      unlockedAchievementIds: [],
+      unlockedCollectibleIds: initialCollectibles,
+      placedDecorations: defaultPlaced,
+      completedSessionsCount: 0,
+      perfectSessionsCount: 0,
+      processedTransactions: [],
+      updatedAt: new Date().toISOString(),
+    };
+
+    const resetPillars: LearningPillarProgress = {
+      berhitung: 0,
+      membaca: 0,
+      menyimak: 0,
+      nalar: 0,
+      bentuk: 0,
+      kemandirian: 0,
+    };
+
+    this.setItem(STORAGE_KEYS.PROGRESSION, resetState);
+    this.setItem(STORAGE_KEYS.HISTORY, []);
+    this.setItem(STORAGE_KEYS.PILLARS, resetPillars);
+    this.removeItem(STORAGE_KEYS.ACTIVE_SESSION);
+    this.removeItem(STORAGE_KEYS.PROFILE);
+
+    return resetState;
+  }
 }

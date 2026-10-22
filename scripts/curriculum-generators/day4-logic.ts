@@ -148,7 +148,6 @@ export function generateDay4Logic() {
 
       if (slotIdx === 0) {
         // Topic 1: Pasangan Sendok Makan
-        const ctx = diningScenarios[vIdx % diningScenarios.length];
         variant = {
           id: varId,
           categoryId: 4,
@@ -159,7 +158,7 @@ export function generateDay4Logic() {
           skill: 'pasangan_fungsional',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pasangan Benda #${vIdx + 1}: Di meja makan ${ctx}, pasangan yang paling tepat untuk Sendok 🥄 adalah?`,
+          prompt: `Benda apa pasangan yang paling cocok untuk Sendok 🥄?`,
           visual: '🥄 ➕ ❓',
           choices: [
             { label: 'Garpu Makan 🍴', isCorrect: true },
@@ -171,8 +170,6 @@ export function generateDay4Logic() {
         };
       } else if (slotIdx === 1) {
         // Topic 2: Pasangan Sepatu
-        const sports = ['berlari di lapangan', 'bersepeda ke taman', 'berangkat ke sekolah', 'berolahraga pagi', 'bermain di arena superhero'];
-        const sp = sports[vIdx % sports.length];
         variant = {
           id: varId,
           categoryId: 4,
@@ -183,7 +180,7 @@ export function generateDay4Logic() {
           skill: 'pasangan_fungsional',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pasangan Superhero #${vIdx + 1}: Sebelum Kak Reza memakai Sepatu 👟 untuk ${sp}, apa pasangan yang dipakai di kaki terlebih dahulu?`,
+          prompt: `Sebelum Kak Reza memakai Sepatu 👟, apa yang dipakai di kaki dulu?`,
           visual: '👟 ➕ ❓',
           choices: [
             { label: 'Kaus Kaki 🧦', isCorrect: true },
@@ -205,7 +202,7 @@ export function generateDay4Logic() {
           skill: 'pasangan_fungsional',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Belajar Menulis #${vIdx + 1}: Saat Kak Reza memegang Pensil ✏️ untuk belajar menulis misi hari ini, di manakah pensil digunakan menulis?`,
+          prompt: `Pensil ✏️ biasanya digunakan untuk menulis di mana ya?`,
           visual: '✏️ ➕ ❓',
           choices: [
             { label: 'Buku Tulis 📓', isCorrect: true },
@@ -227,7 +224,7 @@ export function generateDay4Logic() {
           skill: 'pasangan_fungsional',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Kebersihan Mandi #${vIdx + 1}: Setelah mandi segar menggunakan Sabun 🧼 dan membilas tubuh dengan air bersih, benda apa yang dipakai mengeringkan badan?`,
+          prompt: `Setelah mandi dengan Sabun 🧼 dan dibilas air, badan dikeringkan memakai apa?`,
           visual: '🧼 ➕ ❓',
           choices: [
             { label: 'Handuk Bersih 🧖', isCorrect: true },
@@ -249,7 +246,7 @@ export function generateDay4Logic() {
           skill: 'pasangan_fungsional',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Minum Sehat #${vIdx + 1}: Di atas meja ruang tamu, Cangkir ☕ diletakkan di atas pasangannya yaitu?`,
+          prompt: `Di atas meja, Cangkir ☕ biasanya ditaruh di atas apa?`,
           visual: '☕ ➕ ❓',
           choices: [
             { label: 'Tatakan Cangkir 🍽️', isCorrect: true },
@@ -271,7 +268,7 @@ export function generateDay4Logic() {
           skill: 'relasi_hewan_makanan',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pakan Satwa #${vIdx + 1}: Makanan kesukaan kelinci lucu yang berwarna oranye dan renyah adalah?`,
+          prompt: `Kelinci yang lucu suka sekali makan apa ya?`,
           visual: '🐰 ➕ ❓',
           choices: [
             { label: 'Wortel Segar 🥕', isCorrect: true },
@@ -293,7 +290,7 @@ export function generateDay4Logic() {
           skill: 'relasi_hewan_makanan',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pakan Satwa #${vIdx + 1}: Monyet lincah di kebun binatang sangat suka mengupas dan memakan buah apa?`,
+          prompt: `Monyet lincah suka sekali mengupas dan memakan buah apa?`,
           visual: '🐒 ➕ ❓',
           choices: [
             { label: 'Pisang Manis 🍌', isCorrect: true },
@@ -315,7 +312,7 @@ export function generateDay4Logic() {
           skill: 'relasi_hewan_makanan',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pakan Satwa #${vIdx + 1}: Kucing mengeong di dapur karena mencium aroma lezat makanan kesukaannya, yaitu?`,
+          prompt: `Kucing mengeong saat lapar. Makanan apa yang disukai kucing?`,
           visual: '🐱 ➕ ❓',
           choices: [
             { label: 'Ikan Segar 🐟', isCorrect: true },
@@ -337,7 +334,7 @@ export function generateDay4Logic() {
           skill: 'habitat_alam',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Habitat Hewan #${vIdx + 1}: Ikan berenang menggunakan sirip dan bernapas di dalam?`,
+          prompt: `Ikan berenang lincah dan hidup di mana?`,
           visual: '🐟 ➔ ❓',
           choices: [
             { label: 'Air Kolam / Laut 🌊', isCorrect: true },
@@ -359,7 +356,7 @@ export function generateDay4Logic() {
           skill: 'habitat_alam',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Jelajah Alam #${vIdx + 1}: Burung mengepakkan sayapnya dan terbang bebas tinggi di mana?`,
+          prompt: `Burung mengepakkan sayap dan terbang bebas di mana?`,
           visual: '🦅 ➔ ❓',
           choices: [
             { label: 'Udara Langit yang Luas 🌤️', isCorrect: true },
@@ -381,7 +378,7 @@ export function generateDay4Logic() {
           skill: 'habitat_alam',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Raja Rimba #${vIdx + 1}: Di alam liar yang sesungguhnya, singa si raja rimba tinggal dan berburu di?`,
+          prompt: `Di alam liar yang luas, singa si raja rimba tinggal di mana?`,
           visual: '🦁 ➔ ❓',
           choices: [
             { label: 'Padang Rumput Savana 🌾', isCorrect: true },
@@ -404,7 +401,7 @@ export function generateDay4Logic() {
           skill: 'klasifikasi_benda',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Odd-One-Out #${vIdx + 1}: Di antara pilihan berikut, manakah benda yang BUKAN buah-buahan?`,
+          prompt: `Di antara pilihan berikut, manakah yang BUKAN buah-buahan?`,
           visual: `🔍 ${pair.fruits[0]} | ${pair.fruits[1]} | ${pair.not}`,
           choices: [
             { label: pair.not, isCorrect: true },
@@ -427,7 +424,7 @@ export function generateDay4Logic() {
           skill: 'klasifikasi_benda',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Odd-One-Out #${vIdx + 1}: Di antara pilihan berikut, manakah yang BUKAN alat transportasi / kendaraan?`,
+          prompt: `Di antara pilihan berikut, manakah yang BUKAN kendaraan?`,
           visual: `🔍 ${pair.veh[0]} | ${pair.veh[1]} | ${pair.not}`,
           choices: [
             { label: pair.not, isCorrect: true },
@@ -450,7 +447,7 @@ export function generateDay4Logic() {
           skill: 'klasifikasi_benda',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Detektif Alam #${vIdx + 1}: Manakah di antara pilihan ini yang BUKAN termasuk makhluk hidup hewan?`,
+          prompt: `Manakah di antara pilihan ini yang BUKAN binatang?`,
           visual: `🔍 ${pair.ani[0]} | ${pair.ani[1]} | ${pair.not}`,
           choices: [
             { label: pair.not, isCorrect: true },
@@ -474,7 +471,7 @@ export function generateDay4Logic() {
           skill: 'sebab_akibat',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Cuaca Hujan #${vIdx + 1}: Saat hujan turun lebat dan Kak Reza harus berjalan ke luar, perlengkapan pelindung apa yang dipakai agar tidak basah?`,
+          prompt: `Saat hujan lebat turun, benda apa yang dipakai agar badan tidak basah?`,
           visual: '🌧️ ➔ ❓',
           choices: [
             { label: rGear, isCorrect: true },
@@ -498,7 +495,7 @@ export function generateDay4Logic() {
           skill: 'pancaindra',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pancaindra Superhero #${vIdx + 1}: Indra tubuh apakah yang berguna untuk ${s}?`,
+          prompt: `Bagian tubuh yang berguna untuk ${s} adalah?`,
           visual: '👁️ 👁️',
           choices: [
             { label: 'Mata untuk Melihat 👁️', isCorrect: true },
@@ -522,7 +519,7 @@ export function generateDay4Logic() {
           skill: 'pancaindra',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pancaindra Superhero #${vIdx + 1}: Bagian tubuh manakah yang kita gunakan untuk ${snd}?`,
+          prompt: `Bagian tubuh yang kita gunakan untuk ${snd} adalah?`,
           visual: '👂 👂',
           choices: [
             { label: 'Telinga untuk Mendengar 👂', isCorrect: true },
@@ -546,7 +543,7 @@ export function generateDay4Logic() {
           skill: 'pancaindra',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pancaindra Bersih #${vIdx + 1}: Bagian tubuh yang digunakan Kak Reza untuk ${sm} adalah?`,
+          prompt: `Bagian tubuh yang kita gunakan untuk ${sm} adalah?`,
           visual: '👃',
           choices: [
             { label: 'Hidung untuk Mencium Aroma 👃', isCorrect: true },
@@ -570,7 +567,7 @@ export function generateDay4Logic() {
           skill: 'pancaindra',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pancaindra Lezat #${vIdx + 1}: Di dalam rongga mulut kita, bagian apakah yang bertugas untuk ${t}?`,
+          prompt: `Bagian di dalam mulut yang bertugas untuk ${t} adalah?`,
           visual: '👅',
           choices: [
             { label: 'Lidah untuk Mengecap Rasa 👅', isCorrect: true },
@@ -594,7 +591,7 @@ export function generateDay4Logic() {
           skill: 'sifat_benda_suhu',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Sensasi Rasa Suhu #${vIdx + 1}: Di antara pilihan berikut, manakah makanan yang terasa DINGIN dan menyegarkan saat dimakan?`,
+          prompt: `Manakah di antara pilihan ini yang terasa DINGIN dan menyegarkan?`,
           visual: '❄️ ❓',
           choices: [
             { label: cf, isCorrect: true },
@@ -618,7 +615,7 @@ export function generateDay4Logic() {
           skill: 'sifat_benda_suhu',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Hidangan Bertenaga #${vIdx + 1}: Saat cuaca sedang berangin sejuk, hidangan berkuah manakah yang terasa HANGAT dan nyaman di badan?`,
+          prompt: `Hidangan berkuah manakah yang terasa HANGAT dan nyaman di perut?`,
           visual: '♨️ ❓',
           choices: [
             { label: wf, isCorrect: true },
@@ -642,7 +639,7 @@ export function generateDay4Logic() {
           skill: 'sifat_fisik_benda',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Eksperimen Sains Cilik #${vIdx + 1}: Benda manakah yang sangat RINGAN sehingga mudah melayang ditiup angin sepoi-sepoi?`,
+          prompt: `Benda manakah yang sangat RINGAN dan mudah melayang tertiup angin?`,
           visual: '🍃 💨 ❓',
           choices: [
             { label: lo, isCorrect: true },
@@ -666,7 +663,7 @@ export function generateDay4Logic() {
           skill: 'sifat_fisik_benda',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Sains di Kolam Air #${vIdx + 1}: Jika dimasukkan ke dalam ember berisi air penuh, benda manakah yang TENGGELAM ke dasar karena berat?`,
+          prompt: `Bila dimasukkan ke air, benda manakah yang berat dan TENGGELAM ke dasar?`,
           visual: '🌊 ⬇️ ❓',
           choices: [
             { label: ho, isCorrect: true },
@@ -688,7 +685,7 @@ export function generateDay4Logic() {
           skill: 'siklus_siang_malam',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Siklus Langit #${vIdx + 1}: Benda langit megah apakah yang menyinari bumi sehingga SIANG HARI menjadi terang benderang?`,
+          prompt: `Benda langit apakah yang bersinar membuat SIANG HARI jadi terang?`,
           visual: '☀️ 🌤️',
           choices: [
             { label: 'Matahari Terik Bersinar ☀️', isCorrect: true },
@@ -710,7 +707,7 @@ export function generateDay4Logic() {
           skill: 'siklus_siang_malam',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Bintang Kejora #${vIdx + 1}: Saat MALAM HARI langit menjadi gelap dan sejuk, benda langit apakah yang menghiasinya dengan cahaya indah?`,
+          prompt: `Saat MALAM HARI gelap, benda langit apakah yang menghiasi langit dengan indah?`,
           visual: '🌙 ⭐',
           choices: [
             { label: 'Bulan & Bintang Gemerlap 🌙✨', isCorrect: true },

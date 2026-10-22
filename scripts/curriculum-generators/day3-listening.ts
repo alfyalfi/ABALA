@@ -518,19 +518,18 @@ export function generateDay3Listening() {
       if (slotIdx < 17) {
         // Topics 1-17: Suara Audio Autentik (MP3)
         const cfg = soundConfigs[slotIdx];
-        const ctx = cfg.contexts[vIdx % cfg.contexts.length];
 
         variant = {
           id: varId,
           categoryId: 3,
           slotIndex: slotIdx,
           topic: topicName,
-          type: 'sound_identification',
+          type: 'sound',
           learningGoal: `Mengenali dan mendiskriminasikan sumber bunyi suara ${cfg.label} (${cfg.correct.split(' ')[0]}).`,
           skill: 'diskriminasi_auditori',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Detektif Suara #${vIdx + 1}: Dengarkan suaranya (${cfg.label}) ${ctx}! Suara apakah ini?`,
+          prompt: `Ayo dengarkan baik-baik, ini suara apa ya?`,
           visual: '🔊 Dengarkan Suara',
           soundFile: cfg.file,
           soundLabel: cfg.label,
@@ -551,12 +550,12 @@ export function generateDay3Listening() {
           categoryId: 3,
           slotIndex: slotIdx,
           topic: topicName,
-          type: 'sequence_2step',
+          type: 'sequence_2',
           learningGoal: `Mengingat dan mengeksekusi instruksi berurutan dua langkah: ${seq.step1Label} kemudian ${seq.step2Label}.`,
           skill: 'memori_kerja_auditori',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Misi Ingatan #${vIdx + 1}: ${seq.promptBase}`,
+          prompt: `Ingat urutannya: sentuh ${seq.step1Label} dulu, baru sentuh ${seq.step2Label}!`,
           visual: `${seq.items[0].emoji} ➔ ${seq.items[1].emoji}`,
           step1Target: seq.step1Target,
           step2Target: seq.step2Target,

@@ -1,6 +1,7 @@
 export interface CategoryMeta {
   id: number;
   dayName: string;
+  name: string;
   dayLabel: string;
   title: string;
   fullTitle: string;
@@ -9,6 +10,8 @@ export interface CategoryMeta {
   color: string;
   badgeColor: string;
   description: string;
+  desc: string;
+  curriculumTopics: string;
   focusElements: string[];
   cpElement: 'nilai_agama_dan_budi_pekerti' | 'jati_diri' | 'dasar_literasi_dan_steam';
 }
@@ -17,6 +20,7 @@ export const CATEGORIES_META: CategoryMeta[] = [
   {
     id: 1,
     dayName: 'Senin',
+    name: 'Senin',
     dayLabel: 'Senin — Matematika Superhero',
     title: 'Matematika Superhero',
     fullTitle: 'Senin — Matematika Superhero',
@@ -25,12 +29,15 @@ export const CATEGORIES_META: CategoryMeta[] = [
     color: 'from-blue-500 to-indigo-600',
     badgeColor: 'liquid-tint-azure',
     description: 'Bilangan, korespondensi satu-ke-satu, pola urutan, penjumlahan, pengurangan konkret, dan penalaran numerik sederhana.',
+    desc: 'Bilangan, korespondensi satu-ke-satu, pola urutan, penjumlahan, pengurangan konkret, dan penalaran numerik sederhana.',
+    curriculumTopics: '25 Misi: Hitung 1–15, Tambah Roti & Apel, Kurang Donat, Pola Bilangan, Urutan 1–10',
     focusElements: ['Membilang Benda 1–10', 'Subitizing Cepat', 'Penjumlahan Visual', 'Pengurangan Konkret', 'Pola Bilangan'],
     cpElement: 'dasar_literasi_dan_steam',
   },
   {
     id: 2,
     dayName: 'Selasa',
+    name: 'Selasa',
     dayLabel: 'Selasa — Membaca & Fonik',
     title: 'Membaca & Fonik',
     fullTitle: 'Selasa — Membaca & Fonik',
@@ -39,12 +46,15 @@ export const CATEGORIES_META: CategoryMeta[] = [
     color: 'from-emerald-500 to-teal-600',
     badgeColor: 'liquid-tint-emerald',
     description: 'Bunyi bahasa, pengenalan huruf, hubungan huruf-bunyi, suku kata, kosakata, dan penyusunan kata sesuai kesiapan anak.',
+    desc: 'Bunyi bahasa, pengenalan huruf, hubungan huruf-bunyi, suku kata, kosakata, dan penyusunan kata sesuai kesiapan anak.',
+    curriculumTopics: '25 Misi: Huruf R-E-Z-A, Vokal A-I-U-E-O, Word Builder BOLA-MOBIL-TOPI, Fonik Kata',
     focusElements: ['Huruf Vokal & Konsonan', 'Fonik Bunyi Kata', 'Suku Kata Awal', 'Menyusun Huruf (Word Builder)', 'Rima & Kosakata'],
     cpElement: 'dasar_literasi_dan_steam',
   },
   {
     id: 3,
     dayName: 'Rabu',
+    name: 'Rabu',
     dayLabel: 'Rabu — Menyimak & Suara',
     title: 'Menyimak & Suara',
     fullTitle: 'Rabu — Menyimak & Suara',
@@ -53,12 +63,15 @@ export const CATEGORIES_META: CategoryMeta[] = [
     color: 'from-purple-500 to-fuchsia-600',
     badgeColor: 'liquid-tint-ruby',
     description: 'Diskriminasi auditori, pengenalan suara autentik hewan/alat transportasi, ingatan urutan 2-langkah, dan fokus pendengaran.',
+    desc: 'Diskriminasi auditori, pengenalan suara autentik hewan/alat transportasi, ingatan urutan 2-langkah, dan fokus pendengaran.',
+    curriculumTopics: '25 Misi: 17 Suara Autentik Hewan, Kendaraan & Alam, serta 8 Misi Ingatan Urutan 2-Langkah',
     focusElements: ['Suara Hewan Autentik', 'Suara Kendaraan & Sirine', 'Bunyi Alam Sekitar', 'Instruksi 2-Langkah (Sequence)', 'Diskriminasi Suara Keras/Lembut'],
     cpElement: 'dasar_literasi_dan_steam',
   },
   {
     id: 4,
     dayName: 'Kamis',
+    name: 'Kamis',
     dayLabel: 'Kamis — Nalar & Logika',
     title: 'Nalar & Logika',
     fullTitle: 'Kamis — Nalar & Logika',
@@ -67,12 +80,15 @@ export const CATEGORIES_META: CategoryMeta[] = [
     color: 'from-amber-500 to-orange-600',
     badgeColor: 'liquid-tint-amber',
     description: 'Klasifikasi, pengelompokan benda, perbandingan ukuran/bobot, hubungan sebab-akibat, dan pemecahan masalah konkret.',
+    desc: 'Klasifikasi, pengelompokan benda, perbandingan ukuran/bobot, hubungan sebab-akibat, dan pemecahan masalah konkret.',
+    curriculumTopics: '25 Misi: Pasangan Benda, Klasifikasi Satwa, Odd-One-Out, Sebab-Akibat, Pancaindra',
     focusElements: ['Klasifikasi Fungsi & Ciri', 'Sebab-Akibat Sederhana', 'Benda yang Berbeda (Odd-One-Out)', 'Perbandingan Ukuran/Kuantitas', 'Analogi Konkret'],
     cpElement: 'dasar_literasi_dan_steam',
   },
   {
     id: 5,
     dayName: 'Jumat',
+    name: 'Jumat',
     dayLabel: 'Jumat — Bentuk & Spasial',
     title: 'Bentuk & Spasial',
     fullTitle: 'Jumat — Bentuk & Spasial',
@@ -81,12 +97,15 @@ export const CATEGORIES_META: CategoryMeta[] = [
     color: 'from-cyan-500 to-sky-600',
     badgeColor: 'liquid-tint-azure',
     description: 'Bentuk geometris 2D, bentuk objek di sekitar kita, orientasi arah kiri/kanan/atas/bawah, dan relasi ruang.',
+    desc: 'Bentuk geometris 2D, bentuk objek di sekitar kita, orientasi arah kiri/kanan/atas/bawah, dan relasi ruang.',
+    curriculumTopics: '25 Misi: Bentuk Geometris Dasar, Benda Sekitar, Posisi Spasial (Atas/Bawah/Dalam), Arah Kiri/Kanan',
     focusElements: ['Bentuk Geometris Dasar', 'Bentuk Benda Nyata', 'Posisi Ruang (Atas/Bawah/Dalam)', 'Arah Kiri dan Kanan', 'Pola Visual Bentuk'],
     cpElement: 'dasar_literasi_dan_steam',
   },
   {
     id: 6,
     dayName: 'Sabtu',
+    name: 'Sabtu',
     dayLabel: 'Sabtu — Kemandirian Superhero',
     title: 'Kemandirian Superhero',
     fullTitle: 'Sabtu — Kemandirian Superhero',
@@ -95,6 +114,8 @@ export const CATEGORIES_META: CategoryMeta[] = [
     color: 'from-rose-500 to-red-600',
     badgeColor: 'liquid-tint-rose',
     description: 'Rutinitas sehari-hari, kebersihan diri, keselamatan, pengenalan emosi, tanggung jawab, dan kebiasaan baik.',
+    desc: 'Rutinitas sehari-hari, kebersihan diri, keselamatan, pengenalan emosi, tanggung jawab, dan kebiasaan baik.',
+    curriculumTopics: '25 Misi: Kebersihan Diri, Adab Harian, Regulasi Emosi, Keselamatan Rumah, Kerapian Mainan',
     focusElements: ['Kebiasaan Cuci Tangan & Gigi', 'Mengenali Emosi Diri', 'Adab Makan, Belajar, & Tidur', 'Tanggung Jawab Mainan', 'Keselamatan & Tolong Menolong'],
     cpElement: 'jati_diri',
   },
@@ -103,8 +124,10 @@ export const CATEGORIES_META: CategoryMeta[] = [
 export const SUNDAY_EXPLORATION_META = {
   id: 7,
   dayName: 'Minggu',
+  name: 'Minggu',
   dayLabel: 'Minggu — Eksplorasi Bebas Kak Reza',
   title: 'Eksplorasi Bebas',
   icon: '🌈',
   description: 'Hari Minggu santai! Mainkan kembali pilar favoritmu, hias kamar 3D, atau buka artefak dan trofi yang belum dikoleksi.',
+  desc: 'Hari Minggu santai! Mainkan kembali pilar favoritmu, hias kamar 3D, atau buka artefak dan trofi yang belum dikoleksi.',
 };

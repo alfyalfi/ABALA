@@ -53,7 +53,7 @@ export function generateDay6Independence() {
           skill: 'kebersihan_diri',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Kebiasaan Sehat Superhero #${vIdx + 1}: Apa yang harus dilakukan Kak Reza ${r}?`,
+          prompt: `Apa yang harus Kak Reza lakukan ${r}?`,
           visual: '🧼 💧 🤲',
           choices: [
             { label: 'Cuci tangan pakai sabun dan air mengalir 🧼', isCorrect: true },
@@ -77,7 +77,7 @@ export function generateDay6Independence() {
           skill: 'kebersihan_diri',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Senyum Sehat #${vIdx + 1}: Agar gigi tetap kuat, putih bersih, dan tidak berlubang, apa yang dilakukan ${t}?`,
+          prompt: `Agar gigi tetap kuat, putih bersih, dan tidak berlubang, apa yang dilakukan ${t}?`,
           visual: '🪥 🦷 ✨',
           choices: [
             { label: 'Menggosok gigi dengan pasta gigi anak 🪥', isCorrect: true },
@@ -101,7 +101,7 @@ export function generateDay6Independence() {
           skill: 'tanggung_jawab_diri',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Tanggung Jawab Pahlawan #${vIdx + 1}: Setelah selesai bermain ${toy}, sikap mandiri yang benar adalah?`,
+          prompt: `Setelah selesai bermain ${toy}, sikap mandiri yang benar adalah?`,
           visual: '🧸 📦 ✨',
           choices: [
             { label: 'Merapikan dan menyimpan ke kotak mainan 📦', isCorrect: true },
@@ -123,7 +123,7 @@ export function generateDay6Independence() {
           skill: 'kemandirian_motorik',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Kemandirian Cilik #${vIdx + 1}: Saat hendak berangkat sekolah atau tiba di rumah, sikap anak superhero terhadap sepatunya adalah?`,
+          prompt: `Saat hendak berangkat sekolah atau tiba di rumah, sikap anak superhero terhadap sepatunya adalah?`,
           visual: '👟 🚪 👞',
           choices: [
             { label: 'Mencoba memakai dan melepas sendiri lalu menaruh di rak 👟', isCorrect: true },
@@ -147,7 +147,7 @@ export function generateDay6Independence() {
           skill: 'kebiasaan_peduli_lingkungan',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Cinta Lingkungan #${vIdx + 1}: Ketika Kak Reza selesai makan dan memegang ${tr}, ke mana harus dibuang?`,
+          prompt: `Ketika Kak Reza selesai makan dan memegang ${tr}, ke mana harus dibuang?`,
           visual: '🗑️ ♻️ 🌿',
           choices: [
             { label: 'Membuang ke dalam tong sampah 🗑️', isCorrect: true },
@@ -171,7 +171,7 @@ export function generateDay6Independence() {
           skill: 'tiga_kata_ajaib',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Kata Ajaib #${vIdx + 1}: Saat Kak Reza membutuhkan bantuan ayah atau ibu untuk ${hn}, kata santun apakah yang diucapkan?`,
+          prompt: `Saat Kak Reza membutuhkan bantuan ayah atau ibu untuk ${hn}, kata santun apakah yang diucapkan?`,
           visual: '🤝 🗣️ ✨',
           choices: [
             { label: '"Tolong bantu saya ya..." 🤝', isCorrect: true },
@@ -195,7 +195,7 @@ export function generateDay6Independence() {
           skill: 'tiga_kata_ajaib',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Kata Ajaib #${vIdx + 1}: Setelah ${sit}, ucapan apa yang Kak Reza katakan sambil tersenyum?`,
+          prompt: `Setelah ${sit}, ucapan apa yang Kak Reza katakan sambil tersenyum?`,
           visual: '🎁 😃 🙏',
           choices: [
             { label: '"Terima Kasih banyak!" 🙏', isCorrect: true },
@@ -219,7 +219,7 @@ export function generateDay6Independence() {
           skill: 'tiga_kata_ajaib',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Kata Ajaib Jiwa Besar #${vIdx + 1}: Jika Kak Reza ${mis}, apa yang harus segera dikatakan?`,
+          prompt: `Jika Kak Reza ${mis}, apa yang harus segera dikatakan?`,
           visual: '🙏 💖 😊',
           choices: [
             { label: '"Maafkan saya, saya tidak sengaja." 🙏', isCorrect: true },
@@ -243,7 +243,7 @@ export function generateDay6Independence() {
           skill: 'nutrisi_dan_kesehatan',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Tubuh Kuat #${vIdx + 1}: Agar Kak Reza tumbuh tinggi, pintar, dan berenergi superhero, makanan manakah yang baik dikonsumsi?`,
+          prompt: `Agar Kak Reza tumbuh tinggi, pintar, dan berenergi, makanan manakah yang baik dimakan?`,
           visual: '🥗 🍎 🥦',
           choices: [
             { label: hf, isCorrect: true },
@@ -267,7 +267,7 @@ export function generateDay6Independence() {
           skill: 'nutrisi_dan_kesehatan',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Kesegaran Alami #${vIdx + 1}: Minuman terbaik untuk menghilangkan dahaga dan menjaga tubuh tetap bugar setiap hari adalah?`,
+          prompt: `Minuman terbaik untuk menghilangkan haus dan menjaga tubuh tetap bugar adalah?`,
           visual: '🥛 💧 ✨',
           choices: [
             { label: drk, isCorrect: true },
@@ -289,7 +289,7 @@ export function generateDay6Independence() {
           skill: 'ritme_harian_dan_istirahat',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Disiplin Istirahat #${vIdx + 1}: Ketika jarum jam menunjukkan pukul 8 malam, apa yang sebaiknya dilakukan superhero cilik?`,
+          prompt: `Ketika jarum jam menunjukkan pukul 8 malam, apa yang sebaiknya kita lakukan?`,
           visual: '⏰ 🛌 💤',
           choices: [
             { label: 'Gosok gigi, cuci kaki, dan tidur tepat waktu 🛏️', isCorrect: true },
@@ -311,7 +311,7 @@ export function generateDay6Independence() {
           skill: 'sosial_emosional_berbagi',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Persahabatan Pahlawan #${vIdx + 1}: Ketika ada teman atau adik yang ingin ikut bermain bersama, sikap yang baik adalah?`,
+          prompt: `Ketika ada teman atau adik yang ingin ikut bermain bersama, sikap yang baik adalah?`,
           visual: '🤝 🧸 😃',
           choices: [
             { label: 'Mengajak bermain bersama dan bergantian 🤝', isCorrect: true },
@@ -333,7 +333,7 @@ export function generateDay6Independence() {
           skill: 'keselamatan_diri',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Keselamatan di Jalan #${vIdx + 1}: Saat hendak menyeberang jalan raya bersama orang tua, langkah yang aman adalah?`,
+          prompt: `Saat hendak menyeberang jalan raya bersama orang tua, langkah yang aman adalah?`,
           visual: '🚦 🚶 🛑',
           choices: [
             { label: 'Memegang tangan orang tua dan menyeberang di zebra cross 🚦', isCorrect: true },
@@ -357,7 +357,7 @@ export function generateDay6Independence() {
           skill: 'nilai_religius_bersyukur',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Rasa Syukur #${vIdx + 1}: Kebiasaan baik yang dilakukan Kak Reza ${pm} adalah?`,
+          prompt: `Kebiasaan baik yang dilakukan Kak Reza ${pm} adalah?`,
           visual: '🤲 ✨ 💖',
           choices: [
             { label: 'Berdoa dengan khusyuk dan bersyukur kepada Tuhan 🤲', isCorrect: true },
@@ -379,7 +379,7 @@ export function generateDay6Independence() {
           skill: 'resiliensi_mental_juara',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Mental Juara Pantang Menyerah #${vIdx + 1}: Menara balok yang Kak Reza susun tiba-tiba roboh. Apa respon superhero sejati?`,
+          prompt: `Menara balok yang Kak Reza susun tiba-tiba roboh. Apa respon superhero sejati?`,
           visual: '🧱 🏆 💪',
           choices: [
             { label: 'Tersenyum, belajar dari kegagalan, dan mencoba susun lagi! 🏆', isCorrect: true },
@@ -401,7 +401,7 @@ export function generateDay6Independence() {
           skill: 'peduli_alam_sekitar',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Sahabat Alam #${vIdx + 1}: Agar bunga di teras rumah tumbuh subur, mekar indah, dan tidak layu, apa yang dilakukan?`,
+          prompt: `Agar bunga di teras rumah tumbuh subur, mekar indah, dan tidak layu, apa yang dilakukan?`,
           visual: '🌻 🪴 💧',
           choices: [
             { label: 'Menyiram air secukupnya secara rutin setiap sore 💧', isCorrect: true },
@@ -423,7 +423,7 @@ export function generateDay6Independence() {
           skill: 'kasih_sayang_makhluk_hidup',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Penyayang Hewan #${vIdx + 1}: Bagaimana sikap superhero saat melihat kucing atau kelinci peliharaan yang lapar?`,
+          prompt: `Bagaimana sikap kita saat melihat kucing atau kelinci peliharaan yang lapar?`,
           visual: '🐱 🐰 💖',
           choices: [
             { label: 'Memberinya makan dan mengelusnya dengan lembut 🐱', isCorrect: true },
@@ -445,7 +445,7 @@ export function generateDay6Independence() {
           skill: 'kemandirian_rutinitas',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Markas Bersih #${vIdx + 1}: Begitu Kak Reza bangun tidur di pagi hari yang cerah, tindakan mandiri apa yang dilakukan?`,
+          prompt: `Begitu Kak Reza bangun tidur di pagi hari yang cerah, tindakan mandiri apa yang dilakukan?`,
           visual: '🛏️ ☀️ ✨',
           choices: [
             { label: 'Merapikan selimut dan menata bantal di kasur 🛏️', isCorrect: true },
@@ -469,7 +469,7 @@ export function generateDay6Independence() {
           skill: 'disiplin_sosial_mengantre',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Budaya Tertib #${vIdx + 1}: Saat giliran banyak anak sedang ${qs}, sikap anak yang hebat adalah?`,
+          prompt: `Saat giliran banyak anak sedang ${qs}, sikap anak yang hebat adalah?`,
           visual: '🚶 🚶 🚶 🎡',
           choices: [
             { label: 'Berdiri sabar mengantre menunggu giliran tiba 🚶', isCorrect: true },
@@ -491,7 +491,7 @@ export function generateDay6Independence() {
           skill: 'tutur_kata_santun',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Tutur Kata Pahlawan #${vIdx + 1}: Ketika berbicara kepada guru, orang tua, maupun teman, nada bicara yang baik adalah?`,
+          prompt: `Ketika berbicara kepada guru, orang tua, maupun teman, nada bicara yang baik adalah?`,
           visual: '🗣️ 💬 ✨',
           choices: [
             { label: 'Berbicara sopan, ramah, dan tidak berteriak-teriak 😊', isCorrect: true },
@@ -513,7 +513,7 @@ export function generateDay6Independence() {
           skill: 'hemat_energi',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Pahlawan Hemat Energi #${vIdx + 1}: Saat matahari siang bersinar terang dan kita keluar kamar, apa yang dilakukan pada saklar lampu?`,
+          prompt: `Saat matahari siang bersinar terang dan kita keluar kamar, apa yang dilakukan pada saklar lampu?`,
           visual: '💡 🔲 ☀️',
           choices: [
             { label: 'Mematikan lampu untuk menghemat listrik 💡', isCorrect: true },
@@ -535,7 +535,7 @@ export function generateDay6Independence() {
           skill: 'hemat_air_bersih',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Penyelamat Air Bersih #${vIdx + 1}: Setelah selesai mencuci tangan atau ember sudah penuh, apa yang harus dilakukan pada kran air?`,
+          prompt: `Setelah selesai mencuci tangan atau ember sudah penuh, apa yang harus dilakukan pada kran air?`,
           visual: '🚰 💧 🛑',
           choices: [
             { label: 'Menutup kran air dengan rapat agar tidak menetes 🚰', isCorrect: true },
@@ -557,7 +557,7 @@ export function generateDay6Independence() {
           skill: 'hormat_orang_tua',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Hormat & Berbakti #${vIdx + 1}: Saat hendak berangkat sekolah atau kembali ke rumah, adab terpuji kepada ayah dan ibu adalah?`,
+          prompt: `Saat hendak berangkat sekolah atau kembali ke rumah, adab terpuji kepada ayah dan ibu adalah?`,
           visual: '🧒 🤝 👵',
           choices: [
             { label: 'Mengucap salam dan mencium tangan orang tua dengan takzim 🙏', isCorrect: true },
@@ -579,7 +579,7 @@ export function generateDay6Independence() {
           skill: 'keramahan_sosial',
           cpElement: 'jati_diri',
           difficulty,
-          prompt: `Senyum Ceria #${vIdx + 1}: Saat berpapasan dengan teman di sekolah atau di taman, sambutan ramah apa yang kita berikan?`,
+          prompt: `Saat berpapasan dengan teman di sekolah atau di taman, sambutan ramah apa yang kita berikan?`,
           visual: '😃 👋 🌸',
           choices: [
             { label: 'Tersenyum manis dan mengucapkan salam ramah "Halo teman!" 😃', isCorrect: true },
@@ -601,7 +601,7 @@ export function generateDay6Independence() {
           skill: 'empati_dan_tolong_menolong',
           cpElement: 'nilai_agama_dan_budi_pekerti',
           difficulty,
-          prompt: `Pahlawan Penolong #${vIdx + 1}: Di halaman bermain, Kak Reza melihat seorang teman terpeleset dan terjatuh. Tindakan pahlawan sejati adalah?`,
+          prompt: `Di halaman bermain, Kak Reza melihat seorang teman terpeleset dan terjatuh. Tindakan pahlawan sejati adalah?`,
           visual: '🩹 🤝 💖',
           choices: [
             { label: 'Segera menghampiri, membantu berdiri, dan menanyakan keadaannya 🤝', isCorrect: true },

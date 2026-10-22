@@ -112,7 +112,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       <div className="flex-1 w-full flex flex-col items-center justify-center my-0.5 relative min-h-0 overflow-hidden">
         
         {/* CASE 1: ADDITION (Papan Penjumlahan Superhero) */}
-        {question.type === 'addition' && question.plateA && question.plateB ? (
+        {(question.type === 'addition' || question.type === 'visual_addition') && question.plateA && question.plateB ? (
           <div className="liquid-glass-subtle rounded-2xl p-2 sm:p-2.5 w-full max-w-sm shadow-inner flex flex-col items-center justify-center overflow-hidden">
             <div className="text-[0.65rem] font-black text-hero-red mb-1 uppercase tracking-wider flex items-center gap-1">
               <span>➕ Papan Penjumlahan Superhero:</span>
@@ -235,7 +235,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               })}
             </div>
           </div>
-        ) : question.type === 'sound' && question.soundFile ? (
+        ) : (question.type === 'sound' || question.type === 'sound_identification') && question.soundFile ? (
           /* CASE 3: REAL SOUND IDENTIFICATION */
           <div className="liquid-glass rounded-2xl p-3 sm:p-4 w-full max-w-xs shadow-md flex flex-col items-center justify-center overflow-hidden">
             <button
@@ -257,7 +257,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
               Dengarkan baik-baik, lalu tebak di bawah!
             </span>
           </div>
-        ) : question.type === 'sequence_2' ? (
+        ) : (question.type === 'sequence_2' || question.type === 'sequence_2step') ? (
           /* CASE 4: SEQUENCE 2-STEP INTERACTIVE MEMORY MISSION */
           <div className="w-full max-w-sm flex flex-col items-center justify-center p-2.5 liquid-glass-subtle rounded-2xl shadow-xs overflow-hidden">
             <div className="text-[0.68rem] font-black uppercase tracking-wider text-hero-red mb-1.5">
@@ -343,7 +343,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       <div className="w-full flex items-center justify-center gap-1 text-[0.68rem] font-bold text-slate-500 shrink-0">
         <Sparkles size={11} className="text-amber-500" />
         <span>
-          {question.type === 'sequence_2'
+          {question.type === 'sequence_2' || question.type === 'sequence_2step'
             ? 'Sentuh benda berurutan di bawah ya Kak Reza!'
             : question.type === 'word_builder'
             ? 'Ketuk huruf satu-satu untuk menyusun kata!'

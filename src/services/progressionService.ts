@@ -331,4 +331,9 @@ export class ProgressionService {
       };
     });
   }
+
+  // Reset progression to initial state
+  public static resetProgression(): ProgressionState {
+    return StorageService.resetAllProgress();
+  }
 }

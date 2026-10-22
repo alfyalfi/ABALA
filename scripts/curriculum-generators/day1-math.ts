@@ -20,10 +20,10 @@ export function generateDay1Math() {
     'Lompat Angka Genap (2, 4, 6, 8)',
     'Lompat Angka Ganjil (1, 3, 5, 7)',
     'Hitung Mundur Roket (5 s.d. 1)',
-    'Bandingkan: Selisih Kuantitas',
-    'Bandingkan: Paling Sedikit',
-    'Geometri: Persegi Panjang',
-    'Geometri 3D: Tabung Silinder',
+    'Bandingkan: Lebih Banyak',
+    'Bandingkan: Lebih Sedikit',
+    'Konsep Angka 0 (Kosong)',
+    'Urutan Bilangan 1–10',
     'Teka-Teki Logika Angka',
   ];
 
@@ -60,55 +60,37 @@ export function generateDay1Math() {
     { name: 'gasing putar', emoji: '🪀' },
   ];
 
-  const rectObjects = [
-    'Pintu Rumah 🚪', 'Penggaris Panjang 📏', 'Buku Cerita 📖', 'Layar Televisi 📺', 'Papan Tulis 📋',
-    'Handphone Pintar 📱', 'Kotak Pensil 🗃️', 'Jendela Kamar 🪟', 'Uang Kertas 💵', 'Meja Belajar 🪑',
-    'Kartu Nama 💳', 'Kasur Tidur 🛏️', 'Lemari Pakaian 🚪', 'Bus Sekolah 🚌', 'Laptop Komputer 💻',
-    'Kalender Dinding 🗓️', 'Batu Bata 🧱', 'Papan Catur ♟️', 'Kotak Bekal 🍱', 'Amplop Surat ✉️',
-    'Karpet Lantai 🧶', 'Pigura Foto 🖼️', 'Kotak Tisu 📦', 'Cermin Dinding 🪞', 'Kulkas Dua Pintu 🧊',
-    'Bendera Berkibar 🚩', 'Cokelat Batang 🍫', 'Keset Kaki 🟫', 'Kartu Superhero 🃏', 'Buku Gambar 🎨',
-  ];
-
-  const cylinderObjects = [
-    'Kaleng Biskuit 🥫', 'Kaleng Susu 🥛', 'Botol Minum 🍶', 'Gelas Kaca 🥛', 'Drum Musik 🥁',
-    'Pipa Air 🚰', 'Baterai Senter 🔋', 'Lilin Ulang Tahun 🕯️', 'Celengan Kaleng 🪙', 'Batang Bambu 🎍',
-    'Termos Air Panas 🫖', 'Teropong Bintang 🔭', 'Gulungan Tisu 🧻', 'Ember Cat 🪣', 'Toples Kue 🍪',
-    'Kaleng Cat Semprot 🎨', 'Tiang Bendera 🚩', 'Tongkat Kasti 🏏', 'Botol Sampo 🧴', 'Kaleng Soda 🥤',
-    'Vas Bunga Tabung 🏺', 'Terompet Bulat 🎺', 'Gilingan Kue 🥖', 'Silinder Gas 🎈', 'Botol Kecap 🍾',
-    'Tabung Krayon 🖍️', 'Pensil Bulat ✏️', 'Tong Sampah Kaleng 🗑️', 'Cangkir Silinder ☕', 'Tabung Selam 🤿',
-  ];
-
   const riddles = [
-    { q: 'Aku berada tepat di antara angka 2 dan 4. Angka berapakah aku?', ans: 3, d1: 2, d2: 5 },
-    { q: 'Aku adalah jumlah jari di satu tanganmu. Angka berapakah aku?', ans: 5, d1: 4, d2: 6 },
-    { q: 'Aku adalah jumlah roda pada sepeda gowes roda dua. Berapakah aku?', ans: 2, d1: 3, d2: 4 },
-    { q: 'Aku adalah jumlah sisi dan sudut pada bangun segitiga. Berapakah aku?', ans: 3, d1: 4, d2: 2 },
-    { q: 'Jika Kak Reza punya 2 mata dan 2 telinga, berapa jumlah semuanya?', ans: 4, d1: 3, d2: 5 },
-    { q: 'Aku adalah jumlah kaki pada kucing atau kelinci yang lucu. Berapakah aku?', ans: 4, d1: 2, d2: 6 },
-    { q: 'Aku adalah angka sebelum angka 10 dalam urutan hitungan. Berapakah aku?', ans: 9, d1: 8, d2: 7 },
-    { q: 'Aku adalah angka setelah angka 6 dan sebelum angka 8. Angka berapakah aku?', ans: 7, d1: 6, d2: 8 },
-    { q: 'Kak Reza punya 3 permen lalu memakannya 1. Sisa permen Kak Reza sekarang adalah?', ans: 2, d1: 1, d2: 3 },
-    { q: 'Aku adalah jumlah tangan pada robot superhero Kak Reza. Berapakah aku?', ans: 2, d1: 1, d2: 3 },
-    { q: 'Aku adalah jumlah roda pada sebuah mobil balap. Berapakah aku?', ans: 4, d1: 3, d2: 5 },
+    { q: 'Aku berada di antara angka 2 dan 4. Angka berapakah aku?', ans: 3, d1: 2, d2: 5 },
+    { q: 'Berapakah jumlah jari di satu tanganmu?', ans: 5, d1: 4, d2: 6 },
+    { q: 'Berapakah jumlah roda pada sepeda gowes roda dua?', ans: 2, d1: 3, d2: 4 },
+    { q: 'Berapa banyak sudut pada bangun segitiga?', ans: 3, d1: 4, d2: 2 },
+    { q: 'Kak Reza punya 2 mata dan 2 telinga. Berapa jumlah keduanya?', ans: 4, d1: 3, d2: 5 },
+    { q: 'Berapakah jumlah kaki pada seekor kelinci lucu?', ans: 4, d1: 2, d2: 6 },
+    { q: 'Angka berapakah sebelum angka 10 dalam urutan hitungan?', ans: 9, d1: 8, d2: 7 },
+    { q: 'Angka berapakah setelah angka 6 dan sebelum angka 8?', ans: 7, d1: 6, d2: 8 },
+    { q: 'Kak Reza punya 3 permen lalu memakannya 1. Berapa sisa permen Kak Reza?', ans: 2, d1: 1, d2: 3 },
+    { q: 'Berapakah jumlah tangan pada robot superhero Kak Reza?', ans: 2, d1: 1, d2: 3 },
+    { q: 'Berapakah jumlah roda pada sebuah mobil balap?', ans: 4, d1: 3, d2: 5 },
     { q: 'Jika 1 ditambah dengan 0, berapakah hasilnya?', ans: 1, d1: 0, d2: 2 },
     { q: 'Berapa banyak kaki yang dimiliki ayam jago?', ans: 2, d1: 4, d2: 1 },
-    { q: 'Aku adalah angka yang bentuknya seperti lingkaran telur tanpa sudut. Berapakah aku?', ans: 0, d1: 1, d2: 8 },
-    { q: 'Jika kamu memiliki 3 balon lalu mendapat 3 balon lagi, ada berapa balonmu?', ans: 6, d1: 5, d2: 7 },
-    { q: 'Aku adalah jumlah hari belajar aktif sekolah dari Senin sampai Jumat. Berapakah aku?', ans: 5, d1: 6, d2: 4 },
-    { q: 'Ada 4 burung di dahan, 2 burung terbang. Berapa burung yang masih bertengger?', ans: 2, d1: 1, d2: 3 },
-    { q: 'Aku adalah angka genap yang bernilai lebih besar dari 2 tapi lebih kecil dari 6. Siapakah aku?', ans: 4, d1: 3, d2: 5 },
-    { q: 'Jika Kak Reza punya 5 bintang lalu diberi 2 bintang lagi, berapa total bintangnya?', ans: 7, d1: 6, d2: 8 },
-    { q: 'Berapa banyak warna pada lampu lalu lintas (merah, kuning, hijau)?', ans: 3, d1: 2, d2: 4 },
-    { q: 'Aku adalah angka ganjil antara 7 dan 11. Siapakah aku?', ans: 9, d1: 8, d2: 10 },
-    { q: 'Kak Reza melompat 3 kali, lalu melompat lagi 1 kali. Berapa kali total lompatannya?', ans: 4, d1: 3, d2: 5 },
-    { q: 'Berapa banyak tanduk cula pada kepala badak cula satu?', ans: 1, d1: 2, d2: 0 },
-    { q: 'Jika kamu membagi 4 biskuit sama rata kepada 2 teman, masing-masing dapat berapa?', ans: 2, d1: 1, d2: 3 },
-    { q: 'Aku adalah jumlah sayap pada seekor burung elang gagah. Berapakah aku?', ans: 2, d1: 4, d2: 1 },
-    { q: 'Aku adalah angka yang jika ditambah 1 menghasilkan angka 6. Siapakah aku?', ans: 5, d1: 4, d2: 7 },
+    { q: 'Bentuknya bulat seperti telur tanpa sudut. Angka berapakah ini?', ans: 0, d1: 1, d2: 8 },
+    { q: 'Kak Reza punya 3 balon lalu dapat 3 balon lagi. Berapa semua balonnya?', ans: 6, d1: 5, d2: 7 },
+    { q: 'Berapakah jumlah hari sekolah dari Senin sampai Jumat?', ans: 5, d1: 6, d2: 4 },
+    { q: 'Ada 4 burung di dahan, 2 terbang. Berapa burung yang masih ada?', ans: 2, d1: 1, d2: 3 },
+    { q: 'Angka genap yang lebih besar dari 2 dan lebih kecil dari 6 adalah?', ans: 4, d1: 3, d2: 5 },
+    { q: 'Kak Reza punya 5 bintang lalu dapat 2 bintang lagi. Berapa totalnya?', ans: 7, d1: 6, d2: 8 },
+    { q: 'Berapa banyak warna lampu lalu lintas (merah, kuning, hijau)?', ans: 3, d1: 2, d2: 4 },
+    { q: 'Angka ganjil di antara 7 dan 11 adalah?', ans: 9, d1: 8, d2: 10 },
+    { q: 'Kak Reza melompat 3 kali lalu melompat lagi 1 kali. Berapa kali totalnya?', ans: 4, d1: 3, d2: 5 },
+    { q: 'Berapa banyak cula pada kepala badak bercula satu?', ans: 1, d1: 2, d2: 0 },
+    { q: 'Jika 4 biskuit dibagi sama rata untuk 2 anak, masing-masing dapat berapa?', ans: 2, d1: 1, d2: 3 },
+    { q: 'Berapakah jumlah sayap pada seekor burung elang?', ans: 2, d1: 4, d2: 1 },
+    { q: 'Angka berapakah yang jika ditambah 1 menjadi 6?', ans: 5, d1: 4, d2: 7 },
     { q: 'Berapakah jumlah roda pada gerobak dorong roda satu?', ans: 1, d1: 2, d2: 3 },
-    { q: 'Kak Reza punya 8 krayon, 3 krayon dipinjam teman. Berapa krayon yang masih ada?', ans: 5, d1: 4, d2: 6 },
-    { q: 'Aku adalah angka terkecil yang bernilai lebih besar dari nol. Siapakah aku?', ans: 1, d1: 2, d2: 0 },
-    { q: 'Jika kamu memakai 2 sepatu di kaki dan 2 sarung tangan di tangan, berapa perlengkapan yang dipakai?', ans: 4, d1: 3, d2: 5 },
+    { q: 'Kak Reza punya 8 krayon, 3 krayon dipinjam teman. Sisa krayonnya ada?', ans: 5, d1: 4, d2: 6 },
+    { q: 'Angka berapakah yang paling kecil dan bernilai lebih besar dari 0?', ans: 1, d1: 2, d2: 0 },
+    { q: 'Pakai 2 sepatu di kaki dan 2 sarung di tangan. Berapa pasang benda itu?', ans: 4, d1: 3, d2: 5 },
   ];
 
   const questions = topics.map((topicName, slotIdx) => {
@@ -116,9 +98,8 @@ export function generateDay1Math() {
 
     for (let vIdx = 0; vIdx < 30; vIdx++) {
       const item = itemsPool[vIdx % itemsPool.length];
-      const nextItem = itemsPool[(vIdx + 5) % itemsPool.length];
       const varId = `d1_t${String(slotIdx + 1).padStart(2, '0')}_v${String(vIdx + 1).padStart(2, '0')}`;
-      const difficulty = vIdx < 10 ? 'mudah' : vIdx < 22 ? 'berkembang' : 'menantang';
+      const difficulty: 'mudah' | 'berkembang' | 'menantang' = vIdx < 10 ? 'mudah' : vIdx < 22 ? 'berkembang' : 'menantang';
 
       let variant: any;
 
@@ -139,7 +120,7 @@ export function generateDay1Math() {
           skill: 'korespondensi_satu_satu',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Sentuh dan hitung: ada berapa banyak ${item.name} di bawah ini?`,
+          prompt: `Sentuh dan hitung, ada berapa banyak ${item.name} di bawah ini?`,
           visual: countItems.join(' '),
           countItems,
           targetCount: count,
@@ -170,7 +151,7 @@ export function generateDay1Math() {
           skill: 'korespondensi_satu_satu',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Ayo teliti! Sentuh satu per satu: ada berapa ${item.name}?`,
+          prompt: `Ayo teliti! Sentuh satu per satu, ada berapa ${item.name}?`,
           visual: countItems.join(' '),
           countItems,
           targetCount: count,
@@ -231,7 +212,7 @@ export function generateDay1Math() {
           skill: 'simbol_angka',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Misi #${vIdx + 1}: Bantu Kak Reza menemukan kelompok yang berisi persis ${targetNum} ${item.name}!`,
+          prompt: `Bantu Kak Reza mencari kelompok yang berisi ${targetNum} ${item.name}!`,
           targetCount: targetNum,
           visual: `${item.emoji} `.repeat(targetNum).trim(),
           choices: [
@@ -267,7 +248,7 @@ export function generateDay1Math() {
           feedbackIncorrect: `Coba pasangkan dua-dua, apakah ada yang tidak dapat pasangan?`,
         };
       } else if (slotIdx >= 5 && slotIdx <= 9) {
-        // Topics 6-10: Penjumlahan Visual (1+1 s.d. 5+5)
+        // Topics 6-10: Penjumlahan Visual (1+1 s.d. 5+5) - SAME ITEM FOR BOTH GROUPS
         const config = [
           { a: 1, b: 1, sum: 2, label: '1 + 1' },
           { a: 2, b: 2, sum: 4, label: '2 + 2' },
@@ -277,7 +258,7 @@ export function generateDay1Math() {
         ][slotIdx - 5];
 
         const aItems = Array(config.a).fill(item.emoji);
-        const bItems = Array(config.b).fill(nextItem.emoji);
+        const bItems = Array(config.b).fill(item.emoji); // RELEVANT: Same item!
         const d1 = config.sum - 1;
         const d2 = config.sum + 1;
 
@@ -286,12 +267,16 @@ export function generateDay1Math() {
           categoryId: 1,
           slotIndex: slotIdx,
           topic: topicName,
-          type: 'visual_addition',
+          type: 'addition',
           learningGoal: `Menjumlahkan dua kelompok konkret: ${config.a} + ${config.b} = ${config.sum}.`,
           skill: 'penjumlahan_konkret',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Kak Reza punya ${config.a} ${item.name}, lalu mendapat ${config.b} ${nextItem.name}. Berapa semuanya?`,
+          prompt: `Kak Reza punya ${config.a} ${item.name}, lalu dapat lagi ${config.b} ${item.name}. Berapa semuanya?`,
+          plateA: aItems,
+          plateB: bItems,
+          itemName: item.name,
+          itemEmoji: item.emoji,
           visual: `${aItems.join(' ')}  ➕  ${bItems.join(' ')}`,
           choices: [
             { label: String(d1), isCorrect: false },
@@ -299,7 +284,7 @@ export function generateDay1Math() {
             { label: String(d2), isCorrect: false },
           ],
           feedbackCorrect: `Tepat! ${config.a} ditambah ${config.b} sama dengan ${config.sum}!`,
-          feedbackIncorrect: `Gabungkan kedua kelompok benda lalu hitung seluruhnya!`,
+          feedbackIncorrect: `Gabungkan kedua kelompok ${item.name} lalu hitung seluruhnya!`,
         };
       } else if (slotIdx >= 10 && slotIdx <= 14) {
         // Topics 11-15: Pengurangan Visual (3-1 s.d. 10-5)
@@ -328,6 +313,8 @@ export function generateDay1Math() {
           visual: `${Array(config.rem).fill(item.emoji).join(' ')} ❌ ${Array(config.take).fill(item.emoji).join(' ')}`,
           remainingCount: config.rem,
           subtractedCount: config.take,
+          itemName: item.name,
+          itemEmoji: item.emoji,
           choices: [
             { label: String(d1), isCorrect: false },
             { label: String(d2), isCorrect: false },
@@ -337,31 +324,37 @@ export function generateDay1Math() {
           feedbackIncorrect: `Coret ${config.take} buah, lalu hitung yang belum dicoret ya!`,
         };
       } else if (slotIdx === 15) {
-        // Topic 16: Soal Cerita Penjumlahan
+        // Topic 16: Soal Cerita Penjumlahan - SAME ITEM RELEVANCE
         const a = (vIdx % 3) + 2; // 2, 3, 4
         const b = (vIdx % 2) + 1; // 1, 2
         const total = a + b;
         const d1 = total - 1;
         const d2 = total + 2;
+        const aItems = Array(a).fill(item.emoji);
+        const bItems = Array(b).fill(item.emoji); // Same item!
 
         variant = {
           id: varId,
           categoryId: 1,
           slotIndex: slotIdx,
           topic: topicName,
-          type: 'story_problem',
+          type: 'addition',
           learningGoal: `Memahami cerita matematika penjumlahan kontekstual.`,
           skill: 'pemecahan_masalah_numerik',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Di keranjang ada ${a} ${item.name} ${item.emoji.repeat(a)}. Ibu menambahkan lagi ${b} ${nextItem.name} ${nextItem.emoji.repeat(b)}. Berapa jumlah seluruhnya sekarang?`,
-          visual: `${item.emoji.repeat(a)} ➕ ${nextItem.emoji.repeat(b)}`,
+          prompt: `Di wadah ada ${a} ${item.name}. Kak Reza menambah lagi ${b} ${item.name}. Berapa jumlah seluruhnya?`,
+          plateA: aItems,
+          plateB: bItems,
+          itemName: item.name,
+          itemEmoji: item.emoji,
+          visual: `${item.emoji.repeat(a)} ➕ ${item.emoji.repeat(b)}`,
           choices: [
             { label: `${total} buah`, isCorrect: true },
             { label: `${d1} buah`, isCorrect: false },
             { label: `${d2} buah`, isCorrect: false },
           ],
-          feedbackCorrect: `Tepat sekali! Totalnya adalah ${total} buah!`,
+          feedbackCorrect: `Tepat sekali! Totalnya adalah ${total} ${item.name}!`,
           feedbackIncorrect: `Ingat, ditambahkan artinya jumlahnya bertambah banyak!`,
         };
       } else if (slotIdx === 16) {
@@ -377,12 +370,16 @@ export function generateDay1Math() {
           categoryId: 1,
           slotIndex: slotIdx,
           topic: topicName,
-          type: 'story_problem',
+          type: 'subtraction',
           learningGoal: `Memahami cerita pengurangan kontekstual dan menghitung sisa.`,
           skill: 'pemecahan_masalah_numerik',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Kak Reza mengumpulkan ${total} ${item.name} ${item.emoji.repeat(total)}. Diberikan kepada Lili ${taken} buah. Berapakah sisa ${item.name} Kak Reza sekarang?`,
+          prompt: `Kak Reza punya ${total} ${item.name}. Diberikan ke Lili ${taken} buah. Berapa sisa ${item.name} Kak Reza?`,
+          remainingCount: sisa,
+          subtractedCount: taken,
+          itemName: item.name,
+          itemEmoji: item.emoji,
           visual: `${item.emoji.repeat(sisa)} (sisa)`,
           choices: [
             { label: `${d1} buah`, isCorrect: false },
@@ -395,11 +392,11 @@ export function generateDay1Math() {
       } else if (slotIdx === 17) {
         // Topic 18: Lompat Angka Genap (2, 4, 6, 8, 10)
         const genapSteps = [
-          { seq: '2 ➔ 4 ➔ ? ➔ 8', missing: 6, d1: 5, d2: 7, text: 'Kelinci melompati batu' },
-          { seq: '4 ➔ 6 ➔ ? ➔ 10', missing: 8, d1: 7, d2: 9, text: 'Mobil balap melaju di pos' },
-          { seq: '2 ➔ ? ➔ 6 ➔ 8', missing: 4, d1: 3, d2: 5, text: 'Roket melewati stasiun' },
-          { seq: '? ➔ 4 ➔ 6 ➔ 8', missing: 2, d1: 1, d2: 3, text: 'Langkah pertama di jalur genap' },
-          { seq: '6 ➔ 8 ➔ ?', missing: 10, d1: 9, d2: 12, text: 'Lompatan dua langkah dari angka 8' },
+          { seq: '2 ➔ 4 ➔ ? ➔ 8', missing: 6, d1: 5, d2: 7, text: '2, 4, ?, 8' },
+          { seq: '4 ➔ 6 ➔ ? ➔ 10', missing: 8, d1: 7, d2: 9, text: '4, 6, ?, 10' },
+          { seq: '2 ➔ ? ➔ 6 ➔ 8', missing: 4, d1: 3, d2: 5, text: '2, ?, 6, 8' },
+          { seq: '? ➔ 4 ➔ 6 ➔ 8', missing: 2, d1: 1, d2: 3, text: '?, 4, 6, 8' },
+          { seq: '6 ➔ 8 ➔ ?', missing: 10, d1: 9, d2: 12, text: '6, 8, ?' },
         ];
         const opt = genapSteps[vIdx % genapSteps.length];
 
@@ -413,7 +410,7 @@ export function generateDay1Math() {
           skill: 'pola_bilangan',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Lompat angka genap tantangan #${vIdx + 1}: ${opt.text}! Berapakah angka pengganti tanda tanya (${opt.seq})?`,
+          prompt: `Ayo lengkapi pola angka loncat dua: ${opt.text}! Angka berapa di tanda tanya?`,
           visual: opt.seq,
           choices: [
             { label: String(opt.d1), isCorrect: false },
@@ -426,11 +423,11 @@ export function generateDay1Math() {
       } else if (slotIdx === 18) {
         // Topic 19: Lompat Angka Ganjil (1, 3, 5, 7, 9)
         const ganjilSteps = [
-          { seq: '1 ➔ 3 ➔ ? ➔ 7', missing: 5, d1: 4, d2: 6, text: 'Kupu-kupu terbang ke bunga' },
-          { seq: '3 ➔ 5 ➔ ? ➔ 9', missing: 7, d1: 6, d2: 8, text: 'Kak Reza melompati angka ganjil' },
-          { seq: '1 ➔ ? ➔ 5 ➔ 7', missing: 3, d1: 2, d2: 4, text: 'Batu ganjil di antara 1 dan 5' },
-          { seq: '? ➔ 3 ➔ 5 ➔ 7', missing: 1, d1: 2, d2: 0, text: 'Angka ganjil pertama sebelum 3' },
-          { seq: '5 ➔ 7 ➔ ?', missing: 9, d1: 8, d2: 10, text: 'Lompat 2 langkah dari angka 7' },
+          { seq: '1 ➔ 3 ➔ ? ➔ 7', missing: 5, d1: 4, d2: 6, text: '1, 3, ?, 7' },
+          { seq: '3 ➔ 5 ➔ ? ➔ 9', missing: 7, d1: 6, d2: 8, text: '3, 5, ?, 9' },
+          { seq: '1 ➔ ? ➔ 5 ➔ 7', missing: 3, d1: 2, d2: 4, text: '1, ?, 5, 7' },
+          { seq: '? ➔ 3 ➔ 5 ➔ 7', missing: 1, d1: 2, d2: 0, text: '?, 3, 5, 7' },
+          { seq: '5 ➔ 7 ➔ ?', missing: 9, d1: 8, d2: 10, text: '5, 7, ?' },
         ];
         const opt = ganjilSteps[vIdx % ganjilSteps.length];
 
@@ -444,7 +441,7 @@ export function generateDay1Math() {
           skill: 'pola_bilangan',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Jalur angka ganjil misi #${vIdx + 1}: ${opt.text}! Angka berapakah yang tepat untuk melengkapi ${opt.seq}?`,
+          prompt: `Ayo lengkapi pola bilangan ganjil: ${opt.text}! Angka berapa di tanda tanya?`,
           visual: opt.seq,
           choices: [
             { label: String(opt.missing), isCorrect: true },
@@ -457,11 +454,11 @@ export function generateDay1Math() {
       } else if (slotIdx === 19) {
         // Topic 20: Hitung Mundur Roket (5 s.d. 1)
         const countdowns = [
-          { seq: '5 ➔ 4 ➔ ? ➔ 2 ➔ 1', missing: 3, d1: 2, d2: 4, label: 'Hitung mundur roket' },
-          { seq: '5 ➔ ? ➔ 3 ➔ 2 ➔ 1', missing: 4, d1: 3, d2: 5, label: 'Persiapan meluncur' },
-          { seq: '5 ➔ 4 ➔ 3 ➔ ? ➔ 1', missing: 2, d1: 1, d2: 3, label: 'Mesin roket menyala' },
-          { seq: '? ➔ 4 ➔ 3 ➔ 2 ➔ 1', missing: 5, d1: 6, d2: 4, label: 'Awal peluncuran antariksa' },
-          { seq: '4 ➔ 3 ➔ 2 ➔ ?', missing: 1, d1: 0, d2: 2, label: 'Detik terakhir peluncuran' },
+          { seq: '5 ➔ 4 ➔ ? ➔ 2 ➔ 1', missing: 3, d1: 2, d2: 4, text: '5, 4, ?, 2, 1' },
+          { seq: '5 ➔ ? ➔ 3 ➔ 2 ➔ 1', missing: 4, d1: 3, d2: 5, text: '5, ?, 3, 2, 1' },
+          { seq: '5 ➔ 4 ➔ 3 ➔ ? ➔ 1', missing: 2, d1: 1, d2: 3, text: '5, 4, 3, ?, 1' },
+          { seq: '? ➔ 4 ➔ 3 ➔ 2 ➔ 1', missing: 5, d1: 6, d2: 4, text: '?, 4, 3, 2, 1' },
+          { seq: '4 ➔ 3 ➔ 2 ➔ ?', missing: 1, d1: 0, d2: 2, text: '4, 3, 2, ?' },
         ];
         const opt = countdowns[vIdx % countdowns.length];
 
@@ -475,7 +472,7 @@ export function generateDay1Math() {
           skill: 'hitung_mundur',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Misi Antariksa #${vIdx + 1}: ${opt.label}! Angka berapa yang hilang dalam urutan hitung mundur ${opt.seq}?`,
+          prompt: `Hitung mundur roket: ${opt.text}! Angka berapa yang hilang di tanda tanya?`,
           visual: `🚀 ${opt.seq}`,
           choices: [
             { label: String(opt.d1), isCorrect: false },
@@ -486,11 +483,11 @@ export function generateDay1Math() {
           feedbackIncorrect: `Hitung mundur dari yang paling besar ke paling kecil ya!`,
         };
       } else if (slotIdx === 20) {
-        // Topic 21: Bandingkan Selisih Kuantitas
+        // Topic 21: Bandingkan Lebih Banyak - SAME ITEM FOR BOTH PLATES
         const countA = (vIdx % 3) + 4; // 4, 5, 6
         const countB = (vIdx % 2) + 2; // 2, 3
         const plateA = Array(countA).fill(item.emoji);
-        const plateB = Array(countB).fill(nextItem.emoji);
+        const plateB = Array(countB).fill(item.emoji); // Same item!
 
         variant = {
           id: varId,
@@ -502,20 +499,20 @@ export function generateDay1Math() {
           skill: 'perbandingan_kuantitas',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Piring manakah yang berisi ${item.name} LEBIH BANYAK?`,
+          prompt: `Piring manakah yang ada ${item.name} LEBIH BANYAK?`,
           choices: [
             { label: `Piring A (${countA} ${item.name})`, visual: plateA.join(' '), isCorrect: true },
-            { label: `Piring B (${countB} ${nextItem.name})`, visual: plateB.join(' '), isCorrect: false },
+            { label: `Piring B (${countB} ${item.name})`, visual: plateB.join(' '), isCorrect: false },
           ],
           feedbackCorrect: `Benar! ${countA} lebih banyak daripada ${countB}!`,
           feedbackIncorrect: `Hitung jumlah benda di masing-masing piring ya!`,
         };
       } else if (slotIdx === 21) {
-        // Topic 22: Bandingkan Paling Sedikit
+        // Topic 22: Bandingkan Lebih Sedikit - SAME ITEM FOR BOTH PLATES
         const countA = (vIdx % 3) + 2; // 2, 3, 4
         const countB = countA + 3; // 5, 6, 7
         const plateA = Array(countA).fill(item.emoji);
-        const plateB = Array(countB).fill(nextItem.emoji);
+        const plateB = Array(countB).fill(item.emoji); // Same item!
 
         variant = {
           id: varId,
@@ -527,69 +524,77 @@ export function generateDay1Math() {
           skill: 'perbandingan_kuantitas',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Tantangan #${vIdx + 1}: Di antara kelompok ${countA} ${item.name} dan ${countB} ${nextItem.name}, manakah yang LEBIH SEDIKIT?`,
+          prompt: `Kelompok manakah yang ada ${item.name} LEBIH SEDIKIT?`,
           choices: [
             { label: `Kelompok A (${countA} ${item.name})`, visual: plateA.join(' '), isCorrect: true },
-            { label: `Kelompok B (${countB} ${nextItem.name})`, visual: plateB.join(' '), isCorrect: false },
+            { label: `Kelompok B (${countB} ${item.name})`, visual: plateB.join(' '), isCorrect: false },
           ],
           feedbackCorrect: `Tepat sekali! ${countA} lebih sedikit daripada ${countB}!`,
-          feedbackIncorrect: `Cari kelompok yang jumlah bendanya paling kecil ya!`,
+          feedbackIncorrect: `Cari kelompok yang jumlah bendanya paling sedikit ya!`,
         };
       } else if (slotIdx === 22) {
-        // Topic 23: Geometri Persegi Panjang
-        const rect = rectObjects[vIdx % rectObjects.length];
-        const distractors = ['Roda Sepeda Bulat 🛞', 'Tenda Segitiga ⛺', 'Bola Sepak Bulat ⚽'];
-        const d1 = distractors[vIdx % distractors.length];
-        const d2 = distractors[(vIdx + 1) % distractors.length];
+        // Topic 23: Konsep Angka 0 (Kosong) - REPLACED MISPLACED GEOMETRY
+        const zeroContexts = [
+          { p: 'Piring kue ini sudah habis dimakan dan kosong.', q: 'Berapakah lambang angka untuk piring yang kosong?', ans: 0 },
+          { p: 'Kotak pensil terbuka dan tidak ada pensil sama sekali.', q: 'Berapakah jumlah pensil di dalam kotak kosong itu?', ans: 0 },
+          { p: 'Semua burung di dahan sudah terbang pergi.', q: 'Berapa banyak burung yang tersisa di dahan?', ans: 0 },
+          { p: 'Keranjang buah ini kosong melompong.', q: 'Angka berapakah yang melambangkan benda kosong atau habis?', ans: 0 },
+          { p: 'Kak Reza punya 1 balon lalu balonnya meletus.', q: 'Berapakah sisa balon Kak Reza sekarang?', ans: 0 },
+        ];
+        const zc = zeroContexts[vIdx % zeroContexts.length];
 
         variant = {
           id: varId,
           categoryId: 1,
           slotIndex: slotIdx,
           topic: topicName,
-          type: 'shape',
-          learningGoal: `Mengenali bentuk geometri persegi panjang pada benda nyata.`,
-          skill: 'geometri_2d',
+          type: 'choice',
+          learningGoal: `Memahami konsep bilangan nol sebagai ketiadaan benda atau keadaan kosong.`,
+          skill: 'konsep_angka_nol',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Misi Bentuk #${vIdx + 1}: Manakah di antara benda berikut yang berbentuk PERSEGI PANJANG seperti ${rect.split(' ')[0]}?`,
-          visual: '▭ Persegi Panjang',
+          prompt: `${zc.p} ${zc.q}`,
+          visual: '⭕ Angka 0 (Kosong)',
           choices: [
-            { label: rect, isCorrect: true },
-            { label: d1, isCorrect: false },
-            { label: d2, isCorrect: false },
+            { label: '0 (Kosong)', visual: '0️⃣', isCorrect: true },
+            { label: '1 (Satu)', visual: '1️⃣', isCorrect: false },
+            { label: '2 (Dua)', visual: '2️⃣', isCorrect: false },
           ],
-          feedbackCorrect: `Hebat! ${rect} berbentuk persegi panjang!`,
-          feedbackIncorrect: `Persegi panjang memiliki dua sisi panjang dan dua sisi pendek.`,
+          feedbackCorrect: `Pintar sekali! Angka 0 artinya kosong atau tidak ada benda!`,
+          feedbackIncorrect: `Bila tidak ada benda sama sekali, lambang angkanya adalah nol (0)!`,
         };
       } else if (slotIdx === 23) {
-        // Topic 24: Geometri 3D Tabung Silinder
-        const cyl = cylinderObjects[vIdx % cylinderObjects.length];
-        const distractors = ['Kotak Kado Kubus 🎁', 'Bola Sepak Bulat ⚽', 'Piramida Segitiga 🔺'];
-        const d1 = distractors[vIdx % distractors.length];
-        const d2 = distractors[(vIdx + 1) % distractors.length];
+        // Topic 24: Urutan Bilangan 1-10 - REPLACED MISPLACED 3D CYLINDER
+        const orderPuzzles = [
+          { seq: '1 ➔ 2 ➔ ? ➔ 4', missing: 3, d1: 5, d2: 2, text: '1, 2, ?, 4' },
+          { seq: '3 ➔ 4 ➔ ? ➔ 6', missing: 5, d1: 7, d2: 4, text: '3, 4, ?, 6' },
+          { seq: '6 ➔ 7 ➔ ? ➔ 9', missing: 8, d1: 10, d2: 7, text: '6, 7, ?, 9' },
+          { seq: '7 ➔ 8 ➔ ? ➔ 10', missing: 9, d1: 6, d2: 10, text: '7, 8, ?, 10' },
+          { seq: '2 ➔ 3 ➔ 4 ➔ ?', missing: 5, d1: 6, d2: 3, text: '2, 3, 4, ?' },
+        ];
+        const op = orderPuzzles[vIdx % orderPuzzles.length];
 
         variant = {
           id: varId,
           categoryId: 1,
           slotIndex: slotIdx,
           topic: topicName,
-          type: 'shape',
-          learningGoal: `Mengenali bentuk ruang tabung silinder (lingkaran atas-bawah).`,
-          skill: 'geometri_3d',
+          type: 'pattern',
+          learningGoal: `Mengurutkan bilangan berurutan dari 1 sampai 10.`,
+          skill: 'urutan_bilangan',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Misi Ruang 3D #${vIdx + 1}: Benda manakah yang berbentuk TABUNG SILINDER seperti ${cyl.split(' ')[0]}?`,
-          visual: '🛢️ Tabung Silinder',
+          prompt: `Ayo lengkapi urutan angka: ${op.text}! Angka berapa yang hilang di tanda tanya?`,
+          visual: op.seq,
           choices: [
-            { label: cyl, isCorrect: true },
-            { label: d1, isCorrect: false },
-            { label: d2, isCorrect: false },
+            { label: String(op.missing), isCorrect: true },
+            { label: String(op.d1), isCorrect: false },
+            { label: String(op.d2), isCorrect: false },
           ],
-          feedbackCorrect: `Tepat sekali! ${cyl} memiliki bentuk tabung!`,
-          feedbackIncorrect: `Tabung memiliki alas dan tutup berbentuk lingkaran.`,
+          feedbackCorrect: `Luar biasa! Angka ${op.missing} melengkapi urutan hitungan!`,
+          feedbackIncorrect: `Hitung urut dari depan: 1, 2, 3, 4, 5...`,
         };
-      } else {
+      } else if (slotIdx === 24) {
         // Topic 25: Teka-Teki Logika Angka
         const r = riddles[vIdx % riddles.length];
 
@@ -599,19 +604,19 @@ export function generateDay1Math() {
           slotIndex: slotIdx,
           topic: topicName,
           type: 'choice',
-          learningGoal: `Memecahkan teka-teki logika penalaran bilangan konkret.`,
-          skill: 'penalaran_logika_angka',
+          learningGoal: `Menerapkan pemahaman logika numerik sederhana pada situasi kehidupan.`,
+          skill: 'penalaran_numerik',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Teka-teki Superhero #${vIdx + 1}: ${r.q}`,
-          visual: '❓ 💡',
+          prompt: r.q,
+          visual: '🧩 Teka-Teki Angka',
           choices: [
-            { label: String(r.d1), isCorrect: false },
             { label: String(r.ans), isCorrect: true },
+            { label: String(r.d1), isCorrect: false },
             { label: String(r.d2), isCorrect: false },
           ],
-          feedbackCorrect: `Luar biasa cerdas Kak Reza! Jawabannya benar ${r.ans}!`,
-          feedbackIncorrect: `Pikirkan baik-baik ya, coba bayangkan bendanya!`,
+          feedbackCorrect: `Tepat sekali Kak Reza! Jawaban cerdas superhero!`,
+          feedbackIncorrect: `Pikirkan baik-baik petunjuk di dalam pertanyaannya ya!`,
         };
       }
 
@@ -630,7 +635,7 @@ export function generateDay1Math() {
     title: 'Matematika Superhero',
     icon: '🔢',
     badge: 'Bilangan & Numerasi',
-    desc: 'Bilangan, korespondensi satu-ke-satu, pola urutan, penjumlahan, pengurangan konkret, dan penalaran numerik sederhana.',
+    desc: 'Bilangan, korespondensi satu-ke-satu, pola, penjumlahan, pengurangan konkret, dan penalaran numerik.',
     questions,
   };
 }

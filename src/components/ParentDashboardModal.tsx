@@ -3,11 +3,22 @@
 import React from 'react';
 import { X, CheckCircle, BarChart, Shield, Calendar } from 'lucide-react';
 import { ProgressService } from '../services/supabaseService';
+import { CATEGORIES_META } from '../data/categoriesMeta';
+import { LearningPillarProgress } from '../types';
 
 interface ParentDashboardModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+const PILLAR_KEYS: Record<number, keyof LearningPillarProgress> = {
+  1: 'berhitung',
+  2: 'membaca',
+  3: 'menyimak',
+  4: 'nalar',
+  5: 'bentuk',
+  6: 'kemandirian',
+};
 
 export const ParentDashboardModal: React.FC<ParentDashboardModalProps> = ({
   isOpen,
@@ -18,14 +29,12 @@ export const ParentDashboardModal: React.FC<ParentDashboardModalProps> = ({
   const history = ProgressService.getLocalHistory();
   const pillars = ProgressService.getPillarProgress();
 
-  const pillarList = [
-    { name: 'Berhitung & Angka', score: pillars.berhitung, icon: '🔢', color: 'bg-gradient-to-r from-blue-500 to-indigo-500' },
-    { name: 'Membaca & Fonik', score: pillars.membaca, icon: '🔤', color: 'bg-gradient-to-r from-emerald-500 to-teal-500' },
-    { name: 'Menyimak Suara', score: pillars.menyimak, icon: '👂', color: 'bg-gradient-to-r from-purple-500 to-fuchsia-500' },
-    { name: 'Logika & Nalar', score: pillars.nalar, icon: '💡', color: 'bg-gradient-to-r from-amber-500 to-orange-500' },
-    { name: 'Bentuk & Spasial', score: pillars.bentuk, icon: '🔷', color: 'bg-gradient-to-r from-cyan-500 to-sky-500' },
-    { name: 'Kemandirian & Sikap', score: pillars.kemandirian, icon: '🦸‍♂️', color: 'bg-gradient-to-r from-rose-500 to-red-500' }
-  ];
+  const pillarList = CATEGORIES_META.map((cat) => ({
+    name: `${cat.title} (${cat.dayName})`,
+    score: pillars[PILLAR_KEYS[cat.id]] ?? 0,
+    icon: cat.icon,
+    color: `bg-gradient-to-r ${cat.color}`,
+  }));
 
   return (
     <div className="fixed inset-0 bg-slate-950/50 backdrop-blur-xl z-50 flex items-center justify-center p-3 sm:p-4">

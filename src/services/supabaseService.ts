@@ -95,4 +95,53 @@ export class ProgressService {
       kemandirian: 0
     };
   }
+
+  // Reset all progress in database and localStorage
+  static async resetDatabaseProgress(): Promise<{ success: boolean; message: string }> {
+    // 1. Reset local storage for history and pillars
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+      localStorage.setItem(
+        PILLARS_KEY,
+        JSON.stringify({
+          berhitung: 0,
+          membaca: 0,
+          menyimak: 0,
+          nalar: 0,
+          bentuk: 0,
+          kemandirian: 0,
+        })
+      );
+    } catch (e) {
+      console.warn('Local storage clear warning:', e);
+    }
+
+    // 2. Direct Supabase call if configured in client
+    if (isCloudConfigured && supabase) {
+      try {
+        await supabase.from('daily_sessions').delete().gte('day_id', 0);
+      } catch (err) {
+        console.warn('Direct Supabase reset error:', err);
+      }
+    }
+
+    // 3. Always invoke backend API endpoint for service-role database sync
+    try {
+      const res = await fetch('/api/progress', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data = await res.json();
+      return {
+        success: true,
+        message: data.message || 'Semua progres berhasil direset dari database dan lokal.',
+      };
+    } catch (err: any) {
+      console.warn('API reset failed (offline mode):', err);
+      return {
+        success: true,
+        message: 'Progres lokal berhasil direset (mode offline).',
+      };
+    }
+  }
 }

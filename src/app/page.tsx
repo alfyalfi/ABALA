@@ -30,69 +30,18 @@ import {
   ActiveLearningSessionState,
 } from '../types/progression';
 import { LearningPillarProgress } from '../types';
+import { CATEGORIES_META } from '../data/categoriesMeta';
 
-const PILLARS_CONFIG = [
-  {
-    id: 1,
-    name: 'Senin',
-    title: 'Matematika Superhero',
-    fullTitle: 'Senin — Matematika Superhero',
-    icon: '🔢',
-    color: 'from-blue-500 to-indigo-600',
-    desc: 'Berhitung visual, penjumlahan, pengurangan, dan teka-teki angka',
-    badge: 'Logika Angka',
-  },
-  {
-    id: 2,
-    name: 'Selasa',
-    title: 'Membaca & Fonik',
-    fullTitle: 'Selasa — Membaca & Fonik',
-    icon: '🔤',
-    color: 'from-emerald-500 to-teal-600',
-    desc: 'Pengenalan huruf, suku kata, menyusun kata, dan fonik kata',
-    badge: 'Literasi Cilik',
-  },
-  {
-    id: 3,
-    name: 'Rabu',
-    title: 'Menyimak & Suara',
-    fullTitle: 'Rabu — Menyimak & Suara',
-    icon: '👂',
-    color: 'from-purple-500 to-fuchsia-600',
-    desc: 'Diskriminasi suara autentik hewan, kendaraan, dan memori 2-langkah',
-    badge: 'Auditori Hebat',
-  },
-  {
-    id: 4,
-    name: 'Kamis',
-    title: 'Nalar & Logika',
-    fullTitle: 'Kamis — Nalar & Logika',
-    icon: '💡',
-    color: 'from-amber-500 to-orange-600',
-    desc: 'Perbandingan visual, klasifikasi benda, dan sebab-akibat',
-    badge: 'Penalaran Kritis',
-  },
-  {
-    id: 5,
-    name: 'Jumat',
-    title: 'Bentuk & Spasial',
-    fullTitle: 'Jumat — Bentuk & Spasial',
-    icon: '🔷',
-    color: 'from-cyan-500 to-sky-600',
-    desc: 'Geometri 2D, bentuk di sekitar kita, dan orientasi spasial',
-    badge: 'Geometri Cilik',
-  },
-  {
-    id: 6,
-    name: 'Sabtu',
-    title: 'Kemandirian Superhero',
-    fullTitle: 'Sabtu — Kemandirian Superhero',
-    icon: '🦸‍♂️',
-    color: 'from-rose-500 to-red-600',
-    desc: 'Adab sehari-hari, kebersihan diri, emosi, dan pertolongan pertama',
-    badge: 'Karakter Tangguh',
-  },
-];
+const PILLARS_CONFIG = CATEGORIES_META;
+
+const PILLAR_KEYS: Record<number, keyof LearningPillarProgress> = {
+  1: 'berhitung',
+  2: 'membaca',
+  3: 'menyimak',
+  4: 'nalar',
+  5: 'bentuk',
+  6: 'kemandirian',
+};
 
 export default function HomeBasePage() {
   const router = useRouter();
@@ -357,15 +306,7 @@ export default function HomeBasePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {PILLARS_CONFIG.map((p) => {
-              let score = 0;
-              switch (p.id) {
-                case 1: score = pillars.berhitung; break;
-                case 2: score = pillars.membaca; break;
-                case 3: score = pillars.menyimak; break;
-                case 4: score = pillars.nalar; break;
-                case 5: score = pillars.bentuk; break;
-                case 6: score = pillars.kemandirian; break;
-              }
+              const score = pillars ? (pillars[PILLAR_KEYS[p.id]] ?? 0) : 0;
 
               return (
                 <Link

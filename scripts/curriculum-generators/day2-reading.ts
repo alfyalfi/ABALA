@@ -33,50 +33,52 @@ export function generateDay2Reading() {
     { word: 'Rumput', emoji: '🌱' }, { word: 'Rantai', emoji: '⛓️' }, { word: 'Ratu', emoji: '👑' },
     { word: 'Raket', emoji: '🏸' }, { word: 'Rawa', emoji: '🏞️' }, { word: 'Rambut', emoji: '💇' },
     { word: 'Ranting', emoji: '🪵' }, { word: 'Robot', emoji: '🤖' }, { word: 'Ransel', emoji: '🎒' },
-    { word: 'Raja', emoji: '🤴' }, { word: 'Rambut', emoji: '🧒' }, { word: 'Rel', emoji: '🛤️' },
-    { word: 'Rambung', emoji: '🌿' }, { word: 'Ring', emoji: '💍' }, { word: 'Rakit', emoji: '🛶' },
-    { word: 'Ruang', emoji: '🚪' }, { word: 'Rona', emoji: '🌅' }, { word: 'Rona', emoji: '🎨' },
-    { word: 'Rempah', emoji: '🧂' }, { word: 'Roda', emoji: '🚲' }, { word: 'Rebung', emoji: '🎋' },
-    { word: 'Rimpang', emoji: '🥔' }, { word: 'Riam', emoji: '🌊' }, { word: 'Rawa', emoji: '🌿' },
+    { word: 'Raja', emoji: '🤴' }, { word: 'Rel', emoji: '🛤️' }, { word: 'Rakit', emoji: '🛶' },
+    { word: 'Ruang', emoji: '🚪' }, { word: 'Rona', emoji: '🌅' }, { word: 'Rempah', emoji: '🧂' },
+    { word: 'Roda Sepeda', emoji: '🚲' }, { word: 'Rebung', emoji: '🎋' }, { word: 'Riak Air', emoji: '🌊' },
+    { word: 'Rusa Cilik', emoji: '🦌' }, { word: 'Roti Bakar', emoji: '🍞' }, { word: 'Ranting Daun', emoji: '🌿' },
+    { word: 'Roket Cepat', emoji: '🚀' }, { word: 'Rumah Idaman', emoji: '🏡' }, { word: 'Ransel Sekolah', emoji: '🎒' },
   ];
 
+  // Child-friendly words only (No Enzim, no Evolusi)
   const eWords = [
     { word: 'Elang', emoji: '🦅' }, { word: 'Ember', emoji: '🪣' }, { word: 'Ekor', emoji: '🐒' },
     { word: 'Es Krim', emoji: '🍦' }, { word: 'Emas', emoji: '🪙' }, { word: 'Enam', emoji: '6️⃣' },
     { word: 'Empat', emoji: '4️⃣' }, { word: 'Engklek', emoji: '👧' }, { word: 'Egrang', emoji: '🪵' },
-    { word: 'Entok', emoji: '🦆' }, { word: 'Ebi', emoji: '🦐' }, { word: 'Eselon', emoji: '⭐' },
-    { word: 'Estafet', emoji: '🏃' }, { word: 'Embun', emoji: '💧' }, { word: 'Eskalator', emoji: '🪜' },
-    { word: 'Elpiji', emoji: '🔥' }, { word: 'Emping', emoji: '🍘' }, { word: 'Emu', emoji: '🦤' },
-    { word: 'Enzim', emoji: '🧬' }, { word: 'Era', emoji: '⏳' }, { word: 'Eropa', emoji: '🗺️' },
-    { word: 'Evolusi', emoji: '🌱' }, { word: 'Ekspres', emoji: '🚄' }, { word: 'Elastis', emoji: '🎈' },
-    { word: 'Elemen', emoji: '🧩' }, { word: 'Elevator', emoji: '🛗' }, { word: 'Emosi', emoji: '😊' },
-    { word: 'Empati', emoji: '💖' }, { word: 'Energi', emoji: '⚡' }, { word: 'Episode', emoji: '🎬' },
+    { word: 'Entok', emoji: '🦆' }, { word: 'Embun', emoji: '💧' }, { word: 'Eskalator', emoji: '🪜' },
+    { word: 'Elang Gagah', emoji: '🦅' }, { word: 'Ember Air', emoji: '🪣' }, { word: 'Emas Murni', emoji: '🪙' },
+    { word: 'Es Lilin', emoji: '🍧' }, { word: 'Ekor Tupai', emoji: '🐿️' }, { word: 'Angka Enam', emoji: '6️⃣' },
+    { word: 'Angka Empat', emoji: '4️⃣' }, { word: 'Main Engklek', emoji: '🏃' }, { word: 'Ekor Kucing', emoji: '🐱' },
+    { word: 'Embun Pagi', emoji: '🌿' }, { word: 'Elang Terbang', emoji: '🦅' }, { word: 'Ember Cuci', emoji: '🪣' },
+    { word: 'Es Buah', emoji: '🍨' }, { word: 'Ekor Merak', emoji: '🦚' }, { word: 'Emas Berkilau', emoji: '✨' },
+    { word: 'Entok Lucu', emoji: '🦆' }, { word: 'Egrang Bambu', emoji: '🪵' }, { word: 'Ekor Kelinci', emoji: '🐰' },
   ];
 
+  // Child-friendly words only (No Zygote, no Zirkonium)
   const zWords = [
-    { word: 'Zebra', emoji: '🦓' }, { word: 'Zirafah', emoji: '🦒' }, { word: 'Zamrud', emoji: '💎' },
-    { word: 'Zaitun', emoji: '🫒' }, { word: 'Zig-zag', emoji: '⚡' }, { word: 'Zoo', emoji: '🦁' },
-    { word: 'Zero', emoji: '0️⃣' }, { word: 'Zona', emoji: '🛑' }, { word: 'Zodiac', emoji: '✨' },
-    { word: 'Ziarah', emoji: '🕌' }, { word: 'Zink', emoji: '⚙️' }, { word: 'Zat', emoji: '🧪' },
-    { word: 'Zaman', emoji: '🕰️' }, { word: 'Zabur', emoji: '📖' }, { word: 'Zakat', emoji: '🪙' },
-    { word: 'Zarafah', emoji: '🦒' }, { word: 'Zirah', emoji: '🛡️' }, { word: 'Ziter', emoji: '🎵' },
-    { word: 'Zonasi', emoji: '📍' }, { word: 'Zuhur', emoji: '☀️' }, { word: 'Zirkonium', emoji: '🔮' },
-    { word: 'Zoster', emoji: '🩹' }, { word: 'Zygote', emoji: '🌱' }, { word: 'Zeolit', emoji: '🪨' },
-    { word: 'Zodiak', emoji: '🌌' }, { word: 'Zeni', emoji: '👷' }, { word: 'Zeppelin', emoji: '🎈' },
-    { word: 'Zaman Batu', emoji: '🪨' }, { word: 'Zona Hijau', emoji: '🌲' }, { word: 'Zebra Cross', emoji: '🚶' },
+    { word: 'Zebra', emoji: '🦓' }, { word: 'Zoo (Kebun Binatang)', emoji: '🦁' }, { word: 'Zamrud', emoji: '💎' },
+    { word: 'Zaitun', emoji: '🫒' }, { word: 'Zig-zag', emoji: '⚡' }, { word: 'Zero (Nol)', emoji: '0️⃣' },
+    { word: 'Zebra Cross', emoji: '🚶' }, { word: 'Zebra Belang', emoji: '🦓' }, { word: 'Batu Zamrud', emoji: '💎' },
+    { word: 'Minyak Zaitun', emoji: '🫒' }, { word: 'Garis Zig-zag', emoji: '〰️' }, { word: 'Kandang Zoo', emoji: '🐘' },
+    { word: 'Angka Zero', emoji: '0️⃣' }, { word: 'Zebra Cilik', emoji: '🦓' }, { word: 'Pohon Zaitun', emoji: '🌳' },
+    { word: 'Kilau Zamrud', emoji: '✨' }, { word: 'Lompat Zig-zag', emoji: '🏃' }, { word: 'Jalan Zebra', emoji: '🦓' },
+    { word: 'Jalur Zebra Cross', emoji: '🚸' }, { word: 'Zebra Berlari', emoji: '🦓' }, { word: 'Taman Zoo', emoji: '🦒' },
+    { word: 'Buah Zaitun', emoji: '🫒' }, { word: 'Pola Zig-zag', emoji: '⚡' }, { word: 'Zebra Makan', emoji: '🌿' },
+    { word: 'Koleksi Zamrud', emoji: '💎' }, { word: 'Zoo Safari', emoji: '🦁' }, { word: 'Skor Zero', emoji: '0️⃣' },
+    { word: 'Zebra Minum', emoji: '🦓' }, { word: 'Daun Zaitun', emoji: '🍃' }, { word: 'Jejak Zebra', emoji: '🐾' },
   ];
 
   const aWords = [
     { word: 'Apel', emoji: '🍎' }, { word: 'Ayam', emoji: '🐔' }, { word: 'Air', emoji: '💧' },
     { word: 'Anggur', emoji: '🍇' }, { word: 'Api', emoji: '🔥' }, { word: 'Awan', emoji: '☁️' },
-    { word: 'Acar', emoji: '🥒' }, { word: 'Anak', emoji: '🧒' }, { word: 'Alpukat', emoji: '🥑' },
-    { word: 'Alat', emoji: '🔧' }, { word: 'Ambulans', emoji: '🚑' }, { word: 'Angin', emoji: '💨' },
-    { word: 'Antena', emoji: '📡' }, { word: 'Arang', emoji: '🪵' }, { word: 'Ayunan', emoji: '🎠' },
-    { word: 'Aki', emoji: '🔋' }, { word: 'Angka', emoji: '🔢' }, { word: 'Antariksa', emoji: '🚀' },
-    { word: 'Astronot', emoji: '👨‍🚀' }, { word: 'Akuarium', emoji: '🐠' }, { word: 'Aman', emoji: '🛡️' },
-    { word: 'Api Unggun', emoji: '🏕️' }, { word: 'Almari', emoji: '🚪' }, { word: 'Anjing', emoji: '🐶' },
-    { word: 'Angsa', emoji: '🦢' }, { word: 'Arloji', emoji: '⌚' }, { word: 'Atlas', emoji: '🗺️' },
-    { word: 'Atap', emoji: '🏠' }, { word: 'Asap', emoji: '🌫️' }, { word: 'Akar', emoji: '🌲' },
+    { word: 'Anak', emoji: '🧒' }, { word: 'Alpukat', emoji: '🥑' }, { word: 'Ambulans', emoji: '🚑' },
+    { word: 'Angin', emoji: '💨' }, { word: 'Ayunan', emoji: '🎠' }, { word: 'Angka', emoji: '🔢' },
+    { word: 'Antariksa', emoji: '🚀' }, { word: 'Astronot', emoji: '👨‍🚀' }, { word: 'Akuarium', emoji: '🐠' },
+    { word: 'Anjing', emoji: '🐶' }, { word: 'Angsa', emoji: '🦢' }, { word: 'Arloji', emoji: '⌚' },
+    { word: 'Atap', emoji: '🏠' }, { word: 'Akar', emoji: '🌲' }, { word: 'Apel Merah', emoji: '🍎' },
+    { word: 'Ayam Berkokok', emoji: '🐓' }, { word: 'Air Segar', emoji: '💧' }, { word: 'Awan Putih', emoji: '☁️' },
+    { word: 'Anggur Manis', emoji: '🍇' }, { word: 'Api Unggun', emoji: '🏕️' }, { word: 'Angsa Putih', emoji: '🦢' },
+    { word: 'Ayunan Taman', emoji: '🎡' }, { word: 'Alpukat Hijau', emoji: '🥑' }, { word: 'Astronot Cilik', emoji: '👨‍🚀' },
   ];
 
   const rhymingPairs = [
@@ -98,18 +100,18 @@ export function generateDay2Reading() {
     { w1: 'Malam', w2: 'Dalam', d: 'Pagi' },
     { w1: 'Siang', w2: 'Riang', d: 'Sore' },
     { w1: 'Bunga', w2: 'Singa', d: 'Bulan' },
-    { w1: 'Hutan', w2: 'Hujan', d: 'Langit' },
-    { w1: 'Roti', w2: 'Peti', d: 'Garpu' },
-    { w1: 'Kupu', w2: 'Kutu', d: 'Semut' },
-    { w1: 'Pohon', w2: 'Mohon', d: 'Rumput' },
-    { w1: 'Ikan', w2: 'Makan', d: 'Minum' },
-    { w1: 'Ayam', w2: 'Bayam', d: 'Wortel' },
-    { w1: 'Roda', w2: 'Goda', d: 'Rem' },
-    { w1: 'Kaca', w2: 'Baca', d: 'Tulis' },
-    { w1: 'Taman', w2: 'Nyaman', d: 'Kota' },
+    { w1: 'Kaki', w2: 'Daki', d: 'Mata' },
     { w1: 'Lari', w2: 'Mari', d: 'Diam' },
     { w1: 'Bulan', w2: 'Kolam', d: 'Matahari' },
     { w1: 'Sendok', w2: 'Mangkok', d: 'Piring' },
+    { w1: 'Sapu', w2: 'Lampu', d: 'Kipas' },
+    { w1: 'Rusa', w2: 'Busa', d: 'Gajah' },
+    { w1: 'Pita', w2: 'Kita', d: 'Baju' },
+    { w1: 'Bolu', w2: 'Malu', d: 'Permen' },
+    { w1: 'Teko', w2: 'Beko', d: 'Kulkas' },
+    { w1: 'Duri', w2: 'Curi', d: 'Bunga' },
+    { w1: 'Tenda', w2: 'Benda', d: 'Hutan' },
+    { w1: 'Paku', w2: 'Saku', d: 'Palu' },
   ];
 
   const syllableWords = [
@@ -146,36 +148,36 @@ export function generateDay2Reading() {
   ];
 
   const rebusSentences = [
-    { text: 'Kak Reza memakai 🧢 di kepala saat terik.', ans: 'Topi', emoji: '🧢', d1: 'Sepatu', d2: 'Baju' },
-    { text: 'Kak Reza menendang ⚽ ke gawang lawan.', ans: 'Bola', emoji: '⚽', d1: 'Buku', d2: 'Topi' },
+    { text: 'Kak Reza memakai 🧢 di kepala saat cuaca terik.', ans: 'Topi', emoji: '🧢', d1: 'Sepatu', d2: 'Baju' },
+    { text: 'Kak Reza menendang ⚽ masuk ke gawang.', ans: 'Bola', emoji: '⚽', d1: 'Buku', d2: 'Topi' },
     { text: 'Kak Reza minum 🥛 hangat sebelum tidur.', ans: 'Susu', emoji: '🥛', d1: 'Sup', d2: 'Kopi' },
-    { text: 'Kak Reza sarapan 🍞 rasa cokelat enak.', ans: 'Roti', emoji: '🍞', d1: 'Permen', d2: 'Batu' },
+    { text: 'Kak Reza sarapan 🍞 manis yang lezat.', ans: 'Roti', emoji: '🍞', d1: 'Permen', d2: 'Batu' },
     { text: 'Kak Reza mengendarai 🚗 balap merah.', ans: 'Mobil', emoji: '🚗', d1: 'Perahu', d2: 'Sepeda' },
     { text: 'Kak Reza membaca 📖 cerita superhero seru.', ans: 'Buku', emoji: '📖', d1: 'Koran', d2: 'Piring' },
-    { text: 'Kak Reza memegang 🛡️ pelindung ajaib.', ans: 'Perisai', emoji: '🛡️', d1: 'Pedang', d2: 'Payung' },
-    { text: 'Kak Reza melesat terbang bersama 🚀 antariksa.', ans: 'Roket', emoji: '🚀', d1: 'Mobil', d2: 'Kereta' },
-    { text: 'Kak Reza mengikat tali 👟 sebelum berlari.', ans: 'Sepatu', emoji: '👟', d1: 'Topi', d2: 'Kaus' },
+    { text: 'Kak Reza membawa 🛡️ pelindung superhero.', ans: 'Perisai', emoji: '🛡️', d1: 'Pedang', d2: 'Payung' },
+    { text: 'Kak Reza melesat bersama 🚀 antariksa.', ans: 'Roket', emoji: '🚀', d1: 'Mobil', d2: 'Kereta' },
+    { text: 'Kak Reza mengikat tali 👟 sebelum berolahraga.', ans: 'Sepatu', emoji: '👟', d1: 'Topi', d2: 'Kaus' },
     { text: 'Kak Reza memakai 🦹 jubah superhero gagah.', ans: 'Jubah', emoji: '🦹', d1: 'Celana', d2: 'Kaos' },
-    { text: 'Kak Reza memakan buah 🍎 merah yang manis.', ans: 'Apel', emoji: '🍎', d1: 'Cabai', d2: 'Bawang' },
-    { text: 'Kak Reza memetik bunga 🌻 matahari kuning.', ans: 'Bunga', emoji: '🌻', d1: 'Daun', d2: 'Batu' },
-    { text: 'Kak Reza bermain 🪁 layang-layang di lapangan.', ans: 'Layang-layang', emoji: '🪁', d1: 'Balon', d2: 'Bola' },
-    { text: 'Kak Reza melihat 🌙 bulan di langit malam.', ans: 'Bulan', emoji: '🌙', d1: 'Matahari', d2: 'Awan' },
-    { text: 'Kak Reza mengelus 🐱 kucing yang bersuara meong.', ans: 'Kucing', emoji: '🐱', d1: 'Singa', d2: 'Ayam' },
-    { text: 'Kak Reza memberi wortel segar pada 🐰 lucu.', ans: 'Kelinci', emoji: '🐰', d1: 'Bebek', d2: 'Kuda' },
-    { text: 'Kak Reza mewarnai gambar dengan 🖍️ krayon.', ans: 'Krayon', emoji: '🖍️', d1: 'Sendok', d2: 'Garpu' },
-    { text: 'Kak Reza memakai 👕 baju bersih berkerah.', ans: 'Baju', emoji: '👕', d1: 'Sepatu', d2: 'Topi' },
-    { text: 'Kak Reza membawa 🎒 ransel perlengkapan belajar.', ans: 'Tas', emoji: '🎒', d1: 'Kotak', d2: 'Ember' },
-    { text: 'Kak Reza mencuci tangan dengan 🧼 wangi.', ans: 'Sabun', emoji: '🧼', d1: 'Pasta', d2: 'Sampo' },
-    { text: 'Kak Reza menyikat 🦷 dua kali sehari.', ans: 'Gigi', emoji: '🦷', d1: 'Kuku', d2: 'Rambut' },
-    { text: 'Kak Reza membuka ☂️ payung saat rintik hujan.', ans: 'Payung', emoji: '☂️', d1: 'Topi', d2: 'Selimut' },
-    { text: 'Kak Reza melihat 🌈 pelangi sehabis hujan.', ans: 'Pelangi', emoji: '🌈', d1: 'Petir', d2: 'Bintang' },
-    { text: 'Kak Reza menyiram 🪴 tanaman di teras rumah.', ans: 'Tanaman', emoji: '🪴', d1: 'Lantai', d2: 'Dinding' },
-    { text: 'Kak Reza mengayuh 🚲 sepeda mengelilingi taman.', ans: 'Sepeda', emoji: '🚲', d1: 'Mobil', d2: 'Pesawat' },
-    { text: 'Kak Reza melihat ⏰ jam dinding berdetak.', ans: 'Jam', emoji: '⏰', d1: 'Kaca', d2: 'Pintu' },
-    { text: 'Kak Reza makan 🥣 sup ayam hangat bergizi.', ans: 'Sup', emoji: '🥣', d1: 'Kue', d2: 'Es' },
-    { text: 'Kak Reza meniup 🎈 balon pesta warna-warni.', ans: 'Balon', emoji: '🎈', d1: 'Bola', d2: 'Topi' },
-    { text: 'Kak Reza melihat 🦆 bebek berenang riang.', ans: 'Bebek', emoji: '🦆', d1: 'Burung', d2: 'Ayam' },
-    { text: 'Kak Reza mengibarkan 🚩 bendera superhero.', ans: 'Bendera', emoji: '🚩', d1: 'Kain', d2: 'Pita' },
+    { text: 'Kak Reza memakan buah 🍎 merah yang segar.', ans: 'Apel', emoji: '🍎', d1: 'Cabai', d2: 'Bawang' },
+    { text: 'Kak Reza menyiram bunga 🌻 matahari kuning.', ans: 'Bunga', emoji: '🌻', d1: 'Daun', d2: 'Batu' },
+    { text: 'Kak Reza bermain dengan kelinci 🐰 putih lucu.', ans: 'Kelinci', emoji: '🐰', d1: 'Kucing', d2: 'Ayam' },
+    { text: 'Kak Reza mewarnai memakai 🖍️ krayon warna-warni.', ans: 'Krayon', emoji: '🖍️', d1: 'Penghapus', d2: 'Penggaris' },
+    { text: 'Kak Reza melihat bebek 🦆 berenang di kolam.', ans: 'Bebek', emoji: '🦆', d1: 'Kambing', d2: 'Sapi' },
+    { text: 'Kak Reza mendengar suara ayam 🐓 berkokok pagi.', ans: 'Ayam', emoji: '🐓', d1: 'Bebek', d2: 'Burung' },
+    { text: 'Kak Reza memegang payung ☂️ saat hujan turun.', ans: 'Payung', emoji: '☂️', d1: 'Topi', d2: 'Jaket' },
+    { text: 'Kak Reza menaruh pensil di kotak 🗃️ tempat pensil.', ans: 'Kotak', emoji: '🗃️', d1: 'Ember', d2: 'Gelas' },
+    { text: 'Kak Reza melihat bintang ⭐ bersinar di langit.', ans: 'Bintang', emoji: '⭐', d1: 'Matahari', d2: 'Lampu' },
+    { text: 'Kak Reza menyantap pisang 🍌 manis bernutrisi.', ans: 'Pisang', emoji: '🍌', d1: 'Jeruk', d2: 'Melon' },
+    { text: 'Kak Reza meniup balon 🎈 merah pesta ulang tahun.', ans: 'Balon', emoji: '🎈', d1: 'Bola', d2: 'Gelembung' },
+    { text: 'Kak Reza mengayuh sepeda 🚲 keliling taman.', ans: 'Sepeda', emoji: '🚲', d1: 'Mobil', d2: 'Kereta' },
+    { text: 'Kak Reza membersihkan meja dengan kain 🧽 bersih.', ans: 'Spons', emoji: '🧽', d1: 'Sapu', d2: 'Sikat' },
+    { text: 'Kak Reza mencuci tangan pakai sabun 🧼 wangi.', ans: 'Sabun', emoji: '🧼', d1: 'Sampo', d2: 'Pasta' },
+    { text: 'Kak Reza menyikat gigi dengan sikat 🪥 gigi cilik.', ans: 'Sikat Gigi', emoji: '🪥', d1: 'Sisir', d2: 'Sendok' },
+    { text: 'Kak Reza tidur nyenyak di atas kasur 🛏️ empuk.', ans: 'Kasur', emoji: '🛏️', d1: 'Meja', d2: 'Lantai' },
+    { text: 'Kak Reza melihat kupu-kupu 🦋 terbang indah.', ans: 'Kupu-kupu', emoji: '🦋', d1: 'Burung', d2: 'Lebah' },
+    { text: 'Kak Reza memasukkan bekal ke dalam tas 🎒 sekolah.', ans: 'Tas', emoji: '🎒', d1: 'Dompet', d2: 'Kantong' },
+    { text: 'Kak Reza mengamati ikan 🐟 berenang lincah.', ans: 'Ikan', emoji: '🐟', d1: 'Katak', d2: 'Kura-kura' },
+    { text: 'Kak Reza melihat pohon 🌲 rindang di depan rumah.', ans: 'Pohon', emoji: '🌲', d1: 'Bunga', d2: 'Rumput' },
   ];
 
   const questions = topics.map((topicName, slotIdx) => {
@@ -183,16 +185,16 @@ export function generateDay2Reading() {
 
     for (let vIdx = 0; vIdx < 30; vIdx++) {
       const varId = `d2_t${String(slotIdx + 1).padStart(2, '0')}_v${String(vIdx + 1).padStart(2, '0')}`;
-      const difficulty = vIdx < 10 ? 'mudah' : vIdx < 22 ? 'berkembang' : 'menantang';
+      const difficulty: 'mudah' | 'berkembang' | 'menantang' = vIdx < 10 ? 'mudah' : vIdx < 22 ? 'berkembang' : 'menantang';
 
       let variant: any;
 
       if (slotIdx === 0) {
         // Topic 1: Huruf R (Nama Reza)
         const rw = rWords[vIdx % rWords.length];
-        const distractors = ['B', 'M', 'S', 'T', 'K', 'L'];
+        const distractors = ['B', 'M', 'S', 'T', 'L'];
         const d1 = distractors[vIdx % distractors.length];
-        const d2 = distractors[(vIdx + 2) % distractors.length];
+        const d2 = distractors[(vIdx + 1) % distractors.length];
 
         variant = {
           id: varId,
@@ -204,7 +206,7 @@ export function generateDay2Reading() {
           skill: 'pengenalan_huruf_fonik',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Fonik Superhero #${vIdx + 1}: Kata '${rw.word}' diawali oleh huruf apa? (${rw.emoji} ${rw.word})`,
+          prompt: `Kata '${rw.word}' diawali oleh huruf apa ya?`,
           visual: `${rw.emoji} ${rw.word}`,
           choices: [
             { label: 'Huruf R (r)', isCorrect: true },
@@ -231,7 +233,7 @@ export function generateDay2Reading() {
           skill: 'pengenalan_vokal',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Vokal Reza #${vIdx + 1}: Huruf apakah ini dalam kata '${ew.word}'? (${ew.emoji} ${ew.word})`,
+          prompt: `Huruf vokal apakah ini dalam kata '${ew.word}'?`,
           visual: `${ew.emoji} ${ew.word}`,
           choices: [
             { label: `Huruf ${d1}`, isCorrect: false },
@@ -258,7 +260,7 @@ export function generateDay2Reading() {
           skill: 'pengenalan_konsonan',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Konsonan Ajaib #${vIdx + 1}: Huruf zig-zag yang ada di tengah nama REZA dan kata '${zw.word}' adalah?`,
+          prompt: `Huruf zig-zag di nama REZA dan kata '${zw.word}' adalah huruf apa?`,
           visual: `${zw.emoji} ${zw.word}`,
           choices: [
             { label: `Huruf ${d1}`, isCorrect: false },
@@ -285,7 +287,7 @@ export function generateDay2Reading() {
           skill: 'pengenalan_vokal',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Huruf Juara #${vIdx + 1}: Kata '${aw.word}' diawali oleh huruf apa? (${aw.emoji} ${aw.word})`,
+          prompt: `Kata '${aw.word}' diawali oleh huruf apa?`,
           visual: `${aw.emoji} ${aw.word}`,
           choices: [
             { label: 'Huruf A (a)', isCorrect: true },
@@ -316,7 +318,7 @@ export function generateDay2Reading() {
           skill: 'menyusun_kata',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Misi Nama Superhero #${vIdx + 1}: Susun huruf-huruf ini menjadi nama pahlawan cilik kita: REZA!`,
+          prompt: `Ayo susun huruf-huruf ini menjadi nama pahlawan cilik: REZA!`,
           visual: '🦸 R - E - Z - A',
           wordLabel: 'REZA',
           targetWord: ['R', 'E', 'Z', 'A'],
@@ -350,7 +352,7 @@ export function generateDay2Reading() {
           skill: 'huruf_vokal',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Tantangan Huruf Vokal #${vIdx + 1}: Manakah huruf vokal ${vInfo.v} seperti pada kata '${vInfo.example}'?`,
+          prompt: `Manakah huruf vokal ${vInfo.v} seperti pada kata '${vInfo.example}'?`,
           visual: vInfo.example,
           choices: [
             { label: `Huruf ${vInfo.d1}`, isCorrect: false },
@@ -383,7 +385,7 @@ export function generateDay2Reading() {
           skill: 'konsonan_dasar',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Konsonan Aktif #${vIdx + 1}: Huruf depan dari kata '${w}' (${cInfo.ex.split(' ')[1]}) adalah?`,
+          prompt: `Huruf paling depan dari kata '${w}' adalah huruf apa?`,
           visual: `${cInfo.letter} ➔ ${w}`,
           choices: [
             { label: `Huruf ${cInfo.letter}`, isCorrect: true },
@@ -413,7 +415,7 @@ export function generateDay2Reading() {
           skill: 'menyusun_kata',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Word Builder Misi #${vIdx + 1}: Susun huruf-huruf ini membentuk kata '${wInfo.word}' (${wInfo.emoji})!`,
+          prompt: `Ayo susun huruf-huruf ini membentuk kata '${wInfo.word}' (${wInfo.emoji})!`,
           visual: `${wInfo.emoji} ${wInfo.word}`,
           wordLabel: wInfo.word,
           targetWord: wInfo.letters,
@@ -429,9 +431,9 @@ export function generateDay2Reading() {
       } else if (slotIdx === 20) {
         // Topic 21: Suku Kata BO-LA
         const forms = [
-          { q: 'Lengkapi suku kata: BO - ...', ans: 'LA', d1: 'LI', d2: 'LU', text: 'agar menjadi kata BOLA ⚽' },
-          { q: 'Suku kata awal dari kata BOLA adalah?', ans: 'BO', d1: 'BA', d2: 'BU', text: 'dengarkan bunyi depannya' },
-          { q: 'Gabungkan suku kata BO dan LA menjadi kata apa?', ans: 'BOLA', d1: 'BOLA-BOLA', d2: 'LABO', text: 'benda bulat untuk ditendang' },
+          { q: 'Lengkapi suku kata: BO - ... agar jadi BOLA ⚽', ans: 'LA', d1: 'LI', d2: 'LU' },
+          { q: 'Suku kata paling awal dari kata BOLA adalah?', ans: 'BO', d1: 'BA', d2: 'BU' },
+          { q: 'Gabungkan potongan kata BO dan LA menjadi?', ans: 'BOLA', d1: 'BOLA-BOLA', d2: 'LABO' },
         ];
         const f = forms[vIdx % forms.length];
 
@@ -445,7 +447,7 @@ export function generateDay2Reading() {
           skill: 'suku_kata',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Suku Kata Tantangan #${vIdx + 1}: ${f.q} (${f.text})`,
+          prompt: f.q,
           visual: '⚽ BO - LA',
           choices: [
             { label: f.ans, isCorrect: true },
@@ -458,9 +460,9 @@ export function generateDay2Reading() {
       } else if (slotIdx === 21) {
         // Topic 22: Suku Kata MO-BIL
         const forms = [
-          { q: 'Lengkapi suku kata: MO - ...', ans: 'BIL', d1: 'BAL', d2: 'BUL', text: 'agar menjadi kata MOBIL 🚗' },
-          { q: 'Suku kata awal dari kata MOBIL adalah?', ans: 'MO', d1: 'MA', d2: 'MI', text: 'dengarkan bunyi pertamanya' },
-          { q: 'Gabungkan dua potongan kata: MO + BIL menjadi kata?', ans: 'MOBIL', d1: 'BILMO', d2: 'MOBILA', text: 'kendaraan roda empat' },
+          { q: 'Lengkapi suku kata: MO - ... agar jadi MOBIL 🚗', ans: 'BIL', d1: 'BAL', d2: 'BUL' },
+          { q: 'Suku kata paling awal dari kata MOBIL adalah?', ans: 'MO', d1: 'MA', d2: 'MI' },
+          { q: 'Gabungkan dua potongan: MO + BIL menjadi kata apa?', ans: 'MOBIL', d1: 'BILMO', d2: 'MOBILA' },
         ];
         const f = forms[vIdx % forms.length];
 
@@ -474,7 +476,7 @@ export function generateDay2Reading() {
           skill: 'suku_kata',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Suku Kata Aksi #${vIdx + 1}: ${f.q} (${f.text})`,
+          prompt: f.q,
           visual: '🚗 MO - BIL',
           choices: [
             { label: f.d1, isCorrect: false },
@@ -498,7 +500,7 @@ export function generateDay2Reading() {
           skill: 'kesadaran_fonologis_rima',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Rima Bersahabat #${vIdx + 1}: Kata manakah yang memiliki bunyi rima sama dengan '${rp.w1}'?`,
+          prompt: `Kata manakah yang bunyinya berima sama dengan '${rp.w1}'?`,
           visual: `🎵 ${rp.w1} 🎶 ?`,
           choices: [
             { label: rp.w2, isCorrect: true },
@@ -506,7 +508,7 @@ export function generateDay2Reading() {
             { label: 'Mobil', isCorrect: false },
           ],
           feedbackCorrect: `Hebat! Kata ${rp.w1} berima senada dengan kata ${rp.w2}!`,
-          feedbackIncorrect: `Dengarkan bunyi akhirnya yang mirip, seperti berdendang!`,
+          feedbackIncorrect: `Dengarkan bunyi akhirnya yang mirip, seperti bernyanyi!`,
         };
       } else if (slotIdx === 23) {
         // Topic 24: Ketukan Suku Kata
@@ -524,7 +526,7 @@ export function generateDay2Reading() {
           skill: 'segmentasi_suku_kata',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Tepuk Ketukan #${vIdx + 1}: Tepuk tanganmu sambil membaca '${sw.word}'. Ada berapa ketukan suku kata?`,
+          prompt: `Tepuk tanganmu sambil membaca '${sw.word}'. Ada berapa ketukan?`,
           visual: `👏 ${sw.word}`,
           choices: [
             { label: sw.label, isCorrect: true },
@@ -548,7 +550,7 @@ export function generateDay2Reading() {
           skill: 'membaca_gambar_simbolis',
           cpElement: 'dasar_literasi_dan_steam',
           difficulty,
-          prompt: `Membaca Bergambar #${vIdx + 1}: ${reb.text} Gambar apakah itu?`,
+          prompt: `${reb.text} Gambar apakah itu?`,
           visual: `${reb.emoji} ❓`,
           choices: [
             { label: reb.ans, isCorrect: true },

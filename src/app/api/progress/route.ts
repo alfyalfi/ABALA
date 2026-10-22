@@ -61,3 +61,40 @@ export async function GET() {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
+
+export async function DELETE() {
+  if (!supabaseUrl || !supabaseKey) {
+    return NextResponse.json({
+      status: 'offline_mode',
+      message: 'Supabase credentials not configured. Local progress reset completed.',
+      success: true,
+    });
+  }
+
+  try {
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    // Delete all records from daily_sessions table
+    const { error } = await supabase
+      .from('daily_sessions')
+      .delete()
+      .gte('day_id', 0);
+
+    if (error) {
+      console.warn('Initial delete gte day_id failed, attempting fallback filter:', error);
+      const fallback = await supabase
+        .from('daily_sessions')
+        .delete()
+        .neq('student_name', '__impossible_student_placeholder__');
+      if (fallback.error) throw fallback.error;
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Seluruh riwayat sesi dan progres berhasil direset dari database Supabase.',
+    });
+  } catch (err: any) {
+    console.error('Progress database delete error:', err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
+

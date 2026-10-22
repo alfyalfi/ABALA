@@ -17,18 +17,10 @@ import { audioService } from '../../../services/audioService';
 import { CurriculumService } from '../../../services/curriculumService';
 import { StorageService } from '../../../services/storageService';
 import { ProgressionService } from '../../../services/progressionService';
+import { CATEGORIES_META } from '../../../data/categoriesMeta';
 
 const TIMER_DURATION_NORMAL = 15;
 const TIMER_DURATION_EXTENDED = 25;
-
-const DAYS_META = [
-  { id: 1, name: 'Senin', title: 'Matematika Superhero', fullTitle: 'Senin — Matematika Superhero', icon: '🔢' },
-  { id: 2, name: 'Selasa', title: 'Membaca & Fonik', fullTitle: 'Selasa — Membaca & Fonik', icon: '🔤' },
-  { id: 3, name: 'Rabu', title: 'Menyimak & Suara', fullTitle: 'Rabu — Menyimak & Suara', icon: '👂' },
-  { id: 4, name: 'Kamis', title: 'Nalar & Logika', fullTitle: 'Kamis — Nalar & Logika', icon: '💡' },
-  { id: 5, name: 'Jumat', title: 'Bentuk & Spasial', fullTitle: 'Jumat — Bentuk & Spasial', icon: '🔷' },
-  { id: 6, name: 'Sabtu', title: 'Kemandirian Superhero', fullTitle: 'Sabtu — Kemandirian Superhero', icon: '🦸‍♂️' },
-];
 
 export default function LearnSessionPage() {
   const params = useParams();
@@ -37,7 +29,7 @@ export default function LearnSessionPage() {
   const rawDayId = params?.dayId ? parseInt(params.dayId as string, 10) : 1;
   const targetDayId = isNaN(rawDayId) || rawDayId < 1 || rawDayId > 6 ? 1 : rawDayId;
   const currentDayIndex = targetDayId - 1;
-  const activeDay = DAYS_META[currentDayIndex];
+  const activeDay = CATEGORIES_META[currentDayIndex];
 
   // Session State
   const [sessionId, setSessionId] = useState<string>('');
@@ -50,6 +42,7 @@ export default function LearnSessionPage() {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [isAudioSpeaking, setIsAudioSpeaking] = useState<boolean>(true);
+  const [isPromptListening, setIsPromptListening] = useState<boolean>(true);
   const [isLoadingSession, setIsLoadingSession] = useState<boolean>(true);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
@@ -88,7 +81,12 @@ export default function LearnSessionPage() {
 
   const getQuestionDuration = (q?: ActiveQuestion) => {
     if (!q) return TIMER_DURATION_NORMAL;
-    const isExtended = q.type === 'sound' || q.type === 'sequence_2' || q.type === 'word_builder';
+    const isExtended =
+      q.type === 'sound' ||
+      q.type === 'sound_identification' ||
+      q.type === 'sequence_2' ||
+      q.type === 'sequence_2step' ||
+      q.type === 'word_builder';
     return isExtended ? TIMER_DURATION_EXTENDED : TIMER_DURATION_NORMAL;
   };
 
@@ -104,6 +102,8 @@ export default function LearnSessionPage() {
   // Load Session: Check for active resumable session or fetch new
   const initSession = async (dayId: number) => {
     setIsLoadingSession(true);
+    setIsPromptListening(true);
+    setIsAudioSpeaking(true);
     setIsMuted(audioService.getMuted());
 
     // 1. Check for resumable session
@@ -142,8 +142,8 @@ export default function LearnSessionPage() {
         const newActiveState: ActiveLearningSessionState = {
           sessionId: newSessionId,
           dayId,
-          dayName: activeDay.name,
-          dayTitle: activeDay.title,
+          dayName: activeDay?.dayName || activeDay?.name || 'Senin',
+          dayTitle: activeDay?.title || 'Belajar Superhero',
           currentQIndex: 0,
           score: { correct: 0, wrong: 0 },
           answers: [],
@@ -172,9 +172,20 @@ export default function LearnSessionPage() {
     };
   }, [targetDayId]);
 
-  // Timer Effect
+  // Timer Effect: STRICTLY PAUSED while prompt TTS or sound audio is reading!
   useEffect(() => {
-    if (showResultModal || isPaused || isAnswered || isAudioSpeaking || isLoadingSession || sessionQuestions.length === 0) return;
+    if (
+      showResultModal ||
+      isPaused ||
+      isAnswered ||
+      isAudioSpeaking ||
+      isPromptListening ||
+      isLoadingSession ||
+      sessionQuestions.length === 0
+    ) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
 
     if (timerRef.current) clearInterval(timerRef.current);
 
@@ -192,7 +203,7 @@ export default function LearnSessionPage() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [currentQIndex, isPaused, isAnswered, isAudioSpeaking, isLoadingSession, showResultModal, sessionQuestions]);
+  }, [currentQIndex, isPaused, isAnswered, isAudioSpeaking, isPromptListening, isLoadingSession, showResultModal, sessionQuestions]);
 
   // Voice Question on Change with Synchronized Sequencing
   useEffect(() => {
@@ -200,6 +211,7 @@ export default function LearnSessionPage() {
 
     const q = sessionQuestions[currentQIndex];
     setIsAudioSpeaking(true);
+    setIsPromptListening(true);
     let isCancelled = false;
 
     const runAudioSequence = async () => {
@@ -207,8 +219,8 @@ export default function LearnSessionPage() {
         await new Promise((r) => setTimeout(r, 200));
         if (isCancelled) return;
 
-        if (q.type === 'sound') {
-          await audioService.speakText(`Kak Reza, dengarkan suara ini!`);
+        if (q.type === 'sound' || q.type === 'sound_identification') {
+          await audioService.speakText(`Kak Reza, dengarkan suara ini ya!`);
           if (isCancelled) return;
 
           await new Promise((r) => setTimeout(r, 350));
@@ -217,7 +229,7 @@ export default function LearnSessionPage() {
           if (q.soundFile) {
             await audioService.playSoundFile(q.soundFile);
           }
-        } else if (q.type === 'sequence_2') {
+        } else if (q.type === 'sequence_2' || q.type === 'sequence_2step') {
           await audioService.speakText(
             q.voiceIntro || `Kak Reza, dengarkan urutannya: Pertama sentuh ${q.step1Label}, kedua sentuh ${q.step2Label}!`
           );
@@ -231,6 +243,9 @@ export default function LearnSessionPage() {
       } finally {
         if (!isCancelled) {
           setIsAudioSpeaking(false);
+          setIsPromptListening(false);
+          // Countdown strictly starts at full duration after audio finishes!
+          setTimeLeft(getQuestionDuration(q));
         }
       }
     };
@@ -241,6 +256,7 @@ export default function LearnSessionPage() {
       isCancelled = true;
       audioService.stopAllAudio();
       setIsAudioSpeaking(false);
+      setIsPromptListening(true);
     };
   }, [currentQIndex, sessionQuestions, isLoadingSession]);
 
@@ -401,6 +417,8 @@ export default function LearnSessionPage() {
 
     if (currentQIndex + 1 < sessionQuestions.length) {
       setIsTransitioning(true);
+      setIsPromptListening(true);
+      setIsAudioSpeaking(true);
       audioService.playWhoosh();
       setTimeout(() => {
         const nextIdx = currentQIndex + 1;
@@ -519,16 +537,18 @@ export default function LearnSessionPage() {
             <button
               onClick={() => {
                 if (activeQuestion) {
-                  if (activeQuestion.type === 'sound') {
-                    audioService.speakText(`Kak Reza, dengarkan suara ini!`);
+                  if (activeQuestion.type === 'sound' || activeQuestion.type === 'sound_identification') {
+                    audioService.speakText(`Kak Reza, dengarkan suara ini ya!`);
                     if (activeQuestion.soundFile) {
                       setTimeout(() => audioService.playSoundFile(activeQuestion.soundFile!), 1400);
                     }
-                  } else if (activeQuestion.type === 'sequence_2') {
+                  } else if (activeQuestion.type === 'sequence_2' || activeQuestion.type === 'sequence_2step') {
                     audioService.speakText(
                       activeQuestion.voiceIntro ||
                         `Kak Reza, dengarkan urutannya: Pertama sentuh ${activeQuestion.step1Label}, kedua sentuh ${activeQuestion.step2Label}!`
                     );
+                  } else if (activeQuestion.type === 'word_builder') {
+                    audioService.speakText(`Kak Reza, ayo susun huruf untuk kata ${activeQuestion.wordLabel || 'ini'}!`);
                   } else {
                     audioService.speakText(`Kak Reza, ${activeQuestion.prompt}`);
                   }
@@ -576,14 +596,14 @@ export default function LearnSessionPage() {
           </span>
           <span
             className={`flex items-center gap-1 px-3 py-0.5 rounded-full font-sans shadow-xs transition-all duration-300 ${
-              isAudioSpeaking
+              isPromptListening || isAudioSpeaking
                 ? 'liquid-tint-azure text-white animate-pulse'
                 : timeLeft <= 5
                 ? 'liquid-tint-rose text-white animate-pulse'
                 : 'liquid-tint-amber text-white'
             }`}
           >
-            <span>{isAudioSpeaking ? '🎧 Menyimak...' : '⏳'}</span>
+            <span>{isPromptListening || isAudioSpeaking ? '🎧 Menyimak Soal...' : '⏳'}</span>
             <span>{timeLeft}s</span>
           </span>
         </div>
@@ -592,7 +612,7 @@ export default function LearnSessionPage() {
         <div className="w-full h-2 bg-white/60 backdrop-blur-md rounded-full overflow-hidden shadow-inner border border-white/60 p-0.5">
           <div
             className={`h-full transition-all duration-300 rounded-full shadow-xs ${
-              isAudioSpeaking
+              isPromptListening || isAudioSpeaking
                 ? 'bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
                 : timeLeft <= 5
                 ? 'liquid-tint-rose animate-pulse'
@@ -676,7 +696,7 @@ export default function LearnSessionPage() {
           newAchievements={resultNewAchievements}
           newCollectibles={resultNewCollectibles}
           dayName={activeDay.name}
-          nextDayName={DAYS_META[(currentDayIndex + 1) % DAYS_META.length].name}
+          nextDayName={CATEGORIES_META[(currentDayIndex + 1) % CATEGORIES_META.length].name}
           onRetry={() => {
             StorageService.clearActiveSession();
             initSession(targetDayId);

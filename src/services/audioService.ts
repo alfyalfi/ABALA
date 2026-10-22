@@ -231,8 +231,8 @@ class AudioService {
         }
       };
 
-      // Maximum sound duration guard (4.5 seconds max)
-      const guard = setTimeout(() => finish(true), 4500);
+      // Maximum sound duration guard (8 seconds max)
+      const guard = setTimeout(() => finish(true), 8000);
 
       try {
         const audio = new Audio(soundPath);
@@ -289,12 +289,12 @@ class AudioService {
         }
       };
 
-      // Safety timeout: never lock audio state longer than 3.5s
+      // Safety timeout: generous dynamic guard so sentence finishes reading completely
       const maxTimer = setTimeout(() => {
         if (this.activeSpeechSessionId === speechSession) {
           done();
         }
-      }, 3500);
+      }, Math.max(7000, text.length * 150));
 
       const run = async () => {
         try {
@@ -424,8 +424,8 @@ class AudioService {
       utterance.onend = finish;
       utterance.onerror = finish;
 
-      // Safety timeout: 3 seconds max for speech utterance
-      setTimeout(finish, 3000);
+      // Safety timeout: dynamic guard based on text length so speech finishes naturally
+      setTimeout(finish, Math.max(6000, cleanText.length * 150));
 
       window.speechSynthesis.speak(utterance);
     } catch (e) {

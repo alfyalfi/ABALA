@@ -15,14 +15,29 @@ import {
   Download,
   Trash2,
   Lock,
+  RotateCcw,
+  AlertTriangle,
+  Loader2,
+  CheckCircle2,
 } from 'lucide-react';
 import { LiquidMeshBackground } from '../../components/ui/LiquidGlassPrimitives';
 import { ParentalGateModal } from '../../components/ParentalGateModal';
 import { StorageService } from '../../services/storageService';
 import { ProgressionService } from '../../services/progressionService';
+import { ProgressService } from '../../services/supabaseService';
 import { audioService } from '../../services/audioService';
+import { CATEGORIES_META } from '../../data/categoriesMeta';
 import { DailyResult, LearningPillarProgress } from '../../types';
 import { ProgressionState } from '../../types/progression';
+
+const PILLAR_KEYS: Record<number, keyof LearningPillarProgress> = {
+  1: 'berhitung',
+  2: 'membaca',
+  3: 'menyimak',
+  4: 'nalar',
+  5: 'bentuk',
+  6: 'kemandirian',
+};
 
 export default function ParentPage() {
   const router = useRouter();
@@ -31,6 +46,11 @@ export default function ParentPage() {
   const [history, setHistory] = useState<DailyResult[]>([]);
   const [pillars, setPillars] = useState<LearningPillarProgress | null>(null);
   const [progression, setProgression] = useState<ProgressionState | null>(null);
+
+  // Reset Progress States
+  const [showResetConfirmModal, setShowResetConfirmModal] = useState<boolean>(false);
+  const [isResetting, setIsResetting] = useState<boolean>(false);
+  const [resetFeedback, setResetFeedback] = useState<string | null>(null);
 
   useEffect(() => {
     // Check if verified in this browser session
@@ -51,15 +71,39 @@ export default function ParentPage() {
     setShowGate(false);
   };
 
-  const handleClearHistory = () => {
-    if (window.confirm('Apakah Ayah/Bunda yakin ingin mereset riwayat sesi Kak Reza?')) {
-      StorageService.removeItem('abala_reza_history_v1');
-      StorageService.removeItem('abala_progression_v2');
-      StorageService.clearActiveSession();
+  // Total Progress Reset (Database + Local Sync)
+  const handleExecuteTotalReset = async () => {
+    setIsResetting(true);
+    try {
+      // 1. Sync & delete from Supabase Database
+      const dbResult = await ProgressService.resetDatabaseProgress();
+
+      // 2. Wipe and reset local storage progression & pillars
+      const resetState = StorageService.resetAllProgress();
+
+      // 3. Immediately update UI state
       setHistory([]);
       setPillars(StorageService.getPillarProgress());
-      setProgression(ProgressionService.getState());
+      setProgression(resetState);
+
       audioService.playFeedback('wrong');
+      setResetFeedback(dbResult.message || 'Semua progres belajar berhasil direset ke nol dan disinkronkan ke database!');
+      setShowResetConfirmModal(false);
+
+      setTimeout(() => {
+        setResetFeedback(null);
+      }, 5000);
+    } catch (err: any) {
+      console.error('Failed to reset progress:', err);
+      // Fallback: make sure local is still cleanly reset
+      const resetState = StorageService.resetAllProgress();
+      setHistory([]);
+      setPillars(StorageService.getPillarProgress());
+      setProgression(resetState);
+      setResetFeedback('Progres lokal telah direset ke nol (koneksi database offline).');
+      setShowResetConfirmModal(false);
+    } finally {
+      setIsResetting(false);
     }
   };
 
@@ -80,7 +124,7 @@ export default function ParentPage() {
           <div className="flex gap-2">
             <Link
               href="/"
-              className="flex-1 py-3 rounded-2xl liquid-glass text-slate-700 font-black text-xs"
+              className="flex-1 py-3 rounded-2xl liquid-glass text-slate-700 font-black text-xs text-center"
             >
               Kembali
             </Link>
@@ -102,17 +146,19 @@ export default function ParentPage() {
     );
   }
 
-  const pillarList = [
-    { name: 'Berhitung & Angka (Hari 1)', score: pillars?.berhitung ?? 0, icon: '🔢', color: 'from-blue-500 to-indigo-500' },
-    { name: 'Membaca & Fonik (Hari 2)', score: pillars?.membaca ?? 0, icon: '🔤', color: 'from-emerald-500 to-teal-500' },
-    { name: 'Menyimak Suara (Hari 3)', score: pillars?.menyimak ?? 0, icon: '👂', color: 'from-purple-500 to-fuchsia-500' },
-    { name: 'Logika & Nalar (Hari 4)', score: pillars?.nalar ?? 0, icon: '💡', color: 'from-amber-500 to-orange-500' },
-    { name: 'Bentuk & Spasial (Hari 5)', score: pillars?.bentuk ?? 0, icon: '🔷', color: 'from-cyan-500 to-sky-500' },
-    { name: 'Kemandirian & Sikap (Hari 6)', score: pillars?.kemandirian ?? 0, icon: '🦸‍♂️', color: 'from-rose-500 to-red-500' },
-  ];
+  // Dynamic Pillar List based on unified CATEGORIES_META
+  const pillarList = CATEGORIES_META.map((cat) => {
+    const key = PILLAR_KEYS[cat.id];
+    return {
+      name: `${cat.title} (${cat.dayName})`,
+      score: pillars ? (pillars[key] ?? 0) : 0,
+      icon: cat.icon,
+      color: cat.color,
+    };
+  });
 
   return (
-    <div className="min-h-screen w-full max-w-[640px] mx-auto flex flex-col bg-slate-50 text-slate-800 pb-12 relative select-none">
+    <div className="min-h-screen w-full max-w-[640px] mx-auto flex flex-col bg-slate-50 text-slate-800 pb-16 relative select-none">
       <LiquidMeshBackground />
 
       {/* Header */}
@@ -141,6 +187,14 @@ export default function ParentPage() {
           Tutup
         </Link>
       </header>
+
+      {/* Notification Toast if Reset Performed */}
+      {resetFeedback && (
+        <div className="mx-3 mt-3 p-3 rounded-2xl liquid-tint-emerald text-white flex items-center gap-2 shadow-lg animate-pop z-20">
+          <CheckCircle2 size={18} className="shrink-0" />
+          <span className="text-xs font-black">{resetFeedback}</span>
+        </div>
+      )}
 
       {/* Content */}
       <main className="p-3 sm:p-4 space-y-4 relative z-10">
@@ -200,15 +254,6 @@ export default function ParentPage() {
               <Calendar size={14} className="text-hero-red" />
               <span>Riwayat Sesi Belajar ({history.length})</span>
             </h3>
-            {history.length > 0 && (
-              <button
-                onClick={handleClearHistory}
-                className="text-[0.68rem] text-rose-600 font-bold hover:underline flex items-center gap-1"
-              >
-                <Trash2 size={12} />
-                <span>Reset Data</span>
-              </button>
-            )}
           </div>
 
           {history.length === 0 ? (
@@ -219,7 +264,7 @@ export default function ParentPage() {
               </p>
             </div>
           ) : (
-            <div className="space-y-2 max-h-[320px] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
               {history.map((sess, idx) => (
                 <div
                   key={idx}
@@ -264,7 +309,79 @@ export default function ParentPage() {
             </div>
           )}
         </div>
+
+        {/* DANGER ZONE: TOTAL PROGRESS RESET (SYNCS WITH SUPABASE DATABASE) */}
+        <div className="liquid-glass-card rounded-[28px] p-4.5 shadow-md border border-rose-200/80 bg-rose-50/30">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-7 h-7 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center">
+              <AlertTriangle size={16} />
+            </div>
+            <h3 className="text-xs font-black text-rose-700 uppercase tracking-wider">
+              Zona Pengaturan & Reset Total Progres
+            </h3>
+          </div>
+
+          <p className="text-[0.72rem] text-slate-600 mb-4 leading-relaxed">
+            Mereset total seluruh level, XP (0), riwayat sesi, dan nilai 6 pilar belajar kembali ke nol. Data akan disinkronkan dan dihapus dari database server Supabase serta memori perangkat ini.
+          </p>
+
+          <button
+            onClick={() => setShowResetConfirmModal(true)}
+            className="w-full py-3 px-4 rounded-2xl liquid-tint-rose text-white font-black text-xs flex items-center justify-center gap-2 shadow-md hover:brightness-105 active:scale-[0.98] transition-all"
+          >
+            <RotateCcw size={16} />
+            <span>Reset Total Semua Progres (Kembali ke Nol)</span>
+          </button>
+        </div>
       </main>
+
+      {/* CONFIRMATION MODAL FOR TOTAL RESET */}
+      {showResetConfirmModal && (
+        <div className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="liquid-glass-modal rounded-[32px] p-6 max-w-sm w-full shadow-2xl border border-rose-300 text-center animate-pop relative">
+            <div className="w-14 h-14 rounded-2xl bg-rose-500/20 text-rose-600 mx-auto flex items-center justify-center mb-3">
+              <RotateCcw size={28} className="animate-spin-slow" />
+            </div>
+
+            <h3 className="text-base font-black text-slate-900 mb-2">
+              Reset Total Seluruh Progres?
+            </h3>
+
+            <p className="text-xs text-slate-600 leading-relaxed mb-6">
+              Aksi ini akan mereset <strong>seluruh XP, Level, Koleksi, dan Riwayat Sesi</strong> Kak Reza kembali ke <strong>0</strong>. 
+              <br />
+              <span className="text-rose-600 font-bold block mt-1">
+                Data pada database Supabase dan penyimpanan lokal akan dihapus permanen.
+              </span>
+            </p>
+
+            <div className="flex gap-2">
+              <button
+                disabled={isResetting}
+                onClick={() => setShowResetConfirmModal(false)}
+                className="flex-1 py-3 rounded-2xl liquid-glass text-slate-700 font-black text-xs hover:bg-white/80"
+              >
+                Batal
+              </button>
+
+              <button
+                disabled={isResetting}
+                onClick={handleExecuteTotalReset}
+                className="flex-1 py-3 rounded-2xl liquid-tint-rose text-white font-black text-xs shadow-md flex items-center justify-center gap-1.5 hover:brightness-105"
+              >
+                {isResetting ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    <span>Mereset DB...</span>
+                  </>
+                ) : (
+                  <span>Ya, Reset Total</span>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
