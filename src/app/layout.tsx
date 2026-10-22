@@ -48,7 +48,7 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className="bg-hero-bg text-hero-black antialiased selection:bg-hero-red selection:text-white font-sans">
+      <body className="bg-slate-100 text-slate-800 antialiased selection:bg-hero-red selection:text-white font-sans overflow-hidden">
         {children}
         <script
           dangerouslySetInnerHTML={{

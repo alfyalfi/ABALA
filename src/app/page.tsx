@@ -7,6 +7,7 @@ import { QuestionCard } from '../components/QuestionCard';
 import { InteractiveArena } from '../components/InteractiveArena';
 import { ResultModal } from '../components/ResultModal';
 import { ParentDashboardModal } from '../components/ParentDashboardModal';
+import { LiquidMeshBackground } from '../components/ui/LiquidGlassPrimitives';
 import { ActiveQuestion, DailyResult, SequenceItem } from '../types';
 import { audioService } from '../services/audioService';
 import { ProgressService } from '../services/supabaseService';
@@ -157,34 +158,39 @@ export default function HomePage() {
     let isCancelled = false;
 
     const runAudioSequence = async () => {
-      await new Promise(r => setTimeout(r, 200));
-      if (isCancelled) return;
-
-      if (q.type === 'sound') {
-        // Step 1: AI reads instruction first
-        await audioService.speakText(`Kak Reza, dengarkan suara ini!`);
+      try {
+        await new Promise(r => setTimeout(r, 200));
         if (isCancelled) return;
 
-        // Step 2: Natural pause before sound effect
-        await new Promise(r => setTimeout(r, 350));
-        if (isCancelled) return;
+        if (q.type === 'sound') {
+          // Step 1: AI reads instruction first
+          await audioService.speakText(`Kak Reza, dengarkan suara ini!`);
+          if (isCancelled) return;
 
-        // Step 3: Authentic MP3 plays
-        if (q.soundFile) {
-          await audioService.playSoundFile(q.soundFile);
+          // Step 2: Natural pause before sound effect
+          await new Promise(r => setTimeout(r, 350));
+          if (isCancelled) return;
+
+          // Step 3: Authentic MP3 plays
+          if (q.soundFile) {
+            await audioService.playSoundFile(q.soundFile);
+          }
+        } else if (q.type === 'sequence_2') {
+          await audioService.speakText(
+            q.voiceIntro || `Kak Reza, dengarkan urutannya: Pertama sentuh ${q.step1Label}, kedua sentuh ${q.step2Label}!`
+          );
+        } else if (q.type === 'word_builder') {
+          await audioService.speakText(`Kak Reza, ayo susun huruf untuk kata ${q.wordLabel || 'ini'}!`);
+        } else {
+          await audioService.speakText(`Kak Reza, ${q.prompt}`);
         }
-      } else if (q.type === 'sequence_2') {
-        await audioService.speakText(
-          q.voiceIntro || `Kak Reza, dengarkan urutannya: Pertama sentuh ${q.step1Label}, kedua sentuh ${q.step2Label}!`
-        );
-      } else if (q.type === 'word_builder') {
-        await audioService.speakText(`Kak Reza, ayo susun huruf untuk kata ${q.wordLabel || 'ini'}!`);
-      } else {
-        await audioService.speakText(`Kak Reza, ${q.prompt}`);
+      } catch (err) {
+        console.warn('Audio sequence error:', err);
+      } finally {
+        if (!isCancelled) {
+          setIsAudioSpeaking(false);
+        }
       }
-
-      if (isCancelled) return;
-      setIsAudioSpeaking(false);
     };
 
     runAudioSequence();
@@ -192,6 +198,7 @@ export default function HomePage() {
     return () => {
       isCancelled = true;
       audioService.stopAllAudio();
+      setIsAudioSpeaking(false);
     };
   }, [currentQIndex, sessionQuestions, isLoadingSession]);
 
@@ -329,7 +336,6 @@ export default function HomePage() {
   const advanceToNextQuestion = () => {
     setFeedbackToast(prev => ({ ...prev, show: false }));
     setSelectedChoiceIndex(null);
-    setIsAnswered(false);
     resetQuestionModes();
 
     if (currentQIndex + 1 < sessionQuestions.length) {
@@ -339,8 +345,9 @@ export default function HomePage() {
         const nextQ = sessionQuestions[currentQIndex + 1];
         setTimeLeft(getQuestionDuration(nextQ));
         setCurrentQIndex(prev => prev + 1);
+        setIsAnswered(false);
         setIsTransitioning(false);
-      }, 180);
+      }, 200);
     } else {
       handleFinishSession();
     }
@@ -394,12 +401,14 @@ export default function HomePage() {
   const activeDuration = getQuestionDuration(activeQuestion);
 
   return (
-    <div className="w-full h-[100dvh] max-w-[640px] mx-auto flex flex-col justify-between p-2.5 sm:p-3.5 bg-hero-bg text-hero-black relative overflow-hidden select-none">
-      
+    <div className="w-full h-[100dvh] max-w-[640px] mx-auto flex flex-col justify-between p-2.5 sm:p-3.5 text-slate-800 relative overflow-hidden select-none">
+      {/* Ambient Fluid Background Refraction Mesh */}
+      <LiquidMeshBackground />
+
       {/* ======================================================== */}
       {/* TOP COMPACT NAVIGATION BAR (~12% HEIGHT) */}
       {/* ======================================================== */}
-      <div className="shrink-0 flex flex-col gap-1 w-full">
+      <div className="shrink-0 flex flex-col gap-1.5 w-full relative z-20">
         {/* Header with Reza Identity & Controls */}
         <Header
           dayName={activeDay.name}
@@ -440,15 +449,17 @@ export default function HomePage() {
         />
 
         {/* Status Progress & Timer */}
-        <div className="flex items-center justify-between text-[0.72rem] font-black text-slate-500 px-0.5">
-          <span className="bg-red-50 text-hero-red px-2.5 py-0.5 rounded-full border border-red-100 font-sans shadow-xs">
+        <div className="flex items-center justify-between text-[0.72rem] font-black px-0.5">
+          <span className="liquid-glass-pill px-3 py-0.5 text-hero-red font-sans shadow-xs">
             Misi {currentQIndex + 1} / {sessionQuestions.length || 25}
           </span>
           <span
-            className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full border font-sans shadow-xs ${
+            className={`flex items-center gap-1 px-3 py-0.5 rounded-full font-sans shadow-xs transition-all duration-300 ${
               isAudioSpeaking
-                ? 'bg-blue-50 text-blue-700 border-blue-200 animate-pulse'
-                : 'bg-amber-50 text-amber-700 border-amber-200'
+                ? 'liquid-tint-azure text-white animate-pulse'
+                : timeLeft <= 5
+                ? 'liquid-tint-rose text-white animate-pulse'
+                : 'liquid-tint-amber text-white'
             }`}
           >
             <span>{isAudioSpeaking ? '🎧 Menyimak...' : '⏳'}</span>
@@ -456,15 +467,15 @@ export default function HomePage() {
           </span>
         </div>
 
-        {/* Animated Timer Progress Bar */}
-        <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden shadow-inner">
+        {/* Animated Timer Progress Bar with Liquid Glow */}
+        <div className="w-full h-2 bg-white/60 backdrop-blur-md rounded-full overflow-hidden shadow-inner border border-white/60 p-0.5">
           <div
-            className={`h-full transition-all duration-300 rounded-full ${
+            className={`h-full transition-all duration-300 rounded-full shadow-xs ${
               isAudioSpeaking
-                ? 'bg-blue-500'
+                ? 'bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.5)]'
                 : timeLeft <= 5
-                ? 'bg-hero-danger animate-pulse'
-                : 'bg-gradient-to-r from-emerald-500 to-amber-500'
+                ? 'liquid-tint-rose animate-pulse'
+                : 'bg-gradient-to-r from-emerald-400 via-amber-400 to-rose-500'
             }`}
             style={{ width: `${(timeLeft / activeDuration) * 100}%` }}
           />
@@ -474,11 +485,11 @@ export default function HomePage() {
       {/* ======================================================== */}
       {/* 50 / 50 BALANCED ARENA: TOP QUESTION STAGE & BOTTOM ANSWER ARENA */}
       {/* ======================================================== */}
-      <div className="flex-1 w-full flex flex-col gap-2 min-h-0 overflow-hidden my-1">
+      <div className="flex-1 w-full flex flex-col gap-2 min-h-0 overflow-hidden my-1 relative z-10">
         {isLoadingSession ? (
-          <div className="flex-1 flex flex-col items-center justify-center gap-3 bg-white rounded-3xl border-2 border-hero-border shadow-hero-md">
-            <div className="w-12 h-12 rounded-full border-4 border-hero-red border-t-transparent animate-spin" />
-            <span className="text-sm font-black text-hero-black">
+          <div className="flex-1 flex flex-col items-center justify-center gap-3 liquid-glass-card rounded-3xl sm:rounded-[32px] shadow-2xl">
+            <div className="w-12 h-12 rounded-full border-4 border-hero-red border-t-transparent animate-spin shadow-md" />
+            <span className="text-sm font-black text-slate-800 drop-shadow-xs">
               ⚡ Menyiapkan 25 Misi Superhero Kak Reza...
             </span>
           </div>

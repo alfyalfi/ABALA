@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { ChoiceOption, SequenceItem } from '../types';
 
@@ -37,23 +39,23 @@ export const ChoicesGrid: React.FC<ChoicesGridProps> = ({
               key={item.id}
               disabled={isDone || isAnswered}
               onClick={() => onSelectSequenceItem(item)}
-              className={`flex flex-col items-center justify-center p-3 rounded-hero min-h-[86px] sm:min-h-[94px] transition-all duration-150 active:scale-95 shadow-sm text-center relative overflow-hidden group border-2 ${
+              className={`flex flex-col items-center justify-center p-3 rounded-3xl min-h-[86px] sm:min-h-[94px] transition-all duration-200 active:scale-95 text-center relative overflow-hidden group liquid-interactive liquid-lens-sheen ${
                 isDone
-                  ? 'bg-emerald-50 border-emerald-500 text-emerald-800 scale-[0.98] ring-2 ring-emerald-200'
+                  ? 'liquid-tint-emerald text-white scale-[0.98] ring-4 ring-emerald-300/60 shadow-lg'
                   : isWobbling
-                  ? 'bg-rose-50 border-rose-500 text-rose-700 animate-bounce'
-                  : 'bg-white border-hero-border text-hero-black hover:border-hero-red hover:shadow-md'
+                  ? 'liquid-tint-rose text-white animate-bounce'
+                  : 'liquid-glass text-slate-800 hover:bg-white/80'
               }`}
             >
               {isDone && (
-                <span className="absolute top-1.5 right-1.5 bg-emerald-500 text-white rounded-full w-5 h-5 text-[0.65rem] flex items-center justify-center font-black shadow-xs">
+                <span className="absolute top-2 right-2 bg-white/30 text-white rounded-full w-5 h-5 text-[0.65rem] flex items-center justify-center font-black shadow-xs backdrop-blur-md">
                   ✓
                 </span>
               )}
-              <span className="text-3xl sm:text-4xl leading-none mb-1 group-hover:scale-105 transition-transform">
+              <span className="text-3xl sm:text-4xl leading-none mb-1 group-hover:scale-105 transition-transform drop-shadow-xs">
                 {item.emoji}
               </span>
-              <span className="font-black text-xs sm:text-sm leading-tight text-hero-black">
+              <span className="font-black text-xs sm:text-sm leading-tight">
                 {item.label}
               </span>
             </button>
@@ -63,24 +65,22 @@ export const ChoicesGrid: React.FC<ChoicesGridProps> = ({
     );
   }
 
-  // CASE B: Standard Choices Grid
-  const gridColsClass = choices.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
-
+  // CASE B: Standard 3-Choices Grid
   return (
-    <footer className={`grid ${gridColsClass} gap-2.5 sm:gap-3.5 w-full`}>
+    <footer className="grid grid-cols-3 gap-2 sm:gap-3 w-full">
       {choices.map((choice, idx) => {
         const isSelected = selectedIndex === idx;
         const isCorrectChoice = choice.isCorrect;
 
-        let statusStyle = 'bg-white border-2 border-hero-border text-hero-black hover:border-slate-300 hover:shadow-md';
+        let statusStyle = 'liquid-glass text-slate-800 hover:bg-white/80';
 
         if (isAnswered) {
           if (isSelected) {
             statusStyle = isCorrectChoice
-              ? 'bg-hero-successBg border-2 border-hero-success text-hero-success scale-[1.03] shadow-lg ring-2 ring-emerald-300'
-              : 'bg-hero-dangerBg border-2 border-hero-danger text-hero-danger scale-[0.97] shadow-sm ring-2 ring-rose-300';
+              ? 'liquid-tint-emerald text-white scale-[1.03] ring-4 ring-emerald-300/60 shadow-2xl'
+              : 'liquid-tint-rose text-white scale-[0.97] ring-4 ring-rose-300/60 shadow-sm';
           } else if (isCorrectChoice) {
-            statusStyle = 'bg-emerald-50 border-2 border-emerald-400 text-emerald-800 ring-2 ring-emerald-200';
+            statusStyle = 'liquid-tint-emerald text-white opacity-85 ring-2 ring-white/60';
           }
         }
 
@@ -91,20 +91,19 @@ export const ChoicesGrid: React.FC<ChoicesGridProps> = ({
             key={idx}
             disabled={isAnswered}
             onClick={() => onSelectChoice(idx)}
-            className={`flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-hero min-h-[82px] sm:min-h-[88px] transition-all duration-150 active:scale-95 shadow-sm text-center relative overflow-hidden group ${statusStyle}`}
+            className={`flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-3xl min-h-[82px] sm:min-h-[92px] transition-all duration-200 active:scale-95 text-center relative overflow-hidden group liquid-interactive liquid-lens-sheen ${statusStyle}`}
           >
-            {/* Visual: Real Photo thumbnail or Emoji/SVG */}
-            {choice.visual ? (
-              <div
-                className="text-2xl sm:text-3xl leading-none mb-1 group-hover:scale-105 transition-transform"
+            {choice.visual && (
+              <span
+                className="text-2xl sm:text-3xl leading-none mb-1 group-hover:scale-105 transition-transform drop-shadow-xs"
                 dangerouslySetInnerHTML={{ __html: choice.visual }}
               />
-            ) : null}
-
-            {/* Choice Label */}
+            )}
             <span
               className={`font-black leading-tight line-clamp-2 ${
-                isPureNumber ? 'text-2xl sm:text-3xl text-hero-black' : 'text-xs sm:text-sm'
+                isPureNumber
+                  ? 'text-3xl sm:text-4xl tracking-tight drop-shadow-xs'
+                  : 'text-xs sm:text-sm'
               }`}
             >
               {choice.label}

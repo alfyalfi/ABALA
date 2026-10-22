@@ -5,7 +5,17 @@ class AudioService {
   private currentAudioElement: HTMLAudioElement | null = null;
   private isCurrentlySpeaking: boolean = false;
 
-  constructor() {}
+  constructor() {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      // Warm up voices on client
+      window.speechSynthesis.getVoices();
+      if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = () => {
+          window.speechSynthesis.getVoices();
+        };
+      }
+    }
+  }
 
   public getContext(): AudioContext | null {
     if (typeof window === 'undefined') return null;
@@ -35,14 +45,22 @@ class AudioService {
   public stopAllAudio() {
     this.isCurrentlySpeaking = false;
     if (this.currentAudioElement) {
-      try {
-        this.currentAudioElement.pause();
-        this.currentAudioElement.currentTime = 0;
-      } catch (e) {}
+      const el = this.currentAudioElement;
       this.currentAudioElement = null;
+      try {
+        el.onended = null;
+        el.onerror = null;
+        el.pause();
+        el.currentTime = 0;
+        if (el.src && el.src.startsWith('blob:')) {
+          URL.revokeObjectURL(el.src);
+        }
+      } catch (e) {}
     }
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch (e) {}
     }
   }
 
@@ -197,8 +215,8 @@ class AudioService {
         }
       };
 
-      // Maximum sound duration guard (e.g. 5 seconds max)
-      const guard = setTimeout(() => finish(true), 5000);
+      // Maximum sound duration guard (4.5 seconds max)
+      const guard = setTimeout(() => finish(true), 4500);
 
       try {
         const audio = new Audio(soundPath);
@@ -210,18 +228,15 @@ class AudioService {
           finish(true);
         };
 
-        audio.onerror = (e) => {
+        audio.onerror = () => {
           clearTimeout(guard);
-          console.warn('Error loading sound file:', soundPath, e);
-          // Play synthetic acoustic backup if file fails
           this.playSyntheticBackup(soundPath);
           finish(false);
         };
 
         const playPromise = audio.play();
         if (playPromise !== undefined) {
-          playPromise.catch((err) => {
-            console.warn('Audio autoplay blocked or failed:', err);
+          playPromise.catch(() => {
             clearTimeout(guard);
             this.playSyntheticBackup(soundPath);
             finish(false);
@@ -236,12 +251,12 @@ class AudioService {
   }
 
   // Natural Neural AI TTS - Awaits until speech completely finishes playing
-  public speakText(text: string): Promise<void> {
-    if (this.isMuted || !text) return Promise.resolve();
+  public async speakText(text: string): Promise<void> {
+    if (this.isMuted || !text) return;
     this.stopAllAudio();
     this.isCurrentlySpeaking = true;
 
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       let isSettled = false;
       const done = () => {
         if (!isSettled) {
@@ -251,63 +266,127 @@ class AudioService {
         }
       };
 
-      // Safety timeout: never hang longer than 5 seconds
-      const maxTimer = setTimeout(done, 5000);
+      // Safety timeout: never lock audio state longer than 3.5s
+      const maxTimer = setTimeout(done, 3500);
 
-      // 1. Try free Neural backend API
-      const apiUrl = `/api/tts?text=${encodeURIComponent(text)}`;
-      try {
-        const audio = new Audio(apiUrl);
-        this.currentAudioElement = audio;
-        audio.volume = 1.0;
+      const run = async () => {
+        try {
+          const apiUrl = `/api/tts?text=${encodeURIComponent(text)}`;
+          const res = await fetch(apiUrl);
 
-        audio.onended = () => {
-          clearTimeout(maxTimer);
-          done();
-        };
+          if (!res.ok) {
+            this.fallbackWebSpeech(text, () => {
+              clearTimeout(maxTimer);
+              done();
+            });
+            return;
+          }
 
-        audio.onerror = () => {
-          clearTimeout(maxTimer);
-          this.fallbackWebSpeech(text, done);
-        };
+          const contentType = res.headers.get('content-type') || '';
+          if (contentType.includes('audio')) {
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            const audio = new Audio(blobUrl);
+            this.currentAudioElement = audio;
 
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
+            audio.onended = () => {
+              URL.revokeObjectURL(blobUrl);
+              clearTimeout(maxTimer);
+              done();
+            };
+
+            audio.onerror = () => {
+              URL.revokeObjectURL(blobUrl);
+              this.fallbackWebSpeech(text, () => {
+                clearTimeout(maxTimer);
+                done();
+              });
+            };
+
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                URL.revokeObjectURL(blobUrl);
+                this.fallbackWebSpeech(text, () => {
+                  clearTimeout(maxTimer);
+                  done();
+                });
+              });
+            }
+          } else {
+            // It returned JSON fallback instruction
+            this.fallbackWebSpeech(text, () => {
+              clearTimeout(maxTimer);
+              done();
+            });
+          }
+        } catch (e) {
+          this.fallbackWebSpeech(text, () => {
             clearTimeout(maxTimer);
-            this.fallbackWebSpeech(text, done);
+            done();
           });
         }
-      } catch (err) {
-        clearTimeout(maxTimer);
-        this.fallbackWebSpeech(text, done);
-      }
+      };
+
+      run();
     });
   }
 
-  // Fallback to Web Speech API with onend completion callback
+  // Fallback to Web Speech API with clean error handling and timeout
   private fallbackWebSpeech(text: string, onDone: () => void) {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
       onDone();
       return;
     }
-    window.speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'id-ID';
-    utterance.rate = 0.94;
-    utterance.pitch = 1.05;
+    try {
+      // Clean emojis and special symbols so speech synthesis sounds natural
+      const cleanText = text
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}]/gu, '')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
 
-    const voices = window.speechSynthesis.getVoices();
-    const idVoice = voices.find(v => v.lang.includes('id') || v.lang.includes('ID'));
-    if (idVoice) {
-      utterance.voice = idVoice;
+      if (!cleanText) {
+        onDone();
+        return;
+      }
+
+      // Resume if browser speech is in suspended/paused state
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
+
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.lang = 'id-ID';
+      utterance.rate = 0.96;
+      utterance.pitch = 1.05;
+
+      const voices = window.speechSynthesis.getVoices();
+      const idVoice = voices.find(v => v.lang.toLowerCase().includes('id'));
+      if (idVoice) {
+        utterance.voice = idVoice;
+      }
+
+      let isFinished = false;
+      const finish = () => {
+        if (!isFinished) {
+          isFinished = true;
+          onDone();
+        }
+      };
+
+      utterance.onend = finish;
+      utterance.onerror = finish;
+
+      // Safety timeout: 3 seconds max for speech utterance
+      setTimeout(finish, 3000);
+
+      window.speechSynthesis.speak(utterance);
+    } catch (e) {
+      onDone();
     }
-
-    utterance.onend = () => onDone();
-    utterance.onerror = () => onDone();
-
-    window.speechSynthesis.speak(utterance);
   }
 
   // Synthetic backup generator for zero-failure audio

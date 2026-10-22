@@ -10,17 +10,259 @@
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+    background-color: #f1f5f9;
   }
 }
 
-/* Custom Animations */
+/* ======================================================== */
+/* LIQUID GLASS SYSTEM (Inspired by AndroidLiquidGlass)     */
+/* ======================================================== */
+
+/* Core Liquid Glass Surface */
+.liquid-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.48) 100%);
+  backdrop-filter: blur(24px) saturate(190%) brightness(104%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%) brightness(104%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  border-left-color: rgba(255, 255, 255, 0.8);
+  border-bottom-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1.5px 2px 0 rgba(15, 23, 42, 0.03),
+    0 12px 32px -8px rgba(15, 23, 42, 0.08);
+}
+
+/* Heavy Liquid Glass Card */
+.liquid-glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.58) 100%);
+  backdrop-filter: blur(28px) saturate(200%) brightness(105%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(105%);
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  border-left-color: rgba(255, 255, 255, 0.85);
+  border-bottom-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -2px 3px 0 rgba(15, 23, 42, 0.04),
+    0 20px 48px -12px rgba(15, 23, 42, 0.12),
+    0 4px 12px -2px rgba(15, 23, 42, 0.04);
+}
+
+/* Subtle / Nested Liquid Glass Surface */
+.liquid-glass-subtle {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.28) 100%);
+  backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(16px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-top-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 1px 0 rgba(15, 23, 42, 0.02),
+    0 4px 16px -4px rgba(15, 23, 42, 0.05);
+}
+
+/* Pill / Capsule Glass */
+.liquid-glass-pill {
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.5) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 14px -2px rgba(15, 23, 42, 0.06);
+}
+
+/* Modal Liquid Acrylic Glass */
+.liquid-glass-modal {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.75) 100%);
+  backdrop-filter: blur(32px) saturate(210%) brightness(106%);
+  -webkit-backdrop-filter: blur(32px) saturate(210%) brightness(106%);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-top-color: rgba(255, 255, 255, 1);
+  box-shadow: 
+    inset 0 2px 2px 0 rgba(255, 255, 255, 0.95),
+    0 24px 64px -16px rgba(15, 23, 42, 0.25),
+    0 8px 24px -6px rgba(15, 23, 42, 0.1);
+}
+
+/* ======================================================== */
+/* TINTED LIQUID GLASS (Color Shaders)                      */
+/* ======================================================== */
+
+/* Tinted Ruby (Reza Superhero Brand Red) */
+.liquid-tint-ruby {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.92) 0%, rgba(220, 38, 38, 0.96) 100%);
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-top-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.15),
+    0 10px 24px -4px rgba(220, 38, 38, 0.42);
+  color: #ffffff;
+}
+
+/* Tinted Emerald (Success / Correct) */
+.liquid-tint-emerald {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.92) 0%, rgba(5, 150, 105, 0.96) 100%);
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-top-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.15),
+    0 10px 24px -4px rgba(16, 185, 129, 0.42);
+  color: #ffffff;
+}
+
+/* Tinted Amber (Timer / Caution) */
+.liquid-tint-amber {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.92) 0%, rgba(217, 119, 6, 0.96) 100%);
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-top-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.15),
+    0 10px 24px -4px rgba(245, 158, 11, 0.42);
+  color: #ffffff;
+}
+
+/* Tinted Azure (Listening / Sound / Information) */
+.liquid-tint-azure {
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.92) 0%, rgba(2, 132, 199, 0.96) 100%);
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-top-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.15),
+    0 10px 24px -4px rgba(14, 165, 233, 0.42);
+  color: #ffffff;
+}
+
+/* Tinted Rose (Wrong / Error) */
+.liquid-tint-rose {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.92) 0%, rgba(225, 29, 72, 0.96) 100%);
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-top-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 
+    inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.15),
+    0 10px 24px -4px rgba(244, 63, 94, 0.42);
+  color: #ffffff;
+}
+
+/* ======================================================== */
+/* INTERACTIVE FLUID SPRING ANIMATIONS & SHEEN               */
+/* ======================================================== */
+
+.liquid-interactive {
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background 0.22s ease;
+  will-change: transform, box-shadow;
+}
+
+.liquid-interactive:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 16px 36px -10px rgba(15, 23, 42, 0.14);
+}
+
+.liquid-interactive:active {
+  transform: translateY(1px) scale(0.96);
+  box-shadow: 
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.7),
+    0 6px 16px -4px rgba(15, 23, 42, 0.08);
+}
+
+/* Lens Specular Reflection Sweep Effect */
+.liquid-lens-sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.liquid-lens-sheen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.05) 85%, transparent 100%);
+  pointer-events: none;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+/* ======================================================== */
+/* AMBIENT AURORA BACKGROUND MESH ANIMATIONS                */
+/* ======================================================== */
+
+@keyframes floatBlob1 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -40px) scale(1.08);
+  }
+  66% {
+    transform: translate(-20px, 25px) scale(0.95);
+  }
+}
+
+@keyframes floatBlob2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(-35px, 30px) scale(1.1);
+  }
+  66% {
+    transform: translate(25px, -35px) scale(0.92);
+  }
+}
+
+@keyframes floatBlob3 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(40px, 35px) scale(1.12);
+  }
+}
+
+.animate-blob-1 {
+  animation: floatBlob1 18s ease-in-out infinite;
+}
+
+.animate-blob-2 {
+  animation: floatBlob2 22s ease-in-out infinite;
+}
+
+.animate-blob-3 {
+  animation: floatBlob3 25s ease-in-out infinite;
+}
+
+/* Custom Pop Animation */
 @keyframes popIn {
   0% { transform: scale(0.88); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
 
 .animate-pop {
-  animation: popIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: popIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Custom scrollbar hiding */
