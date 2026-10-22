@@ -210,8 +210,13 @@ export default function HomePage() {
     if (timerRef.current) clearInterval(timerRef.current);
 
     const currentQ = sessionQuestions[currentQIndex];
+    if (!currentQ || !currentQ.choices || !currentQ.choices[choiceIdx]) {
+      setTimeout(() => advanceToNextQuestion(), 300);
+      return;
+    }
+
     const chosen = currentQ.choices[choiceIdx];
-    const isCorrect = chosen.isCorrect;
+    const isCorrect = Boolean(chosen.isCorrect);
 
     if (isCorrect) {
       setScore(prev => ({ ...prev, correct: prev.correct + 1 }));
