@@ -4,6 +4,8 @@ class AudioService {
   private isMuted: boolean = false;
   private currentAudioElement: HTMLAudioElement | null = null;
   private isCurrentlySpeaking: boolean = false;
+  private currentAbortController: AbortController | null = null;
+  private activeSpeechSessionId: number = 0;
 
   constructor() {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -44,6 +46,15 @@ class AudioService {
 
   public stopAllAudio() {
     this.isCurrentlySpeaking = false;
+    this.activeSpeechSessionId++;
+
+    if (this.currentAbortController) {
+      try {
+        this.currentAbortController.abort();
+      } catch (e) {}
+      this.currentAbortController = null;
+    }
+
     if (this.currentAudioElement) {
       const el = this.currentAudioElement;
       this.currentAudioElement = null;
@@ -62,6 +73,11 @@ class AudioService {
         window.speechSynthesis.cancel();
       } catch (e) {}
     }
+  }
+
+  // Specifically cancel active speech preview immediately without resetting other states
+  public stopSpeechPreview() {
+    this.stopAllAudio();
   }
 
   // Synthesized UI Sounds (Instant zero latency)
@@ -250,29 +266,46 @@ class AudioService {
     });
   }
 
-  // Natural Neural AI TTS - Awaits until speech completely finishes playing
+  // Natural Neural AI TTS - Awaits until speech completely finishes playing or is cancelled
   public async speakText(text: string): Promise<void> {
     if (this.isMuted || !text) return;
     this.stopAllAudio();
     this.isCurrentlySpeaking = true;
+
+    const speechSession = ++this.activeSpeechSessionId;
+    const abortCtrl = new AbortController();
+    this.currentAbortController = abortCtrl;
 
     return new Promise<void>((resolve) => {
       let isSettled = false;
       const done = () => {
         if (!isSettled) {
           isSettled = true;
-          this.isCurrentlySpeaking = false;
+          if (this.activeSpeechSessionId === speechSession) {
+            this.isCurrentlySpeaking = false;
+            this.currentAbortController = null;
+          }
           resolve();
         }
       };
 
       // Safety timeout: never lock audio state longer than 3.5s
-      const maxTimer = setTimeout(done, 3500);
+      const maxTimer = setTimeout(() => {
+        if (this.activeSpeechSessionId === speechSession) {
+          done();
+        }
+      }, 3500);
 
       const run = async () => {
         try {
           const apiUrl = `/api/tts?text=${encodeURIComponent(text)}`;
-          const res = await fetch(apiUrl);
+          const res = await fetch(apiUrl, { signal: abortCtrl.signal });
+
+          if (this.activeSpeechSessionId !== speechSession) {
+            clearTimeout(maxTimer);
+            done();
+            return;
+          }
 
           if (!res.ok) {
             this.fallbackWebSpeech(text, () => {
@@ -285,6 +318,12 @@ class AudioService {
           const contentType = res.headers.get('content-type') || '';
           if (contentType.includes('audio')) {
             const blob = await res.blob();
+            if (this.activeSpeechSessionId !== speechSession) {
+              clearTimeout(maxTimer);
+              done();
+              return;
+            }
+
             const blobUrl = URL.createObjectURL(blob);
             const audio = new Audio(blobUrl);
             this.currentAudioElement = audio;
@@ -320,11 +359,16 @@ class AudioService {
               done();
             });
           }
-        } catch (e) {
-          this.fallbackWebSpeech(text, () => {
+        } catch (e: any) {
+          if (this.activeSpeechSessionId === speechSession && e.name !== 'AbortError') {
+            this.fallbackWebSpeech(text, () => {
+              clearTimeout(maxTimer);
+              done();
+            });
+          } else {
             clearTimeout(maxTimer);
             done();
-          });
+          }
         }
       };
 

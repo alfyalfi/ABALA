@@ -33,8 +33,6 @@ export const viewport: Viewport = {
   themeColor: '#DC2626',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   viewportFit: 'cover',
 };
 
@@ -48,12 +46,12 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className="bg-slate-100 text-slate-800 antialiased selection:bg-hero-red selection:text-white font-sans overflow-hidden">
+      <body className="bg-slate-100 text-slate-800 antialiased selection:bg-hero-red selection:text-white font-sans min-h-screen">
         {children}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+              if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
                 window.addEventListener('load', function() {
                   navigator.serviceWorker.register('/sw.js').catch(function(err) {
                     console.log('SW registration note:', err);

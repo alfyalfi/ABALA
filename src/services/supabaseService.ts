@@ -87,12 +87,12 @@ export class ProgressService {
     } catch {}
 
     return {
-      berhitung: 80,
-      membaca: 75,
-      menyimak: 85,
-      nalar: 70,
-      bentuk: 90,
-      kemandirian: 95
+      berhitung: 0,
+      membaca: 0,
+      menyimak: 0,
+      nalar: 0,
+      bentuk: 0,
+      kemandirian: 0
     };
   }
 }

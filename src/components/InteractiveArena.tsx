@@ -1,11 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChoiceOption, SequenceItem } from '../types';
 import { audioService } from '../services/audioService';
+import { Volume2 } from 'lucide-react';
 
 interface InteractiveArenaProps {
   questionType?: string;
+  activeQuestionKey?: string;
   choices: ChoiceOption[];
   onSelectChoice: (index: number) => void;
   selectedIndex: number | null;
@@ -30,6 +32,7 @@ interface InteractiveArenaProps {
 
 export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
   questionType,
+  activeQuestionKey = '',
   choices,
   onSelectChoice,
   selectedIndex,
@@ -44,21 +47,61 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
   onSelectLetter,
   usedLetterIndices = [],
 }) => {
-  // Direct 1-Tap Response for Standard Choices
+  // Explicit 2-Tap State Machine for Standard & Comparison Choices:
+  // Tap 1: Read aloud via TTS + highlight target (no score evaluation, no locking)
+  // Tap 2: Confirm choice immediately and evaluate answer exactly once
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
+  const previewIndexRef = useRef<number | null>(null);
+  const isConfirmingRef = useRef<boolean>(false);
+
+  // Synchronously reset preview state on question change or answers
+  useEffect(() => {
+    previewIndexRef.current = null;
+    isConfirmingRef.current = false;
+    setPreviewIndex(null);
+  }, [activeQuestionKey, choices, questionType]);
+
+  useEffect(() => {
+    if (isAnswered) {
+      previewIndexRef.current = null;
+      setPreviewIndex(null);
+      isConfirmingRef.current = false;
+    }
+  }, [isAnswered]);
+
   const handleChoiceClick = (idx: number) => {
-    if (isAnswered) return;
-    audioService.playFeedback('step');
-    onSelectChoice(idx);
+    if (isAnswered || isConfirmingRef.current) return;
+
+    if (previewIndexRef.current === idx) {
+      // 2nd Tap on same choice -> CONFIRM ANSWER IMMEDIATELY
+      isConfirmingRef.current = true;
+      previewIndexRef.current = null;
+      setPreviewIndex(null);
+      audioService.stopSpeechPreview();
+      audioService.playFeedback('step');
+      onSelectChoice(idx);
+    } else {
+      // 1st Tap or Switch to a different choice -> Read aloud & highlight
+      previewIndexRef.current = idx;
+      setPreviewIndex(idx);
+      audioService.stopSpeechPreview();
+      audioService.playFeedback('step');
+
+      const choice = choices[idx];
+      if (choice && choice.label) {
+        audioService.speakText(choice.label).catch(() => {});
+      }
+    }
   };
 
-  // Direct 1-Tap Response for Sequence Items
+  // Direct 1-Tap Response for Sequence Items (Sequence 2 preserves its dedicated step-by-step logic)
   const handleSeqItemClick = (item: SequenceItem) => {
     if (isAnswered) return;
     audioService.playFeedback('step');
     if (onSelectSequenceItem) onSelectSequenceItem(item);
   };
 
-  // Direct 1-Tap Response for Word Builder Letters
+  // Direct 1-Tap Response for Word Builder Letters (Single tap places letter in slot)
   const handleLetterClick = (ltr: string, idx: number) => {
     if (isAnswered) return;
     if (onSelectLetter) onSelectLetter(ltr, idx);
@@ -163,7 +206,7 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
   }
 
   // ========================================================
-  // MODE 3: COMPARISON BATTLE CARDS (1-Tap Selection)
+  // MODE 3: COMPARISON BATTLE CARDS (2-Tap: 1st Reads Aloud, 2nd Selects)
   // ========================================================
   if (questionType === 'comparison' && choices.length === 2) {
     return (
@@ -172,6 +215,7 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
           {choices.map((choice, idx) => {
             const isSelected = selectedIndex === idx;
             const isCorrectChoice = choice.isCorrect;
+            const isPreviewing = previewIndex === idx && !isAnswered;
 
             let cardStyle = 'liquid-glass text-slate-800 hover:bg-white/80';
 
@@ -183,6 +227,8 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
               } else if (isCorrectChoice) {
                 cardStyle = 'liquid-tint-emerald text-white opacity-90 ring-2 ring-white/60';
               }
+            } else if (isPreviewing) {
+              cardStyle = 'liquid-glass border-2 border-hero-red text-slate-900 ring-4 ring-rose-400/60 scale-[1.03] shadow-2xl bg-white/95';
             }
 
             return (
@@ -194,6 +240,14 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
                 onClick={() => handleChoiceClick(idx)}
                 className={`flex flex-col items-center justify-center p-2.5 sm:p-3 rounded-3xl transition-all duration-150 active:scale-95 relative overflow-hidden group liquid-interactive liquid-lens-sheen cursor-pointer ${cardStyle}`}
               >
+                {/* 2nd Click Confirm Floating Badge */}
+                {isPreviewing && (
+                  <span className="pointer-events-none absolute top-1.5 right-1.5 liquid-tint-ruby text-white text-[0.62rem] sm:text-xs font-black px-2 py-0.5 rounded-full shadow-md animate-pulse z-10 flex items-center gap-1 select-none">
+                    <Volume2 size={12} className="animate-bounce" />
+                    <span>Ketuk lagi!</span>
+                  </span>
+                )}
+
                 {/* Visual Items Plate */}
                 {choice.visual && (
                   <div className="pointer-events-none flex-1 flex flex-wrap items-center justify-center gap-1 max-w-[130px] text-xl sm:text-2xl leading-snug my-1 group-hover:scale-105 transition-transform liquid-glass-subtle p-2 rounded-2xl w-full shadow-inner select-none">
@@ -202,7 +256,8 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
                 )}
 
                 {/* Choice Label */}
-                <span className="pointer-events-none font-black text-xs sm:text-sm text-center mt-0.5 flex items-center justify-center gap-1 select-none">
+                <span className="pointer-events-none font-black text-xs sm:text-sm text-center mt-0.5 flex items-center justify-center gap-1.5 select-none">
+                  {isPreviewing && <Volume2 size={13} className="text-hero-red animate-bounce shrink-0" />}
                   <span>{choice.label}</span>
                 </span>
               </button>
@@ -214,7 +269,7 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
   }
 
   // ========================================================
-  // MODE 4: STANDARD CHOICES GRID (1-Tap Direct Answer)
+  // MODE 4: STANDARD CHOICES GRID (2-Tap: 1st Reads Aloud, 2nd Selects)
   // ========================================================
   const gridColsClass = choices.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
 
@@ -224,6 +279,7 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
         {choices.map((choice, idx) => {
           const isSelected = selectedIndex === idx;
           const isCorrectChoice = choice.isCorrect;
+          const isPreviewing = previewIndex === idx && !isAnswered;
 
           let statusStyle = 'liquid-glass text-slate-800 hover:bg-white/80';
 
@@ -235,6 +291,8 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
             } else if (isCorrectChoice) {
               statusStyle = 'liquid-tint-emerald text-white opacity-85 ring-2 ring-white/60';
             }
+          } else if (isPreviewing) {
+            statusStyle = 'liquid-glass border-2 border-hero-red text-slate-900 ring-4 ring-rose-400/60 scale-[1.03] shadow-2xl bg-white/95';
           }
 
           const isPureNumber = /^[0-9]+$/.test(choice.label.trim());
@@ -248,6 +306,14 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
               onClick={() => handleChoiceClick(idx)}
               className={`flex flex-col items-center justify-center p-2 sm:p-3 rounded-3xl transition-all duration-150 active:scale-95 text-center relative overflow-hidden group liquid-interactive liquid-lens-sheen cursor-pointer ${statusStyle}`}
             >
+              {/* 2nd Click Confirm Floating Badge */}
+              {isPreviewing && (
+                <span className="pointer-events-none absolute top-1 right-1 sm:top-1.5 sm:right-1.5 liquid-tint-ruby text-white text-[0.58rem] sm:text-xs font-black px-1.5 sm:px-2 py-0.5 rounded-full shadow-md animate-pulse z-10 flex items-center gap-1 select-none">
+                  <Volume2 size={11} className="animate-bounce" />
+                  <span>Ketuk lagi untuk memilih!</span>
+                </span>
+              )}
+
               {/* Optional Visual */}
               {choice.visual ? (
                 <div
@@ -264,6 +330,7 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
                     : 'text-xs sm:text-sm'
                 }`}
               >
+                {isPreviewing && <Volume2 size={14} className="text-hero-red animate-bounce shrink-0" />}
                 <span>{choice.label}</span>
               </span>
             </button>

@@ -117,3 +117,5 @@ export interface LearningPillarProgress {
   bentuk: number;
   kemandirian: number;
 }
+
+export * from './progression';

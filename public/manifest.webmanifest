@@ -1,12 +1,14 @@
 {
-  "name": "ABALA - Belajar Seru Kak Reza",
+  "name": "ABALA — Petualangan Belajar Superhero Kak Reza",
   "short_name": "ABALA",
-  "description": "Aplikasi Belajar Anak Lili Alpi - Mobile First Interactive Learning Kak Reza",
+  "description": "Aplikasi Belajar Anak Lili Alpi - Next.js 16 PWA Mobile-First Interactive Learning",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#DC2626",
   "orientation": "portrait",
+  "categories": ["education", "kids"],
   "icons": [
     {
       "src": "/icons/icon-192.png",
