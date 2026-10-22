@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChoiceOption, SequenceItem } from '../types';
+import { audioService } from '../services/audioService';
+import { Volume2 } from 'lucide-react';
 
 interface InteractiveArenaProps {
   questionType?: string;
@@ -41,6 +43,65 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
   onSelectLetter,
   usedLetterIndices = [],
 }) => {
+  // 2-Click Preview States: Click 1 to read aloud, Click 2 to confirm/submit
+  const [previewIndex, setPreviewIndex] = useState<number | null>(null);
+  const [previewSeqId, setPreviewSeqId] = useState<string | null>(null);
+  const [previewLetterIdx, setPreviewLetterIdx] = useState<number | null>(null);
+
+  // Reset previews whenever question or choices change
+  useEffect(() => {
+    setPreviewIndex(null);
+    setPreviewSeqId(null);
+    setPreviewLetterIdx(null);
+  }, [choices, questionType, targetWord]);
+
+  // Click 1: Read aloud | Click 2: Confirm choice
+  const handleChoiceClick = (choice: ChoiceOption, idx: number) => {
+    if (isAnswered) return;
+
+    if (previewIndex === idx) {
+      // 2nd Click on the same choice -> SUBMIT!
+      setPreviewIndex(null);
+      onSelectChoice(idx);
+    } else {
+      // 1st Click -> Highlight & AI reads aloud!
+      setPreviewIndex(idx);
+      audioService.playFeedback('step');
+      audioService.speakText(choice.label);
+    }
+  };
+
+  // Click 1: Read sequence item aloud | Click 2: Confirm sequence step
+  const handleSeqItemClick = (item: SequenceItem) => {
+    if (isAnswered) return;
+
+    if (previewSeqId === item.id) {
+      // 2nd Click -> Confirm step!
+      setPreviewSeqId(null);
+      if (onSelectSequenceItem) onSelectSequenceItem(item);
+    } else {
+      // 1st Click -> Read aloud!
+      setPreviewSeqId(item.id);
+      audioService.playFeedback('step');
+      audioService.speakText(item.label);
+    }
+  };
+
+  // Click 1: Read letter aloud | Click 2: Place letter into slot
+  const handleLetterClick = (ltr: string, idx: number) => {
+    if (isAnswered) return;
+
+    if (previewLetterIdx === idx) {
+      // 2nd Click -> Place into word slot!
+      setPreviewLetterIdx(null);
+      if (onSelectLetter) onSelectLetter(ltr, idx);
+    } else {
+      // 1st Click -> Read letter aloud!
+      setPreviewLetterIdx(idx);
+      audioService.playFeedback('step');
+      audioService.speakText(`Huruf ${ltr}`);
+    }
+  };
 
   // ========================================================
   // MODE 1: WORD / NAME BUILDER (Menyusun Huruf Kata / Nama)
@@ -57,26 +118,34 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
 
     return (
       <div className="w-full h-full flex flex-col justify-center items-center p-2 bg-slate-50/80 rounded-3xl border-2 border-slate-200 shadow-inner">
-        <div className="text-[0.72rem] font-black uppercase tracking-wider text-hero-red mb-2">
-          🔤 Ketuk Huruf Secara Berurutan:
+        <div className="text-[0.72rem] font-black uppercase tracking-wider text-hero-red mb-1.5 flex items-center gap-1">
+          <span>🔤 Ketuk 2x: Ketuk 1x Dengar, Ketuk 1x Lagi Memilih:</span>
         </div>
         <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5 sm:gap-3 w-full max-w-md">
           {letterChoices.map((ltr, idx) => {
             const isUsed = usedLetterIndices.includes(idx);
+            const isPreviewing = previewLetterIdx === idx;
             const colorClass = palette[idx % palette.length];
 
             return (
               <button
                 key={idx}
                 disabled={isUsed || isAnswered}
-                onClick={() => onSelectLetter(ltr, idx)}
-                className={`flex items-center justify-center h-16 sm:h-20 rounded-2xl text-3xl sm:text-4xl font-black shadow-md border-b-4 transition-all duration-150 active:scale-90 active:border-b-0 ${
+                onClick={() => handleLetterClick(ltr, idx)}
+                className={`flex flex-col items-center justify-center h-16 sm:h-20 rounded-2xl text-3xl sm:text-4xl font-black shadow-md border-b-4 transition-all duration-150 active:scale-90 active:border-b-0 relative ${
                   isUsed
                     ? 'opacity-20 scale-90 pointer-events-none bg-slate-300 text-slate-500 border-slate-400'
+                    : isPreviewing
+                    ? 'ring-4 ring-hero-red scale-105 border-b-0 shadow-xl ' + colorClass
                     : colorClass
                 }`}
               >
-                {ltr}
+                {isPreviewing && !isUsed && (
+                  <span className="absolute -top-2 bg-hero-black text-hero-gold text-[0.6rem] font-black px-1.5 py-0.5 rounded-full shadow-md animate-bounce">
+                    👆 Pilih!
+                  </span>
+                )}
+                <span>{ltr}</span>
               </button>
             );
           })}
@@ -100,30 +169,44 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
           {sequenceItems.map((item) => {
             const isDone = seqCompletedIds.includes(item.id);
             const isWobbling = seqWobbleId === item.id;
+            const isPreviewing = previewSeqId === item.id;
 
             return (
               <button
                 key={item.id}
                 disabled={isDone || isAnswered}
-                onClick={() => onSelectSequenceItem(item)}
+                onClick={() => handleSeqItemClick(item)}
                 className={`flex flex-col items-center justify-center p-3 rounded-3xl transition-all duration-150 active:scale-95 shadow-sm text-center relative overflow-hidden group border-2 sm:border-3 ${
                   isDone
                     ? 'bg-emerald-50 border-emerald-500 text-emerald-800 scale-[0.98] ring-4 ring-emerald-200'
                     : isWobbling
                     ? 'bg-rose-50 border-rose-500 text-rose-700 animate-bounce'
+                    : isPreviewing
+                    ? 'bg-red-50 border-hero-red ring-4 ring-hero-red/70 scale-[1.03] shadow-xl'
                     : 'bg-white border-hero-border text-hero-black hover:border-hero-red hover:shadow-lg'
                 }`}
               >
+                {/* Done Badge */}
                 {isDone && (
                   <span className="absolute top-2 right-2 bg-emerald-500 text-white rounded-full w-6 h-6 text-xs flex items-center justify-center font-black shadow-sm">
                     ✓
                   </span>
                 )}
+
+                {/* 2nd Click Confirm Badge */}
+                {isPreviewing && !isDone && (
+                  <span className="absolute top-2 right-2 bg-hero-red text-white text-[0.65rem] sm:text-xs font-black px-2 py-0.5 rounded-full shadow-md animate-pulse flex items-center gap-1">
+                    <span>👆 Ketuk lagi!</span>
+                  </span>
+                )}
+
                 <span className="text-4xl sm:text-5xl leading-none mb-1 group-hover:scale-110 transition-transform">
                   {item.emoji}
                 </span>
-                <span className="font-black text-sm sm:text-base leading-tight text-hero-black mt-1">
-                  {item.label}
+
+                <span className="font-black text-sm sm:text-base leading-tight text-hero-black mt-1 flex items-center justify-center gap-1">
+                  {isPreviewing && <Volume2 size={14} className="text-hero-red animate-bounce" />}
+                  <span>{item.label}</span>
                 </span>
               </button>
             );
@@ -143,6 +226,7 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
           {choices.map((choice, idx) => {
             const isSelected = selectedIndex === idx;
             const isCorrectChoice = choice.isCorrect;
+            const isPreviewing = previewIndex === idx;
 
             let cardStyle = 'bg-white border-2 sm:border-3 border-hero-border text-hero-black hover:border-hero-red hover:shadow-xl';
 
@@ -154,15 +238,24 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
               } else if (isCorrectChoice) {
                 cardStyle = 'bg-emerald-50 border-2 sm:border-3 border-emerald-400 text-emerald-800 ring-2 ring-emerald-200';
               }
+            } else if (isPreviewing) {
+              cardStyle = 'bg-red-50 border-2 sm:border-3 border-hero-red text-hero-black ring-4 ring-hero-red/70 scale-[1.03] shadow-2xl';
             }
 
             return (
               <button
                 key={idx}
                 disabled={isAnswered}
-                onClick={() => onSelectChoice(idx)}
+                onClick={() => handleChoiceClick(choice, idx)}
                 className={`flex flex-col items-center justify-center p-3 rounded-3xl transition-all duration-150 active:scale-95 shadow-md relative overflow-hidden group ${cardStyle}`}
               >
+                {/* 2nd Click Confirm Badge */}
+                {isPreviewing && !isAnswered && (
+                  <span className="absolute top-2 right-2 bg-hero-red text-white text-[0.65rem] sm:text-xs font-black px-2.5 py-0.5 rounded-full shadow-md animate-pulse z-10 flex items-center gap-1">
+                    <span>👆 Ketuk lagi!</span>
+                  </span>
+                )}
+
                 {/* Visual Items Plate */}
                 {choice.visual && (
                   <div className="flex-1 flex flex-wrap items-center justify-center gap-1.5 max-w-[140px] text-2xl sm:text-3xl leading-snug my-2 group-hover:scale-105 transition-transform bg-slate-50 p-2.5 rounded-2xl border border-slate-100 w-full shadow-inner">
@@ -171,8 +264,9 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
                 )}
 
                 {/* Choice Label */}
-                <span className="font-black text-xs sm:text-sm text-hero-black text-center mt-1">
-                  {choice.label}
+                <span className="font-black text-xs sm:text-sm text-hero-black text-center mt-1 flex items-center justify-center gap-1">
+                  {isPreviewing && <Volume2 size={14} className="text-hero-red animate-bounce" />}
+                  <span>{choice.label}</span>
                 </span>
               </button>
             );
@@ -183,10 +277,9 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
   }
 
   // ========================================================
-  // MODE 4: STANDARD CHOICES GRID (Generous 50% Height, 2 or 3 Columns)
+  // MODE 4: STANDARD CHOICES GRID (2-Click: 1st Reads Aloud, 2nd Selects)
   // ========================================================
   const gridColsClass = choices.length === 2 ? 'grid-cols-2' : 'grid-cols-3';
-  const isAllPureNumbers = choices.every(c => /^[0-9]+$/.test(c.label.trim()));
 
   return (
     <div className="w-full h-full flex items-center justify-center p-1.5 sm:p-2">
@@ -194,6 +287,7 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
         {choices.map((choice, idx) => {
           const isSelected = selectedIndex === idx;
           const isCorrectChoice = choice.isCorrect;
+          const isPreviewing = previewIndex === idx;
 
           let statusStyle = 'bg-white border-2 sm:border-3 border-hero-border text-hero-black hover:border-hero-red hover:shadow-lg';
 
@@ -205,6 +299,8 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
             } else if (isCorrectChoice) {
               statusStyle = 'bg-emerald-50 border-2 sm:border-3 border-emerald-400 text-emerald-800 ring-2 ring-emerald-200';
             }
+          } else if (isPreviewing) {
+            statusStyle = 'bg-gradient-to-b from-red-50 to-white border-2 sm:border-3 border-hero-red text-hero-black ring-4 ring-hero-red/70 scale-[1.03] shadow-2xl';
           }
 
           const isPureNumber = /^[0-9]+$/.test(choice.label.trim());
@@ -213,9 +309,16 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
             <button
               key={idx}
               disabled={isAnswered}
-              onClick={() => onSelectChoice(idx)}
+              onClick={() => handleChoiceClick(choice, idx)}
               className={`flex flex-col items-center justify-center p-2.5 sm:p-3.5 rounded-3xl transition-all duration-150 active:scale-95 shadow-md text-center relative overflow-hidden group ${statusStyle}`}
             >
+              {/* 2nd Click Confirm Floating Badge */}
+              {isPreviewing && !isAnswered && (
+                <span className="absolute top-1.5 right-1.5 bg-hero-red text-white text-[0.62rem] sm:text-xs font-black px-2 py-0.5 rounded-full shadow-md animate-pulse z-10 flex items-center gap-1">
+                  <span>👆 Ketuk lagi!</span>
+                </span>
+              )}
+
               {/* Optional Visual */}
               {choice.visual ? (
                 <div
@@ -226,13 +329,14 @@ export const InteractiveArena: React.FC<InteractiveArenaProps> = ({
 
               {/* Label */}
               <span
-                className={`font-black leading-tight line-clamp-2 ${
+                className={`font-black leading-tight line-clamp-2 flex items-center justify-center gap-1 ${
                   isPureNumber
                     ? 'text-3xl sm:text-5xl text-hero-black tracking-tight'
                     : 'text-xs sm:text-sm'
                 }`}
               >
-                {choice.label}
+                {isPreviewing && <Volume2 size={16} className="text-hero-red animate-bounce shrink-0" />}
+                <span>{choice.label}</span>
               </span>
             </button>
           );
