@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "tsx scripts/verify-suite.ts"
+    "test": "tsx scripts/verify-suite.ts",
+    "validate:curriculum": "tsx scripts/validate-curriculum.ts"
   },
   "dependencies": {
     "@react-three/fiber": "^9.8.2",

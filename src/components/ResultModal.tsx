@@ -130,7 +130,7 @@ export const ResultModal: React.FC<ResultModalProps> = ({
         )}
 
         {/* Score Badges */}
-        <div className="flex items-center justify-center gap-2 mb-4">
+        <div className="flex items-center justify-center gap-2 mb-3">
           <span className="px-3 py-0.5 rounded-full liquid-tint-emerald text-xs font-black shadow-xs">
             ✅ Benar: {result.score}
           </span>
@@ -138,6 +138,52 @@ export const ResultModal: React.FC<ResultModalProps> = ({
             ❌ Salah: {result.wrong}
           </span>
         </div>
+
+        {/* Formative Assessment: Keahlian yang Dikuasai */}
+        {result.masteredSkills && result.masteredSkills.length > 0 && (
+          <div className="mb-3 p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-left">
+            <div className="flex items-center gap-1.5 text-xs font-black text-emerald-700 mb-1.5">
+              <span>🌟 Keahlian yang Dikuasai:</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {result.masteredSkills.slice(0, 5).map((skill, idx) => (
+                <span
+                  key={idx}
+                  className="text-[0.65rem] font-bold capitalize bg-white/90 text-emerald-800 px-2 py-0.5 rounded-lg border border-emerald-300 shadow-xs"
+                >
+                  ✓ {skill}
+                </span>
+              ))}
+              {result.masteredSkills.length > 5 && (
+                <span className="text-[0.62rem] font-black text-emerald-600 px-1.5 py-0.5 self-center">
+                  +{result.masteredSkills.length - 5} lainnya
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Formative Assessment: Rekomendasi Stimulasi Ramah Anak */}
+        {result.practiceSuggestions && result.practiceSuggestions.length > 0 && (
+          <div className="mb-3 p-3 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-left">
+            <div className="flex items-center gap-1.5 text-xs font-black text-blue-700 mb-1">
+              <span>💡 Saran Stimulasi Kak Reza:</span>
+            </div>
+            <p className="text-[0.68rem] text-slate-600 font-bold leading-relaxed mb-1.5">
+              Kak Reza hebat sudah berusaha! Yuk luangkan waktu bermain sambil melatih:
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {result.practiceSuggestions.slice(0, 3).map((skill, idx) => (
+                <span
+                  key={idx}
+                  className="text-[0.65rem] font-bold capitalize bg-white/90 text-blue-800 px-2 py-0.5 rounded-lg border border-blue-300 shadow-xs"
+                >
+                  🎯 {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div className="flex flex-col gap-2 w-full">

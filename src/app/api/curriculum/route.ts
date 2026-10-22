@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { SessionPlanner } from '@/services/sessionPlanner';
+import { DayCurriculum } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-function getMasterCurriculum() {
+function getMasterCurriculum(): DayCurriculum[] {
   const filePath = path.join(process.cwd(), 'src/server/data/curriculumMaster.json');
   const fileContents = fs.readFileSync(filePath, 'utf8');
   return JSON.parse(fileContents);
@@ -14,63 +16,32 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const dayParam = searchParams.get('day');
+    const seedParam = searchParams.get('seed');
     const metaOnly = searchParams.get('metaOnly') === 'true';
 
     const master = getMasterCurriculum();
 
     // If caller requests only metadata for day selector
     if (metaOnly) {
-      const daysMeta = master.map((d: any) => ({
+      const daysMeta = master.map((d: DayCurriculum) => ({
         id: d.id,
         name: d.name,
         title: d.title,
         icon: d.icon,
         badge: d.badge,
         desc: d.desc,
-        totalQuestions: d.questions.length
+        totalQuestions: d.questions.length,
       }));
       return NextResponse.json({ success: true, days: daysMeta });
     }
 
     const dayId = dayParam ? parseInt(dayParam, 10) : 1;
-    const activeDay = master.find((d: any) => d.id === dayId) || master[0];
+    const activeDay = master.find((d: DayCurriculum) => d.id === dayId) || master[0];
 
-    // Pick 1 random variant out of 30 for EACH of the 25 topics
-    const randomizedQuestions = activeDay.questions.map((slot: any, idx: number) => {
-      const variantIdx = Math.floor(Math.random() * slot.variants.length);
-      const v = slot.variants[variantIdx];
-
-      return {
-        slotIndex: idx,
-        type: v.type,
-        topic: slot.topic,
-        prompt: v.prompt,
-        visual: v.visual,
-        countItems: v.countItems,
-        targetCount: v.targetCount,
-        itemName: v.itemName,
-        itemEmoji: v.itemEmoji,
-        plateA: v.plateA,
-        plateB: v.plateB,
-        remainingCount: v.remainingCount,
-        subtractedCount: v.subtractedCount,
-        soundFile: v.soundFile,
-        soundLabel: v.soundLabel,
-        step1Target: v.step1Target,
-        step2Target: v.step2Target,
-        step1Label: v.step1Label,
-        step2Label: v.step2Label,
-        voiceIntro: v.voiceIntro,
-        voiceStep1Done: v.voiceStep1Done,
-        voiceSuccess: v.voiceSuccess,
-        sequenceItems: v.sequenceItems,
-        wordLabel: v.wordLabel,
-        targetWord: v.targetWord,
-        letterChoices: v.letterChoices,
-        missingNumber: v.missingNumber,
-        choices: v.choices,
-        realImage: v.realImage
-      };
+    // Intelligently plan 25 questions with balanced difficulty and seeded PRNG
+    const planned = SessionPlanner.planSession(activeDay, {
+      seed: seedParam ?? Date.now(),
+      shuffleChoices: true,
     });
 
     return NextResponse.json({
@@ -81,8 +52,9 @@ export async function GET(request: Request) {
       icon: activeDay.icon,
       badge: activeDay.badge,
       desc: activeDay.desc,
-      totalQuestions: randomizedQuestions.length,
-      questions: randomizedQuestions
+      totalQuestions: planned.questions.length,
+      questions: planned.questions,
+      selectedVariantIds: planned.selectedVariantIds,
     });
   } catch (error: any) {
     console.error('Error serving curriculum API:', error);

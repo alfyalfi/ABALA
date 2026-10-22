@@ -1,5 +1,6 @@
 import { ActiveQuestion, DayCurriculum } from '../types';
 import offlinePackRaw from '../data/offlineCurriculumPack.json';
+import { SessionPlanner } from './sessionPlanner';
 
 const OFFLINE_PACK = offlinePackRaw as unknown as DayCurriculum[];
 
@@ -13,6 +14,7 @@ export interface SessionLoadResult {
   desc: string;
   totalQuestions: number;
   questions: ActiveQuestion[];
+  selectedVariantIds?: string[];
   source: 'network' | 'cache' | 'offline_pack';
 }
 
@@ -55,44 +57,12 @@ export class CurriculumService {
       };
     }
 
-    // 3. Fallback to Bundled Offline Curriculum Pack
+    // 3. Fallback to Bundled Offline Curriculum Pack with SessionPlanner
     const targetDay = OFFLINE_PACK.find((d) => d.id === dayId) || OFFLINE_PACK[0];
 
-    const randomizedQuestions: ActiveQuestion[] = targetDay.questions.map((slot, idx) => {
-      const variantIdx = Math.floor(Math.random() * slot.variants.length);
-      const v = slot.variants[variantIdx];
-
-      return {
-        slotIndex: idx,
-        type: v.type,
-        topic: slot.topic,
-        prompt: v.prompt,
-        visual: v.visual,
-        countItems: v.countItems,
-        targetCount: v.targetCount,
-        itemName: v.itemName,
-        itemEmoji: v.itemEmoji,
-        plateA: v.plateA,
-        plateB: v.plateB,
-        remainingCount: v.remainingCount,
-        subtractedCount: v.subtractedCount,
-        soundFile: v.soundFile,
-        soundLabel: v.soundLabel,
-        step1Target: v.step1Target,
-        step2Target: v.step2Target,
-        step1Label: v.step1Label,
-        step2Label: v.step2Label,
-        voiceIntro: v.voiceIntro,
-        voiceStep1Done: v.voiceStep1Done,
-        voiceSuccess: v.voiceSuccess,
-        sequenceItems: v.sequenceItems,
-        wordLabel: v.wordLabel,
-        targetWord: v.targetWord,
-        letterChoices: v.letterChoices,
-        missingNumber: v.missingNumber,
-        choices: v.choices,
-        realImage: v.realImage,
-      };
+    const planned = SessionPlanner.planSession(targetDay, {
+      seed: Date.now(),
+      shuffleChoices: true,
     });
 
     return {
@@ -103,10 +73,15 @@ export class CurriculumService {
       icon: targetDay.icon,
       badge: targetDay.badge,
       desc: targetDay.desc,
-      totalQuestions: randomizedQuestions.length,
-      questions: randomizedQuestions,
+      totalQuestions: planned.questions.length,
+      questions: planned.questions,
+      selectedVariantIds: planned.selectedVariantIds,
       source: 'offline_pack',
     };
+  }
+
+  public static recordSessionCompleted(variantIds: string[]) {
+    SessionPlanner.recordSessionVariants(variantIds);
   }
 
   private static cacheDaySession(dayId: number, data: any) {

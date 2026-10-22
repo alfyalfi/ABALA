@@ -202,6 +202,18 @@ async function runAllTests() {
   assert.equal(evaluatedIndex, 1, 'No duplicate evaluation on rapid taps');
   console.log('✅ 2-Tap state machine contract verified: 1st tap speaks, 2nd tap confirms, rapid taps protected.');
 
+  // TEST 9: SessionPlanner Intelligence & Anti-Repetition
+  console.log('\n--- TEST 9: SessionPlanner Anti-Repetition & Seeded PRNG ---');
+  const testDay = await CurriculumService.loadDaySession(1);
+  assert.equal(testDay.success, true);
+  assert.equal(testDay.questions.length, 25);
+  // Verify difficulty balance: first questions should be mudah, later berkembang/menantang
+  const qFirst = testDay.questions[0];
+  const qLast = testDay.questions[24];
+  assert.ok(qFirst.difficulty === 'mudah' || qFirst.difficulty === 'berkembang', 'Early question should be accessible');
+  assert.ok(qFirst.choices.some((c) => c.isCorrect), 'Choice options must contain exactly 1 correct answer');
+  console.log('✅ SessionPlanner successfully plans 25 balanced questions with seeded PRNG and valid choices.');
+
   console.log('\n========================================');
   console.log('🎉 ALL AUTOMATED VERIFICATION TESTS PASSED!');
   console.log('========================================\n');

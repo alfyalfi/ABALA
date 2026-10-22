@@ -26,63 +26,69 @@ import { ActiveLearningSessionState } from '../../types/progression';
 const PILLARS_LIST = [
   {
     id: 1,
-    name: 'Hari 1',
+    name: 'Senin',
     title: 'Matematika Superhero',
+    fullTitle: 'Senin — Matematika Superhero',
     icon: '🔢',
     color: 'from-blue-500 to-indigo-600',
     badgeColor: 'liquid-tint-azure',
-    desc: 'Latihan konsep angka, penjumlahan visual, pengurangan visual, perbandingan piring, dan touch counting seru.',
-    curriculumTopics: '25 Misi: Hitung Benda, Tambah Apel, Kurang Donat, Pola Bilangan, Bandingkan Jumlah',
+    desc: 'Latihan konsep bilangan, penjumlahan visual, pengurangan konkret, perbandingan kuantitas, dan touch counting seru.',
+    curriculumTopics: '25 Misi: Hitung 1–15, Tambah Apel, Kurang Donat, Pola Bilangan, Bandingkan Jumlah, Tabung 3D',
   },
   {
     id: 2,
-    name: 'Hari 2',
+    name: 'Selasa',
     title: 'Membaca & Fonik',
+    fullTitle: 'Selasa — Membaca & Fonik',
     icon: '🔤',
     color: 'from-emerald-500 to-teal-600',
     badgeColor: 'liquid-tint-emerald',
     desc: 'Pengenalan huruf kapital/kecil, suku kata awal, fonik bunyi huruf, dan permainan susun kata interaktif.',
-    curriculumTopics: '25 Misi: Huruf Vokal, Suku Kata Ba-Bi-Bu, Word Builder Nama Reza & Benda, Rima Kata',
+    curriculumTopics: '25 Misi: Huruf R-E-Z-A, Vokal A-I-U-E-O, Word Builder BOLA-MOBIL-TOPI, Rima Kata Berima',
   },
   {
     id: 3,
-    name: 'Hari 3',
+    name: 'Rabu',
     title: 'Menyimak & Suara',
+    fullTitle: 'Rabu — Menyimak & Suara',
     icon: '👂',
     color: 'from-purple-500 to-fuchsia-600',
     badgeColor: 'liquid-tint-ruby',
     desc: 'Diskriminasi suara autentik hewan, sirine ambulans, deru kereta api, serta tes memori urutan 2-tahap.',
-    curriculumTopics: '25 Misi: Tebak Suara Hewan MP3, Kendaraan Kota, Bunyi Alam, Sequence 2-Langkah',
+    curriculumTopics: '25 Misi: 17 Suara Autentik MP3 (Hewan, Kendaraan, Alam) & 8 Misi Ingatan Sequence 2-Langkah',
   },
   {
     id: 4,
-    name: 'Hari 4',
+    name: 'Kamis',
     title: 'Nalar & Logika',
+    fullTitle: 'Kamis — Nalar & Logika',
     icon: '💡',
     color: 'from-amber-500 to-orange-600',
     badgeColor: 'liquid-tint-amber',
-    desc: 'Melatih pola pikir kritis, analogi benda, perbandingan ukuran/berat/panjang, dan sebab-akibat sederhana.',
-    curriculumTopics: '25 Misi: Besar vs Kecil, Sebab Hujan Pakai Payung, Klasifikasi Benda Hidup & Mati',
+    desc: 'Melatih pola pikir kritis, analogi benda, perbandingan ukuran/bobot, odd-one-out, dan pancaindra.',
+    curriculumTopics: '25 Misi: Pasangan Sendok-Garpu, Pakan Satwa, Odd-One-Out, 5 Indra Tubuh, Suhu & Benda Melayang',
   },
   {
     id: 5,
-    name: 'Hari 5',
+    name: 'Jumat',
     title: 'Bentuk & Spasial',
+    fullTitle: 'Jumat — Bentuk & Spasial',
     icon: '🔷',
     color: 'from-cyan-500 to-sky-600',
     badgeColor: 'liquid-tint-azure',
-    desc: 'Eksplorasi geometri 2D dasar, bentuk geometris di kehidupan sehari-hari, dan arah spasial kiri/kanan.',
-    curriculumTopics: '25 Misi: Lingkaran, Persegi, Segitiga, Arah Kiri/Kanan, Posisi Atas/Bawah',
+    desc: 'Eksplorasi geometri 2D dasar, bentuk geometris di kehidupan sehari-hari, pola visual, dan relasi ruang.',
+    curriculumTopics: '25 Misi: Lingkaran, Persegi, Segitiga, Benda Sekitar, Pola Warna & Ukuran, Posisi Spasial',
   },
   {
     id: 6,
-    name: 'Hari 6',
+    name: 'Sabtu',
     title: 'Kemandirian Superhero',
+    fullTitle: 'Sabtu — Kemandirian Superhero',
     icon: '🦸‍♂️',
     color: 'from-rose-500 to-red-600',
     badgeColor: 'liquid-tint-rose',
-    desc: 'Pembiasaan karakter adab, kebersihan diri, mencuci tangan, mengenali emosi, dan keberanian anak.',
-    curriculumTopics: '25 Misi: Adab Makan & Tidur, Merapikan Mainan, Berbagi dengan Teman, Tanggap Bahaya',
+    desc: 'Pembiasaan karakter budi pekerti, kebersihan diri, 3 kata ajaib, empati tolong-menolong, dan hemat energi.',
+    curriculumTopics: '25 Misi: Cuci Tangan & Gigi, 3 Kata Ajaib (Tolong, Terima Kasih, Maaf), Resiliensi Pantang Menyerah',
   },
 ];
 
@@ -272,6 +278,47 @@ export default function LearnPillarsPage() {
               </div>
             );
           })}
+
+          {/* Sunday Free Exploration Card */}
+          <div className="liquid-glass-card rounded-[28px] p-4.5 shadow-lg border border-amber-300/60 bg-gradient-to-br from-amber-500/10 via-amber-400/5 to-transparent flex flex-col gap-3">
+            <div className="flex items-start justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-13 h-13 rounded-2xl bg-amber-400/20 shadow-md flex items-center justify-center text-3xl border border-amber-300/50">
+                  🌈
+                </div>
+                <div>
+                  <span className="text-[0.65rem] font-black text-amber-600 uppercase tracking-wider">
+                    Minggu — Eksplorasi Bebas
+                  </span>
+                  <h2 className="text-base font-black text-slate-900 leading-tight">
+                    Zona Petualangan Bebas & Pengulangan Sukarela
+                  </h2>
+                  <span className="text-[0.68rem] font-extrabold text-amber-700">
+                    Aktivitas Fleksibel Tanpa Target Wajib
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
+              Hari Minggu adalah waktu santai Kak Reza! Anak bebas memainkan kembali pilar belajar favorit, mencoba mode teka-teki baru, menghias kamar 3D low-poly, atau mengagumi lencana trofi yang sudah diraih.
+            </p>
+
+            <div className="pt-2 border-t border-amber-200/60 flex items-center justify-between gap-2">
+              <span className="text-[0.68rem] font-bold text-slate-500">
+                Akses terbuka setiap hari tanpa batas kalender
+              </span>
+
+              <Link
+                href="/learn/1"
+                onClick={handleSoundClick}
+                className="px-4 py-2 rounded-xl font-black text-xs shadow-md flex items-center gap-1.5 shrink-0 transition-transform active:scale-95 liquid-tint-amber text-slate-950"
+              >
+                <span>Mulai Eksplorasi Bebas</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
         </div>
       </main>
 

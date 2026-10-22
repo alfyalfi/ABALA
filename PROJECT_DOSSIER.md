@@ -915,4 +915,73 @@ Saat Anda menerima tugas baru untuk memodifikasi atau mengembangkan aplikasi ABA
 5. **Jalankan Verifikasi Build**: Selalu jalankan `npx tsc --noEmit` dan `npm run build` setelah Anda melakukan perubahan kode untuk memastikan tidak ada regresi tipe maupun kegagalan kompilasi Turbopack.
 
 ---
-*Dokumen ini digenerate secara otomatis dengan audit mendalam tanpa mengubah fungsionalitas kode sumber aplikasi. File disimpan di root workspace sebagai `PROJECT_DOSSIER.md`.*
+
+## 19. ABALA CURRICULUM INTELLIGENCE & QUESTION BANK OVERHAUL (ADDENDUM 2026)
+
+### 19.1 Latar Belakang & Audit Kritis Dataset Lama
+Audit komprehensif terhadap dataset historis (`curriculumMaster.json`) mengungkap fakta penting terkait kualitas bank soal:
+1. **0% Variasi Memiliki ID Stabil**: Seluruh 4.500 variasi pada dataset lama tidak memiliki properti `id` unik.
+2. **Duplikasi Kosmetik pada Hari 2–6**: Pada Hari 2, 3, 4, 5, dan 6, hanya terdapat 25 prompt unik per hari. Sebanyak 29 dari 30 variasi per topik hanyalah duplikat teks persis dengan posisi 3 pilihan jawaban diacak urutannya.
+3. **Ketiadaan Metadata Pedagogis**: Tidak tersedia `learningGoal`, `skill`, rujukan Capaian Pembelajaran (CP), tingkat kesulitan (`difficulty`), maupun feedback formatif yang bermakna.
+
+### 19.2 Rujukan Standar PAUD/TK Nasional (Kurikulum Fase Fondasi Revisi 2025)
+Overhaul kurikulum ABALA diselaraskan dengan dokumen resmi:
+- **Panduan Capaian Pembelajaran (CP) Fase Fondasi Revisi 2025**:
+  - `nilai_agama_dan_budi_pekerti`: Adab sopan santun, tiga kata ajaib (tolong, terima kasih, maaf), merawat ciptaan Tuhan, bersyukur.
+  - `jati_diri`: Kemandirian diri, kebersihan badan, pengelolaan emosi, resiliensi pantang menyerah, empati tolong-menolong.
+  - `dasar_literasi_dan_steam`: Pra-membaca, fonik, pemahaman simbolis, numerasi konkret, eksplorasi sains alam, pemikiran komputasional (pola).
+- **Panduan Pembelajaran dan Asesmen Revisi 2025 & Permendikdasmen No 13 Tahun 2025**:
+  - Pembelajaran berpusat pada anak, bermain bermakna, umpan balik positif tanpa tekanan akademis berlebihan.
+
+### 19.3 Pemetaan Struktur Hari & Eksplorasi Minggu (Bebas Kalender)
+
+| ID | Label UI Baru | Fokus Pembelajaran | Elemen CP Utama |
+|---|---|---|---|
+| 1 | **Senin — Matematika Superhero** | Bilangan 1–15, subitizing, korespondensi 1-ke-1, penjumlahan visual, pengurangan konkret, lompat ganjil/genap, tabung 3D | `dasar_literasi_dan_steam` |
+| 2 | **Selasa — Membaca & Fonik** | Huruf R-E-Z-A, vokal A-I-U-E-O, konsonan B-M-T-S-R, word builder BOLA/MOBIL/TOPI, rima berima, suku kata | `dasar_literasi_dan_steam` |
+| 3 | **Rabu — Menyimak & Suara** | Diskriminasi auditori 17 suara autentik (kucing, sapi, ayam, lebah, singa, ambulans, kereta, hujan, petir, jam) & memori 2-langkah | `dasar_literasi_dan_steam` |
+| 4 | **Kamis — Nalar & Logika** | Pasangan fungsional (sendok-garpu), pakan hewan, habitat alam, odd-one-out, 5 indra tubuh, suhu, benda terapung/tenggelam | `dasar_literasi_dan_steam` |
+| 5 | **Jumat — Bentuk & Spasial** | Geometri 2D (lingkaran, kotak, segitiga), benda nyata, pola visual (warna, ukuran), relasi spasial (atas, bawah, dalam, luar, belakang) | `dasar_literasi_dan_steam` |
+| 6 | **Sabtu — Kemandirian Superhero** | Kebersihan gigi & tangan, tanggung jawab mainan, 3 kata ajaib, nutrisi bergizi, adab makan/tidur, hemat energi (lampu, air), resiliensi | `jati_diri` & `nilai_agama_dan_budi_pekerti` |
+| 7 | **Minggu — Eksplorasi Bebas** | Hari santai pahlawan cilik: pengulangan sukarela, eksplorasi bebas pilar mana pun, dekorasi kamar 3D, dan apresiasi koleksi | *Fleksibel / Holistik* |
+
+*Catatan: Seluruh navigasi hari terbuka setiap saat dan tidak terkunci oleh tanggal kalender.*
+
+### 19.4 Arsitektur Generator & Pipeline Pembuatan Bank Soal
+Overhaul bank soal dibangun secara modular melalui sub-generator TypeScript:
+- `scripts/curriculum-generators/day1-math.ts` (750 variasi matematika konkret)
+- `scripts/curriculum-generators/day2-reading.ts` (750 variasi literasi fonik & word builder)
+- `scripts/curriculum-generators/day3-listening.ts` (750 variasi audio autentik & sequence 2-step)
+- `scripts/curriculum-generators/day4-logic.ts` (750 variasi sains, odd-one-out, & logika fungsional)
+- `scripts/curriculum-generators/day5-spatial.ts` (750 variasi bentuk geometri, pola visual, & spasial)
+- `scripts/curriculum-generators/day6-independence.ts` (750 variasi kemandirian, karakter budi pekerti, & adab)
+- `scripts/generate-curriculum-master.ts`: Kompilator utama yang menghasilkan `src/server/data/curriculumMaster.json` (4.500 variasi) dan `src/data/offlineCurriculumPack.json` (paket luring terkurasi).
+
+### 19.5 Hasil Audit Kualitas Bank Soal Baru (`scripts/validate-curriculum.ts`)
+Hasil eksekusi script QA kurikulum otomatis (`npm run validate:curriculum`):
+- **Kelengkapan Struktur**: 6 Hari × 25 Topik × 30 Variasi = **4.500 Variasi** (**100% PASS**).
+- **Keunikan ID**: **0 Missing ID**, **0 Duplicate ID**. Setiap variasi memiliki ID deterministik `d{hari}_t{topik}_v{variasi}`.
+- **Validasi Kunci Jawaban**: 100% variasi memiliki tepat 1 jawaban benar (`isCorrect: true`) dengan 2–4 opsi valid.
+- **Integritas Audio**: 100% referensi file MP3 pada Hari 3 terverifikasi hadir di direktori `public/sounds/`.
+- **Keunikan Teks Prompt**: **100.0% Keunikan** (4.500 prompt unik dari 4.500 variasi, rata-rata 30.0 / 30 unik per topik).
+- **Kelengkapan Metadata Pedagogis**: 100% variasi dilengkapi `learningGoal`, `skill`, `cpElement`, `difficulty`, `feedbackCorrect`, dan `feedbackIncorrect`.
+- **Simulasi 100 Sesi Acak**: 100/100 simulasi sesi berjalan mulus tanpa kegagalan.
+
+### 19.6 Mesin Perencana Sesi Cerdas (`SessionPlanner`)
+Komponen `src/services/sessionPlanner.ts` menyajikan:
+1. **Mulberry32 PRNG Ber-seed**: Hasil pengacakan dapat direproduksi (*reproducible*) untuk kebutuhan audit dan pengujian konsisten.
+2. **Memori Resensi Anti-Repetisi (`localStorage`)**: Riwayat ID variasi yang telah dikerjakan disimpan dalam sliding window (hingga 150 variasi / ~6 sesi). Soal yang baru saja dimainkan tidak akan dipilih kembali selama variasi lain masih tersedia.
+3. **Distribusi Tingkat Kesulitan Berimbang**:
+   - Misi 1–8: `mudah` (membangun kepercayaan diri).
+   - Misi 9–20: `berkembang` (penguatan kompetensi inti).
+   - Misi 21–25: `menantang` (puncak petualangan pahlawan).
+4. **Deterministic Choice Shuffling**: Pengacakan posisi tombol pilihan jawaban menggunakan algoritma Fisher-Yates ber-seed sehingga jawaban benar tidak selalu berada pada indeks yang sama.
+
+### 19.7 Asesmen Formatif Ramah Anak (`ResultModal.tsx`)
+Modal akhir sesi belajar kini menyajikan feedback perkembangan kognitif yang konstruktif:
+- **Keahlian yang Dikuasai**: Tag chip daftar keterampilan yang berhasil dijawab benar oleh anak (misal: *korespondensi satu-satu*, *huruf vokal*, *diskriminasi auditori*).
+- **Saran Stimulasi Kak Reza**: Rekomendasi ramah bernada positif untuk topik yang masih memerlukan latihan, mendorong motivasi belajar tanpa vonis kegagalan.
+
+---
+*Dokumen ini diperbarui secara komprehensif pada 23 Oktober 2026 sebagai dokumentasi resmi arsitektur Next.js 16 dan Kurikulum Fase Fondasi ABALA.*
+

@@ -34,8 +34,9 @@ import { LearningPillarProgress } from '../types';
 const PILLARS_CONFIG = [
   {
     id: 1,
-    name: 'Hari 1',
+    name: 'Senin',
     title: 'Matematika Superhero',
+    fullTitle: 'Senin — Matematika Superhero',
     icon: '🔢',
     color: 'from-blue-500 to-indigo-600',
     desc: 'Berhitung visual, penjumlahan, pengurangan, dan teka-teki angka',
@@ -43,8 +44,9 @@ const PILLARS_CONFIG = [
   },
   {
     id: 2,
-    name: 'Hari 2',
+    name: 'Selasa',
     title: 'Membaca & Fonik',
+    fullTitle: 'Selasa — Membaca & Fonik',
     icon: '🔤',
     color: 'from-emerald-500 to-teal-600',
     desc: 'Pengenalan huruf, suku kata, menyusun kata, dan fonik kata',
@@ -52,8 +54,9 @@ const PILLARS_CONFIG = [
   },
   {
     id: 3,
-    name: 'Hari 3',
+    name: 'Rabu',
     title: 'Menyimak & Suara',
+    fullTitle: 'Rabu — Menyimak & Suara',
     icon: '👂',
     color: 'from-purple-500 to-fuchsia-600',
     desc: 'Diskriminasi suara autentik hewan, kendaraan, dan memori 2-langkah',
@@ -61,8 +64,9 @@ const PILLARS_CONFIG = [
   },
   {
     id: 4,
-    name: 'Hari 4',
+    name: 'Kamis',
     title: 'Nalar & Logika',
+    fullTitle: 'Kamis — Nalar & Logika',
     icon: '💡',
     color: 'from-amber-500 to-orange-600',
     desc: 'Perbandingan visual, klasifikasi benda, dan sebab-akibat',
@@ -70,8 +74,9 @@ const PILLARS_CONFIG = [
   },
   {
     id: 5,
-    name: 'Hari 5',
+    name: 'Jumat',
     title: 'Bentuk & Spasial',
+    fullTitle: 'Jumat — Bentuk & Spasial',
     icon: '🔷',
     color: 'from-cyan-500 to-sky-600',
     desc: 'Geometri 2D, bentuk di sekitar kita, dan orientasi spasial',
@@ -79,8 +84,9 @@ const PILLARS_CONFIG = [
   },
   {
     id: 6,
-    name: 'Hari 6',
+    name: 'Sabtu',
     title: 'Kemandirian Superhero',
+    fullTitle: 'Sabtu — Kemandirian Superhero',
     icon: '🦸‍♂️',
     color: 'from-rose-500 to-red-600',
     desc: 'Adab sehari-hari, kebersihan diri, emosi, dan pertolongan pertama',
@@ -397,6 +403,33 @@ export default function HomeBasePage() {
                 </Link>
               );
             })}
+
+            {/* Sunday Free Exploration Card */}
+            <div className="col-span-1 sm:col-span-2 liquid-glass-subtle p-3.5 rounded-2xl border border-white/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <div className="text-2xl p-2 rounded-xl bg-amber-400/20 shadow-xs">
+                  🌈
+                </div>
+                <div>
+                  <span className="text-[0.65rem] font-black text-amber-600 uppercase tracking-wider">
+                    Minggu — Eksplorasi Bebas
+                  </span>
+                  <h4 className="text-xs sm:text-sm font-black text-slate-900">
+                    Hari Santai & Pengulangan Sukarela
+                  </h4>
+                  <p className="text-[0.7rem] text-slate-500 font-bold">
+                    Bebas pilih pilar mana saja, hias kamar 3D, atau koleksi artefak tanpa batas waktu!
+                  </p>
+                </div>
+              </div>
+              <Link
+                href="/learn"
+                onClick={handleSoundClick}
+                className="px-4 py-2 rounded-xl liquid-tint-amber text-slate-900 font-black text-xs shrink-0 hover:scale-105 transition-transform self-end sm:self-auto"
+              >
+                Eksplorasi Sekarang
+              </Link>
+            </div>
           </div>
         </section>
 

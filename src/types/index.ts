@@ -12,6 +12,13 @@ export interface SequenceItem {
 }
 
 export interface QuestionVariant {
+  id?: string;
+  categoryId?: number;
+  slotIndex?: number;
+  learningGoal?: string;
+  skill?: string;
+  cpElement?: string;
+  difficulty?: 'mudah' | 'berkembang' | 'menantang';
   type?: string;
   prompt: string;
   visual?: string;
@@ -36,9 +43,13 @@ export interface QuestionVariant {
   wordLabel?: string;
   targetWord?: string[];
   letterChoices?: string[];
+  patternSequence?: string[];
   missingNumber?: number;
   choices: ChoiceOption[];
   realImage?: string;
+  explanation?: string;
+  feedbackCorrect?: string;
+  feedbackIncorrect?: string;
 }
 
 export interface QuestionSlot {
@@ -67,9 +78,14 @@ export interface DayMeta {
 }
 
 export interface ActiveQuestion {
+  id?: string;
   slotIndex: number;
   type?: string;
   topic: string;
+  learningGoal?: string;
+  skill?: string;
+  cpElement?: string;
+  difficulty?: 'mudah' | 'berkembang' | 'menantang';
   prompt: string;
   visual?: string;
   countItems?: string[];
@@ -93,9 +109,13 @@ export interface ActiveQuestion {
   wordLabel?: string;
   targetWord?: string[];
   letterChoices?: string[];
+  patternSequence?: string[];
   missingNumber?: number;
   choices: ChoiceOption[];
   realImage?: string;
+  explanation?: string;
+  feedbackCorrect?: string;
+  feedbackIncorrect?: string;
 }
 
 export interface DailyResult {
@@ -107,6 +127,8 @@ export interface DailyResult {
   percentage: number;
   passed: boolean;
   timestamp: string;
+  masteredSkills?: string[];
+  practiceSuggestions?: string[];
 }
 
 export interface LearningPillarProgress {

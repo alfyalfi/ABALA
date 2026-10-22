@@ -22,12 +22,12 @@ const TIMER_DURATION_NORMAL = 15;
 const TIMER_DURATION_EXTENDED = 25;
 
 const DAYS_META = [
-  { id: 1, name: 'Hari 1', title: 'Matematika Superhero', icon: '🔢' },
-  { id: 2, name: 'Hari 2', title: 'Membaca & Fonik', icon: '🔤' },
-  { id: 3, name: 'Hari 3', title: 'Menyimak & Suara', icon: '👂' },
-  { id: 4, name: 'Hari 4', title: 'Nalar & Logika', icon: '💡' },
-  { id: 5, name: 'Hari 5', title: 'Bentuk & Spasial', icon: '🔷' },
-  { id: 6, name: 'Hari 6', title: 'Kemandirian Superhero', icon: '🦸‍♂️' },
+  { id: 1, name: 'Senin', title: 'Matematika Superhero', fullTitle: 'Senin — Matematika Superhero', icon: '🔢' },
+  { id: 2, name: 'Selasa', title: 'Membaca & Fonik', fullTitle: 'Selasa — Membaca & Fonik', icon: '🔤' },
+  { id: 3, name: 'Rabu', title: 'Menyimak & Suara', fullTitle: 'Rabu — Menyimak & Suara', icon: '👂' },
+  { id: 4, name: 'Kamis', title: 'Nalar & Logika', fullTitle: 'Kamis — Nalar & Logika', icon: '💡' },
+  { id: 5, name: 'Jumat', title: 'Bentuk & Spasial', fullTitle: 'Jumat — Bentuk & Spasial', icon: '🔷' },
+  { id: 6, name: 'Sabtu', title: 'Kemandirian Superhero', fullTitle: 'Sabtu — Kemandirian Superhero', icon: '🦸‍♂️' },
 ];
 
 export default function LearnSessionPage() {
@@ -84,6 +84,7 @@ export default function LearnSessionPage() {
   const [showParentModal, setShowParentModal] = useState<boolean>(false);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const answeredQuestionsRef = useRef<{ [qIdx: number]: boolean }>({});
 
   const getQuestionDuration = (q?: ActiveQuestion) => {
     if (!q) return TIMER_DURATION_NORMAL;
@@ -258,6 +259,7 @@ export default function LearnSessionPage() {
 
     const chosen = currentQ.choices[choiceIdx];
     const isCorrect = Boolean(chosen.isCorrect);
+    answeredQuestionsRef.current[currentQIndex] = isCorrect;
 
     // Award XP (Idempotent)
     ProgressionService.awardQuestionAttempt(sessionId, currentQIndex, isCorrect);
@@ -303,6 +305,7 @@ export default function LearnSessionPage() {
 
       if (updatedLetters.length === currentQ.targetWord.length) {
         setIsAnswered(true);
+        answeredQuestionsRef.current[currentQIndex] = true;
         if (timerRef.current) clearInterval(timerRef.current);
         audioService.playFeedback('victory');
         setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
@@ -347,6 +350,7 @@ export default function LearnSessionPage() {
     } else if (seqStep === 2) {
       if (item.id === currentQ.step2Target) {
         setIsAnswered(true);
+        answeredQuestionsRef.current[currentQIndex] = true;
         if (timerRef.current) clearInterval(timerRef.current);
         audioService.playFeedback('victory');
         setSeqCompletedIds((prev) => [...prev, item.id]);
@@ -375,6 +379,7 @@ export default function LearnSessionPage() {
   const handleTimeout = () => {
     if (isAnswered) return;
     setIsAnswered(true);
+    answeredQuestionsRef.current[currentQIndex] = false;
 
     ProgressionService.awardQuestionAttempt(sessionId, currentQIndex, false);
 
@@ -427,6 +432,23 @@ export default function LearnSessionPage() {
     const percentage = Math.round((finalScore / total) * 100);
     const passed = percentage >= 50;
 
+    const masteredSkills: string[] = [];
+    const practiceSkills: string[] = [];
+
+    sessionQuestions.forEach((q, idx) => {
+      const isCorrect = answeredQuestionsRef.current[idx] === true;
+      const skillLabel = q.skill ? q.skill.replace(/_/g, ' ') : q.topic;
+      if (isCorrect) {
+        if (!masteredSkills.includes(skillLabel)) {
+          masteredSkills.push(skillLabel);
+        }
+      } else {
+        if (!practiceSkills.includes(skillLabel)) {
+          practiceSkills.push(skillLabel);
+        }
+      }
+    });
+
     const result: DailyResult = {
       dayId: targetDayId,
       dayName: activeDay.name,
@@ -436,7 +458,14 @@ export default function LearnSessionPage() {
       percentage,
       passed,
       timestamp: new Date().toISOString(),
+      masteredSkills,
+      practiceSuggestions: practiceSkills,
     };
+
+    // Record completed variant IDs for anti-repetition memory
+    CurriculumService.recordSessionCompleted(
+      sessionQuestions.map((q) => q.id).filter(Boolean) as string[]
+    );
 
     // Finalize session with Progression Engine
     const finalization = ProgressionService.finalizeSession(result, sessionId);
@@ -482,7 +511,7 @@ export default function LearnSessionPage() {
 
             <div className="flex items-center gap-2 liquid-glass-pill px-3 py-1 shadow-xs">
               <span className="text-base">{activeDay.icon}</span>
-              <span className="text-xs font-black text-slate-800">{activeDay.name}</span>
+              <span className="text-xs font-black text-slate-800">{activeDay.fullTitle}</span>
             </div>
           </div>
 
