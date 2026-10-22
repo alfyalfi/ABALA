@@ -983,5 +983,33 @@ Modal akhir sesi belajar kini menyajikan feedback perkembangan kognitif yang kon
 - **Saran Stimulasi Kak Reza**: Rekomendasi ramah bernada positif untuk topik yang masih memerlukan latihan, mendorong motivasi belajar tanpa vonis kegagalan.
 
 ---
+
+## 20. PWA SCROLL RESTORATION & 3D DIORAMA CAMERA ENHANCEMENTS
+
+### 20.1 Pemulihan Scroll PWA Secara Menyeluruh (`src/index.css`)
+- **Penyebab Bug**: Penerapan `overflow: hidden; height: 100dvh;` secara global pada elemen root `html, body` di `src/index.css` mengunci seluruh viewport peramban, mengakibatkan halaman dengan konten panjang (`/`, `/learn`, `/collection`, `/parent`) tidak dapat digulir ke bawah sama sekali.
+- **Solusi**:
+  - `html`: `min-height: 100%; width: 100%; overflow-x: hidden; overflow-y: auto; scroll-behavior: smooth;`
+  - `body`: `min-height: 100%; width: 100%; overflow-x: hidden; overflow-y: auto; touch-action: pan-y; overscroll-behavior-y: auto;`
+  - Container spesifik yang membutuhkan fixed viewport (seperti `/learn/[dayId]` dan `/room`) mempertahankan `h-[100dvh] overflow-hidden` pada tingkat komponen lokal mereka tanpa memblokir scrolling halaman lain.
+
+### 20.2 Implementasi Zoom In/Out & Peningkatan Kecepatan Kamera 3D (`BedroomDiorama3D.tsx`)
+- **Penyebab Masalah Lama**: `CameraRig` lama hanya memutar grup objek di sumbu Y dengan pengali delta kaku `0.005` (sangat lambat) tanpa penanganan event *wheel* maupun *pinch-to-zoom*.
+- **Solusi Komprehensif**:
+  1. **Three.js OrbitControls**: Mengintegrasikan `OrbitControls` dari `three/examples/jsm/controls/OrbitControls.js` dengan smooth damping (`dampingFactor: 0.08`).
+  2. **Peningkatan Kecepatan Kamera**:
+     - `rotateSpeed` ditingkatkan ke **1.35** (sangat responsif, lincah, dan tidak lag saat digeser).
+     - `zoomSpeed` ditingkatkan ke **1.35**.
+     - Sudut azimuth diperluas (`-Math.PI / 1.35` hingga `Math.PI / 2.2`) untuk sudut pandang isometrik yang lebih luas dan imersif.
+  3. **Kemampuan Zoom In / Out Lengkap**:
+     - **Mouse Wheel / Trackpad**: Zoom halus pada rentang `minDistance: 2.4` (bisa melihat detail meja & tempat tidur dari dekat) hingga `maxDistance: 8.5` (melihat keseluruhan kamar).
+     - **Touch Pinch**: Gerakan mencubit dengan dua jari di layar sentuh ponsel/tablet untuk memperbesar/memperkecil.
+     - **Floating On-Screen Controls**: Tombol mengambang di pojok kanan atas canvas 3D:
+       - `+` (Zoom In via `dollyIn(1.25)`)
+       - `-` (Zoom Out via `dollyOut(1.25)`)
+       - `🎯` / `↺` (Reset Sudut Pandang Kamera ke posisi awal `[3.4, 3.6, 4.2]` dan target `[0, 1.0, 0]`).
+  4. **Proteksi Drag Slot Click**: Memeriksa `e.delta > 5` pada event klik mesh dekorasi agar pergeseran kamera saat memutar ruangan tidak secara tidak sengaja membuka drawer penempatan item.
+
+---
 *Dokumen ini diperbarui secara komprehensif pada 23 Oktober 2026 sebagai dokumentasi resmi arsitektur Next.js 16 dan Kurikulum Fase Fondasi ABALA.*
 

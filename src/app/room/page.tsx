@@ -63,7 +63,7 @@ export default function AchievementRoomPage() {
   const levelInfo = StorageService.calculateLevelFromXp(progression.totalXp);
 
   return (
-    <div className="h-screen w-full max-w-[640px] mx-auto flex flex-col justify-between bg-slate-100 text-slate-800 pb-20 relative select-none overflow-hidden">
+    <div className="h-[100dvh] w-full max-w-[640px] mx-auto flex flex-col justify-between bg-slate-100 text-slate-800 pb-20 relative select-none overflow-hidden">
       <LiquidMeshBackground />
 
       {/* TOP COMPACT HEADER */}
@@ -120,9 +120,11 @@ export default function AchievementRoomPage() {
             />
 
             {/* Gesture Guide Overlay */}
-            <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between text-[0.65rem] font-bold text-slate-600 bg-white/70 backdrop-blur-md px-3 py-1.5 rounded-full shadow-xs border border-white/60">
-              <span className="flex items-center gap-1">
-                <span>👆 Geser layar untuk memutar kamar</span>
+            <div className="pointer-events-none absolute bottom-3 left-3 right-3 flex items-center justify-between text-[0.65rem] font-bold text-slate-600 bg-white/75 backdrop-blur-md px-3 py-1.5 rounded-full shadow-xs border border-white/60">
+              <span className="flex items-center gap-1.5">
+                <span>👆 Geser Putar</span>
+                <span>•</span>
+                <span>🔍 Cubit / Scroll Zoom</span>
               </span>
               <span className="text-hero-red font-black">
                 {placedCount} / {ROOM_SLOTS.length} Terpasang

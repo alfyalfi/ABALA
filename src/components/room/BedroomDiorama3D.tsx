@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, useEffect } from 'react';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { OrbitControls as ThreeOrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { ROOM_SLOTS, COLLECTIBLE_CATALOG } from '../../data/collectibleCatalog';
 import { RenderCollectible3D } from './Procedural3DModels';
 
@@ -12,46 +14,58 @@ interface BedroomDiorama3DProps {
   selectedSlotId: string | null;
 }
 
-// Gentle auto-rotation & touch drag container
-function CameraRig({ children }: { children: React.ReactNode }) {
-  const groupRef = useRef<THREE.Group>(null);
-  const isDraggingRef = useRef<boolean>(false);
-  const prevPointerXRef = useRef<number>(0);
-  const targetRotationYRef = useRef<number>(-0.3);
+const DEFAULT_CAMERA_POS: [number, number, number] = [3.4, 3.6, 4.2];
+const DEFAULT_TARGET: [number, number, number] = [0, 1.0, 0];
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    isDraggingRef.current = true;
-    prevPointerXRef.current = e.clientX;
-  };
+// First-class Camera Controls with smooth damping, zoom support, and tuned speed
+function RoomCameraControls({
+  controlsRef,
+}: {
+  controlsRef: React.MutableRefObject<ThreeOrbitControls | null>;
+}) {
+  const { camera, gl } = useThree();
 
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current) return;
-    const delta = (e.clientX - prevPointerXRef.current) * 0.005;
-    prevPointerXRef.current = e.clientX;
-    targetRotationYRef.current = Math.max(-0.9, Math.min(0.3, targetRotationYRef.current + delta));
-  };
+  useEffect(() => {
+    const controls = new ThreeOrbitControls(camera, gl.domElement);
+    controlsRef.current = controls;
 
-  const handlePointerUp = () => {
-    isDraggingRef.current = false;
-  };
+    // Smooth inertia damping
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+
+    // Snappier, responsive camera speed (addresses: "tambahkan sedikit kecepatan camera control nya")
+    controls.rotateSpeed = 1.35;
+    controls.zoomSpeed = 1.35;
+    controls.panSpeed = 0.8;
+    controls.enablePan = false; // Lock target on room center
+
+    // Zoom in / out range (addresses: "perbaiki juga 3D dioramanya tidak bisa zoom in/out")
+    controls.enableZoom = true;
+    controls.minDistance = 2.4; // Close-up zoom in limit
+    controls.maxDistance = 8.5; // Wide view zoom out limit
+
+    // Polar angles (vertical pitch)
+    controls.minPolarAngle = Math.PI / 10;
+    controls.maxPolarAngle = Math.PI / 2.05; // Prevent going underneath the floor
+
+    // Azimuth bounds (keeps focus on isometric front of the room)
+    controls.minAzimuthAngle = -Math.PI / 1.35;
+    controls.maxAzimuthAngle = Math.PI / 2.2;
+
+    controls.target.set(...DEFAULT_TARGET);
+    controls.update();
+
+    return () => {
+      controls.dispose();
+      controlsRef.current = null;
+    };
+  }, [camera, gl, controlsRef]);
 
   useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += (targetRotationYRef.current - groupRef.current.rotation.y) * 0.1;
-    }
+    controlsRef.current?.update();
   });
 
-  return (
-    <group
-      ref={groupRef}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerLeave={handlePointerUp}
-    >
-      {children}
-    </group>
-  );
+  return null;
 }
 
 // Room Diorama Scene Geometry
@@ -215,6 +229,8 @@ function DioramaRoomMesh({
             <mesh
               onClick={(e) => {
                 e.stopPropagation();
+                // Prevent click if pointer was dragging/orbiting the camera
+                if (e.delta > 5) return;
                 onSelectSlot(slot.slotId);
               }}
               position={[0, 0, 0]}
@@ -234,7 +250,9 @@ function DioramaRoomMesh({
               <RenderCollectible3D
                 modelType={placedItem.modelType}
                 position={[0, 0, 0]}
-                onClick={() => onSelectSlot(slot.slotId)}
+                onClick={() => {
+                  onSelectSlot(slot.slotId);
+                }}
               />
             )}
           </group>
@@ -249,10 +267,60 @@ export const BedroomDiorama3D: React.FC<BedroomDiorama3DProps> = ({
   onSelectSlot,
   selectedSlotId,
 }) => {
+  const controlsRef = useRef<ThreeOrbitControls | null>(null);
+
+  const handleZoomIn = () => {
+    if (controlsRef.current) {
+      controlsRef.current.dollyIn(1.25);
+      controlsRef.current.update();
+    }
+  };
+
+  const handleZoomOut = () => {
+    if (controlsRef.current) {
+      controlsRef.current.dollyOut(1.25);
+      controlsRef.current.update();
+    }
+  };
+
+  const handleResetCamera = () => {
+    if (controlsRef.current) {
+      controlsRef.current.reset();
+      controlsRef.current.target.set(...DEFAULT_TARGET);
+      controlsRef.current.object.position.set(...DEFAULT_CAMERA_POS);
+      controlsRef.current.update();
+    }
+  };
+
   return (
-    <div className="w-full h-full relative cursor-grab active:cursor-grabbing">
+    <div className="w-full h-full relative cursor-grab active:cursor-grabbing select-none">
+      {/* Floating On-Screen Camera & Zoom Controls */}
+      <div className="absolute top-3 right-3 z-30 flex flex-col gap-1.5 pointer-events-auto">
+        <button
+          onClick={handleZoomIn}
+          title="Perbesar (Zoom In)"
+          className="w-8 h-8 rounded-xl liquid-glass text-slate-800 hover:text-hero-red flex items-center justify-center shadow-md active:scale-95 transition-all liquid-interactive"
+        >
+          <ZoomIn size={16} />
+        </button>
+        <button
+          onClick={handleZoomOut}
+          title="Perkecil (Zoom Out)"
+          className="w-8 h-8 rounded-xl liquid-glass text-slate-800 hover:text-hero-red flex items-center justify-center shadow-md active:scale-95 transition-all liquid-interactive"
+        >
+          <ZoomOut size={16} />
+        </button>
+        <button
+          onClick={handleResetCamera}
+          title="Reset Sudut Pandang Kamera"
+          className="w-8 h-8 rounded-xl liquid-glass text-slate-800 hover:text-hero-red flex items-center justify-center shadow-md active:scale-95 transition-all liquid-interactive"
+        >
+          <RotateCcw size={14} />
+        </button>
+      </div>
+
       <Canvas
-        camera={{ position: [3.2, 3.8, 4.4], fov: 42 }}
+        camera={{ position: DEFAULT_CAMERA_POS, fov: 42 }}
         shadows={false}
         dpr={[1, 1.5]}
         gl={{ antialias: true, alpha: true }}
@@ -266,13 +334,13 @@ export const BedroomDiorama3D: React.FC<BedroomDiorama3DProps> = ({
         {/* Soft Fill Light from front */}
         <directionalLight position={[-2, 3, 4]} intensity={0.4} color="#E0F2FE" />
 
-        <CameraRig>
-          <DioramaRoomMesh
-            placedDecorations={placedDecorations}
-            onSelectSlot={onSelectSlot}
-            selectedSlotId={selectedSlotId}
-          />
-        </CameraRig>
+        <RoomCameraControls controlsRef={controlsRef} />
+
+        <DioramaRoomMesh
+          placedDecorations={placedDecorations}
+          onSelectSlot={onSelectSlot}
+          selectedSlotId={selectedSlotId}
+        />
       </Canvas>
     </div>
   );

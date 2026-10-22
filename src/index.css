@@ -3,14 +3,26 @@
 @tailwind utilities;
 
 @layer base {
-  html, body {
-    height: 100dvh;
-    width: 100vw;
-    overflow: hidden;
-    touch-action: manipulation;
+  html {
+    min-height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-tap-highlight-color: transparent;
+    background-color: #f1f5f9;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     background-color: #f1f5f9;
+    overscroll-behavior-y: auto;
   }
 }
 
