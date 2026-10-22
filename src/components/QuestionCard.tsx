@@ -77,7 +77,67 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
       <div className="flex-1 w-full flex flex-col items-center justify-center my-1 relative min-h-0 overflow-y-auto">
         
         {/* CASE 1: TOUCH COUNTING QUESTIONS (Papan Sentuh Hitung Benda) */}
-        {(question.type === 'touch_count' || question.type === 'counting') && question.countItems ? (
+        {question.type === 'addition' && question.plateA && question.plateB ? (
+          /* CASE: ADDITION (Papan Penjumlahan Superhero) */
+          <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-2.5 sm:p-3 w-full max-w-sm shadow-inner flex flex-col items-center justify-center">
+            <div className="text-[0.68rem] font-black text-hero-red mb-1.5 uppercase tracking-wider">
+              ➕ Papan Penjumlahan Superhero:
+            </div>
+            <div className="flex items-center justify-center gap-2 sm:gap-3 w-full">
+              {/* Plate A */}
+              <div className="flex flex-col items-center justify-center bg-white p-2 rounded-2xl border border-slate-200 shadow-xs flex-1 min-h-[64px]">
+                <div className="flex flex-wrap items-center justify-center gap-1">
+                  {question.plateA.map((ico, idx) => (
+                    <span key={idx} className="text-2xl sm:text-3xl leading-none">{ico}</span>
+                  ))}
+                </div>
+                <span className="text-[0.65rem] font-black text-slate-400 mt-1">
+                  {question.plateA.length} {question.itemName || 'Benda'}
+                </span>
+              </div>
+
+              {/* Plus Sign */}
+              <span className="text-3xl font-black text-hero-red">➕</span>
+
+              {/* Plate B */}
+              <div className="flex flex-col items-center justify-center bg-white p-2 rounded-2xl border border-slate-200 shadow-xs flex-1 min-h-[64px]">
+                <div className="flex flex-wrap items-center justify-center gap-1">
+                  {question.plateB.map((ico, idx) => (
+                    <span key={idx} className="text-2xl sm:text-3xl leading-none">{ico}</span>
+                  ))}
+                </div>
+                <span className="text-[0.65rem] font-black text-slate-400 mt-1">
+                  {question.plateB.length} {question.itemName || 'Benda'}
+                </span>
+              </div>
+            </div>
+          </div>
+        ) : question.type === 'subtraction' ? (
+          /* CASE: SUBTRACTION (Papan Pengurangan Superhero) */
+          <div className="bg-slate-50 border-2 border-slate-200 rounded-2xl p-2.5 sm:p-3 w-full max-w-sm shadow-inner flex flex-col items-center justify-center">
+            <div className="text-[0.68rem] font-black text-hero-red mb-1.5 uppercase tracking-wider">
+              ➖ Papan Pengurangan Superhero:
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 bg-white p-2 rounded-2xl border border-slate-200 shadow-xs w-full min-h-[64px]">
+              {/* Remaining Items */}
+              {Array(question.remainingCount || 0).fill(question.itemEmoji || '🍎').map((ico, idx) => (
+                <div key={idx} className="flex flex-col items-center justify-center bg-emerald-50 border border-emerald-300 p-1.5 rounded-xl shadow-xs">
+                  <span className="text-2xl sm:text-3xl leading-none">{ico}</span>
+                  <span className="text-[0.58rem] font-black text-emerald-700 mt-0.5">Sisa {idx + 1}</span>
+                </div>
+              ))}
+
+              {/* Subtracted Items */}
+              {Array(question.subtractedCount || 0).fill(question.itemEmoji || '🍎').map((ico, idx) => (
+                <div key={idx} className="flex flex-col items-center justify-center bg-rose-50 border border-rose-300 p-1.5 rounded-xl opacity-60 relative">
+                  <span className="text-2xl sm:text-3xl leading-none">{ico}</span>
+                  <span className="absolute inset-0 flex items-center justify-center text-xl font-black text-rose-600">❌</span>
+                  <span className="text-[0.58rem] font-black text-rose-600 mt-0.5">Hilang</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (question.type === 'touch_count' || question.type === 'counting') && question.countItems ? (
           <div className="bg-slate-50/90 border-2 border-slate-200 rounded-2xl p-2.5 sm:p-3 w-full max-w-sm shadow-inner flex flex-col items-center justify-center">
             <div className="text-[0.68rem] font-black text-slate-400 mb-1.5 uppercase tracking-wider">
               👆 Sentuh Benda untuk Menghitung:

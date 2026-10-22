@@ -29,6 +29,10 @@ export interface QuestionVariant {
   voiceStep1Done?: string;
   voiceSuccess?: string;
   sequenceItems?: SequenceItem[];
+  plateA?: string[];
+  plateB?: string[];
+  remainingCount?: number;
+  subtractedCount?: number;
   wordLabel?: string;
   targetWord?: string[];
   letterChoices?: string[];
@@ -82,6 +86,10 @@ export interface ActiveQuestion {
   voiceStep1Done?: string;
   voiceSuccess?: string;
   sequenceItems?: SequenceItem[];
+  plateA?: string[];
+  plateB?: string[];
+  remainingCount?: number;
+  subtractedCount?: number;
   wordLabel?: string;
   targetWord?: string[];
   letterChoices?: string[];

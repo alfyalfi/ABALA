@@ -15,7 +15,7 @@ const TIMER_DURATION_NORMAL = 15;
 const TIMER_DURATION_EXTENDED = 25;
 
 const DAYS_META = [
-  { id: 1, name: 'Hari 1', title: 'Berhitung & Angka', icon: '🔢' },
+  { id: 1, name: 'Hari 1', title: 'Matematika Superhero', icon: '🔢' },
   { id: 2, name: 'Hari 2', title: 'Membaca & Fonik', icon: '🔤' },
   { id: 3, name: 'Hari 3', title: 'Menyimak & Suara', icon: '👂' },
   { id: 4, name: 'Hari 4', title: 'Nalar & Logika', icon: '💡' },
