@@ -4,16 +4,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Header } from '../components/Header';
 import { DaySelector } from '../components/DaySelector';
 import { QuestionCard } from '../components/QuestionCard';
-import { ChoicesGrid } from '../components/ChoicesGrid';
+import { InteractiveArena } from '../components/InteractiveArena';
 import { ResultModal } from '../components/ResultModal';
 import { ParentDashboardModal } from '../components/ParentDashboardModal';
-import { ALL_DAYS } from '../data/dailyCurriculum';
 import { ActiveQuestion, DailyResult, SequenceItem } from '../types';
 import { audioService } from '../services/audioService';
 import { ProgressService } from '../services/supabaseService';
 
 const TIMER_DURATION_NORMAL = 15;
-const TIMER_DURATION_LISTENING = 25;
+const TIMER_DURATION_EXTENDED = 25;
+
+const DAYS_META = [
+  { id: 1, name: 'Hari 1', title: 'Berhitung & Angka', icon: '🔢' },
+  { id: 2, name: 'Hari 2', title: 'Membaca & Fonik', icon: '🔤' },
+  { id: 3, name: 'Hari 3', title: 'Menyimak & Suara', icon: '👂' },
+  { id: 4, name: 'Hari 4', title: 'Nalar & Logika', icon: '💡' },
+  { id: 5, name: 'Hari 5', title: 'Bentuk & Spasial', icon: '🔷' },
+  { id: 6, name: 'Hari 6', title: 'Kemandirian Superhero', icon: '🦸‍♂️' }
+];
 
 export default function HomePage() {
   const [currentDayIndex, setCurrentDayIndex] = useState<number>(0);
@@ -26,11 +34,20 @@ export default function HomePage() {
   const [isPaused, setIsPaused] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [isAudioSpeaking, setIsAudioSpeaking] = useState<boolean>(true);
+  const [isLoadingSession, setIsLoadingSession] = useState<boolean>(true);
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
-  // Sequence 2 Interactive State
+  // Mode States: Sequence 2
   const [seqStep, setSeqStep] = useState<number>(1);
   const [seqCompletedIds, setSeqCompletedIds] = useState<string[]>([]);
   const [seqWobbleId, setSeqWobbleId] = useState<string | null>(null);
+
+  // Mode States: Word Builder
+  const [builtLetters, setBuiltLetters] = useState<string[]>([]);
+  const [usedLetterIndices, setUsedLetterIndices] = useState<number[]>([]);
+
+  // Mode States: Touch Count
+  const [countedItems, setCountedItems] = useState<number[]>([]);
 
   // Toast Notification State
   const [feedbackToast, setFeedbackToast] = useState<{
@@ -51,58 +68,51 @@ export default function HomePage() {
 
   const getQuestionDuration = (q?: ActiveQuestion) => {
     if (!q) return TIMER_DURATION_NORMAL;
-    return q.type === 'sound' || q.type === 'sequence_2'
-      ? TIMER_DURATION_LISTENING
-      : TIMER_DURATION_NORMAL;
+    const isExtended = q.type === 'sound' || q.type === 'sequence_2' || q.type === 'word_builder';
+    return isExtended ? TIMER_DURATION_EXTENDED : TIMER_DURATION_NORMAL;
   };
 
-  // Initialize Day Questions with Random Variations
-  const initializeDaySession = (dayIdx: number) => {
+  // Fetch 25 Questions Session from Backend API (Single Source of Truth)
+  const loadDaySession = async (dayIdx: number) => {
+    setIsLoadingSession(true);
     setCurrentDayIndex(dayIdx);
-    const day = ALL_DAYS[dayIdx];
+    const dayId = DAYS_META[dayIdx].id;
 
-    // Pick 1 random variation from the 30 variations in each slot
-    const randomized: ActiveQuestion[] = day.questions.map((slot, sIdx) => {
-      const v = slot.variants[Math.floor(Math.random() * slot.variants.length)];
-      return {
-        slotIndex: sIdx,
-        type: v.type,
-        topic: slot.topic,
-        prompt: v.prompt,
-        visual: v.visual,
-        countItems: v.countItems,
-        soundFile: v.soundFile,
-        soundLabel: v.soundLabel,
-        step1Target: v.step1Target,
-        step2Target: v.step2Target,
-        step1Label: v.step1Label,
-        step2Label: v.step2Label,
-        voiceIntro: v.voiceIntro,
-        voiceStep1Done: v.voiceStep1Done,
-        voiceSuccess: v.voiceSuccess,
-        sequenceItems: v.sequenceItems,
-        choices: v.choices,
-        realImage: v.realImage
-      };
-    });
+    try {
+      const res = await fetch(`/api/curriculum?day=${dayId}&seed=${Date.now()}`);
+      const data = await res.json();
 
-    setSessionQuestions(randomized);
-    setCurrentQIndex(0);
-    setScore({ correct: 0, wrong: 0 });
-    setSelectedChoiceIndex(null);
-    setIsAnswered(false);
-    setShowResultModal(false);
+      if (data.success && Array.isArray(data.questions) && data.questions.length > 0) {
+        setSessionQuestions(data.questions);
+        setCurrentQIndex(0);
+        setScore({ correct: 0, wrong: 0 });
+        setSelectedChoiceIndex(null);
+        setIsAnswered(false);
+        setShowResultModal(false);
+        resetQuestionModes();
+
+        const firstQ = data.questions[0];
+        setTimeLeft(getQuestionDuration(firstQ));
+      }
+    } catch (err) {
+      console.error('Failed to load session from backend:', err);
+    } finally {
+      setIsLoadingSession(false);
+    }
+  };
+
+  const resetQuestionModes = () => {
     setSeqStep(1);
     setSeqCompletedIds([]);
     setSeqWobbleId(null);
-
-    const firstQ = randomized[0];
-    setTimeLeft(getQuestionDuration(firstQ));
+    setBuiltLetters([]);
+    setUsedLetterIndices([]);
+    setCountedItems([]);
   };
 
   // On Mount
   useEffect(() => {
-    initializeDaySession(0); // Start Hari 1
+    loadDaySession(0); // Start Hari 1
 
     const handleBeforeInstall = (e: any) => {
       e.preventDefault();
@@ -116,9 +126,9 @@ export default function HomePage() {
     };
   }, []);
 
-  // Timer Effect (Freezes while AI speaks / plays audio)
+  // Timer Effect (Freezes while AI reads/sound plays or when transitioning)
   useEffect(() => {
-    if (showResultModal || isPaused || isAnswered || isAudioSpeaking || sessionQuestions.length === 0) return;
+    if (showResultModal || isPaused || isAnswered || isAudioSpeaking || isLoadingSession || sessionQuestions.length === 0) return;
 
     if (timerRef.current) clearInterval(timerRef.current);
 
@@ -136,23 +146,22 @@ export default function HomePage() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [currentQIndex, isPaused, isAnswered, isAudioSpeaking, showResultModal, sessionQuestions]);
+  }, [currentQIndex, isPaused, isAnswered, isAudioSpeaking, isLoadingSession, showResultModal, sessionQuestions]);
 
-  // Voice Question on Change with Orderly Audio Sequencing: Prompt first -> Sound effect second
+  // Voice Question on Change with Synchronized Sequencing
   useEffect(() => {
-    if (sessionQuestions.length === 0 || currentQIndex >= sessionQuestions.length) return;
+    if (sessionQuestions.length === 0 || currentQIndex >= sessionQuestions.length || isLoadingSession) return;
 
     const q = sessionQuestions[currentQIndex];
     setIsAudioSpeaking(true);
     let isCancelled = false;
 
     const runAudioSequence = async () => {
-      // Small pause before voice starts
       await new Promise(r => setTimeout(r, 200));
       if (isCancelled) return;
 
       if (q.type === 'sound') {
-        // Step 1: AI reads instruction first!
+        // Step 1: AI reads instruction first
         await audioService.speakText(`Kak Reza, dengarkan suara ini!`);
         if (isCancelled) return;
 
@@ -160,22 +169,21 @@ export default function HomePage() {
         await new Promise(r => setTimeout(r, 350));
         if (isCancelled) return;
 
-        // Step 3: Authentic sound effect plays!
+        // Step 3: Authentic MP3 plays
         if (q.soundFile) {
           await audioService.playSoundFile(q.soundFile);
         }
       } else if (q.type === 'sequence_2') {
-        // Read full 2-step mission instruction
         await audioService.speakText(
           q.voiceIntro || `Kak Reza, dengarkan urutannya: Pertama sentuh ${q.step1Label}, kedua sentuh ${q.step2Label}!`
         );
+      } else if (q.type === 'word_builder') {
+        await audioService.speakText(`Kak Reza, ayo susun huruf untuk kata ${q.wordLabel || 'ini'}!`);
       } else {
-        // Standard question prompt
         await audioService.speakText(`Kak Reza, ${q.prompt}`);
       }
 
       if (isCancelled) return;
-      // Audio finished! Unfreeze timer and let child answer
       setIsAudioSpeaking(false);
     };
 
@@ -185,9 +193,9 @@ export default function HomePage() {
       isCancelled = true;
       audioService.stopAllAudio();
     };
-  }, [currentQIndex, sessionQuestions]);
+  }, [currentQIndex, sessionQuestions, isLoadingSession]);
 
-  // Handle Choice Selection for Standard Questions
+  // Handle Standard Choice Selection
   const handleSelectChoice = (choiceIdx: number) => {
     if (isAnswered) return;
     setIsAnswered(true);
@@ -210,13 +218,54 @@ export default function HomePage() {
       setFeedbackToast({ show: true, text: '❌ Salah!', type: 'wrong' });
     }
 
-    // Auto-advance after 700ms
     setTimeout(() => {
       advanceToNextQuestion();
     }, 700);
   };
 
-  // Handle Interactive 2-Step Item Selection
+  // Handle Interactive Touch Count on Stage
+  const handleTapCountItem = (itemIdx: number) => {
+    if (countedItems.includes(itemIdx)) return;
+    const nextCount = countedItems.length + 1;
+    setCountedItems(prev => [...prev, itemIdx]);
+    audioService.playCountNote(nextCount);
+  };
+
+  // Handle Word Builder Letter Selection
+  const handleSelectLetter = (letter: string, chipIdx: number) => {
+    if (isAnswered) return;
+    const currentQ = sessionQuestions[currentQIndex];
+    if (!currentQ.targetWord) return;
+
+    const expectedLetter = currentQ.targetWord[builtLetters.length];
+
+    if (letter === expectedLetter) {
+      audioService.playLetterPop();
+      const updatedLetters = [...builtLetters, letter];
+      setBuiltLetters(updatedLetters);
+      setUsedLetterIndices(prev => [...prev, chipIdx]);
+
+      // Check if word completed!
+      if (updatedLetters.length === currentQ.targetWord.length) {
+        setIsAnswered(true);
+        if (timerRef.current) clearInterval(timerRef.current);
+        audioService.playFeedback('victory');
+        setScore(prev => ({ ...prev, correct: prev.correct + 1 }));
+        setFeedbackToast({ show: true, text: '🌟 Kata Sempurna!', type: 'correct' });
+        audioService.speakText(`Luar biasa Kak Reza! Kata ${currentQ.wordLabel || ''} berhasil disusun!`);
+
+        setTimeout(() => {
+          advanceToNextQuestion();
+        }, 1100);
+      }
+    } else {
+      audioService.playFeedback('wrong');
+      setFeedbackToast({ show: true, text: `⚠️ Cari huruf ${expectedLetter}!`, type: 'wrong' });
+      audioService.speakText(`Cari huruf ${expectedLetter} ya Kak Reza!`);
+    }
+  };
+
+  // Handle Sequence 2-Step Item Selection
   const handleSelectSequenceItem = (item: SequenceItem) => {
     if (isAnswered) return;
     const currentQ = sessionQuestions[currentQIndex];
@@ -226,7 +275,7 @@ export default function HomePage() {
         audioService.playFeedback('step');
         setSeqStep(2);
         setSeqCompletedIds([item.id]);
-        setFeedbackToast({ show: true, text: `✅ Langkah 1: ${item.label} Cocok!`, type: 'correct' });
+        setFeedbackToast({ show: true, text: `✅ Langkah 1 Cocok: ${item.label}!`, type: 'correct' });
         if (currentQ.voiceStep1Done) {
           audioService.speakText(currentQ.voiceStep1Done);
         }
@@ -235,7 +284,7 @@ export default function HomePage() {
         setSeqWobbleId(item.id);
         setTimeout(() => setSeqWobbleId(null), 500);
         audioService.speakText(`Ingat urutan pertama dulu ya Kak Reza!`);
-        setFeedbackToast({ show: true, text: `⚠️ Ingat urutan pertama dulu!`, type: 'wrong' });
+        setFeedbackToast({ show: true, text: `⚠️ Ingat urutan PERTAMA dulu!`, type: 'wrong' });
       }
     } else if (seqStep === 2) {
       if (item.id === currentQ.step2Target) {
@@ -256,7 +305,7 @@ export default function HomePage() {
         setSeqWobbleId(item.id);
         setTimeout(() => setSeqWobbleId(null), 500);
         audioService.speakText(`Coba ingat benda kedua yang tadi ya Kak Reza!`);
-        setFeedbackToast({ show: true, text: `⚠️ Coba ingat benda kedua!`, type: 'wrong' });
+        setFeedbackToast({ show: true, text: `⚠️ Coba ingat benda KEDUA!`, type: 'wrong' });
       }
     }
   };
@@ -276,25 +325,28 @@ export default function HomePage() {
     }, 700);
   };
 
-  // Advance
+  // Advance with Superhero Transition Animation
   const advanceToNextQuestion = () => {
     setFeedbackToast(prev => ({ ...prev, show: false }));
     setSelectedChoiceIndex(null);
     setIsAnswered(false);
-    setSeqStep(1);
-    setSeqCompletedIds([]);
-    setSeqWobbleId(null);
+    resetQuestionModes();
 
     if (currentQIndex + 1 < sessionQuestions.length) {
-      const nextQ = sessionQuestions[currentQIndex + 1];
-      setTimeLeft(getQuestionDuration(nextQ));
-      setCurrentQIndex(prev => prev + 1);
+      setIsTransitioning(true);
+      audioService.playWhoosh();
+      setTimeout(() => {
+        const nextQ = sessionQuestions[currentQIndex + 1];
+        setTimeLeft(getQuestionDuration(nextQ));
+        setCurrentQIndex(prev => prev + 1);
+        setIsTransitioning(false);
+      }, 180);
     } else {
       handleFinishSession();
     }
   };
 
-  // Finish Session & Evaluate 50%
+  // Finish Session & Evaluate 50% Threshold
   const handleFinishSession = () => {
     const total = sessionQuestions.length;
     const finalScore = score.correct + (selectedChoiceIndex !== null && sessionQuestions[currentQIndex]?.choices[selectedChoiceIndex]?.isCorrect ? 1 : 0);
@@ -303,8 +355,8 @@ export default function HomePage() {
     const passed = percentage >= 50;
 
     const result: DailyResult = {
-      dayId: ALL_DAYS[currentDayIndex].id,
-      dayName: ALL_DAYS[currentDayIndex].name,
+      dayId: DAYS_META[currentDayIndex].id,
+      dayName: DAYS_META[currentDayIndex].name,
       score: finalScore,
       wrong: finalWrong,
       total,
@@ -320,7 +372,7 @@ export default function HomePage() {
 
     if (passed) {
       audioService.playFeedback('victory');
-      audioService.speakText(`Luar biasa Kak Reza! Benar ${finalScore}, salah ${finalWrong}. Misi tuntas!`);
+      audioService.speakText(`Luar biasa Kak Reza! Benar ${finalScore}, salah ${finalWrong} dari 25 misi! Misi tuntas!`);
     } else {
       audioService.playFeedback('wrong');
       audioService.speakText(`Skor Kak Reza belum mencapai 50 persen. Ayo kita coba ulangi lagi bersama!`);
@@ -337,60 +389,63 @@ export default function HomePage() {
     }
   };
 
-  const activeDay = ALL_DAYS[currentDayIndex];
+  const activeDay = DAYS_META[currentDayIndex];
   const activeQuestion = sessionQuestions[currentQIndex];
   const activeDuration = getQuestionDuration(activeQuestion);
 
   return (
-    <div className="w-full h-[100dvh] max-w-[620px] mx-auto flex flex-col justify-between p-3.5 sm:p-4 bg-hero-bg text-hero-black relative overflow-hidden">
+    <div className="w-full h-[100dvh] max-w-[640px] mx-auto flex flex-col justify-between p-2.5 sm:p-3.5 bg-hero-bg text-hero-black relative overflow-hidden select-none">
       
-      {/* 1. Header with Reza Identity & Controls */}
-      <Header
-        dayName={activeDay.name}
-        dayTitle={activeDay.title}
-        isMuted={isMuted}
-        isPaused={isPaused}
-        onToggleMute={() => {
-          setIsMuted(!isMuted);
-          audioService.setMuted(!isMuted);
-        }}
-        onTogglePause={() => setIsPaused(!isPaused)}
-        onSpeakPrompt={() => {
-          if (activeQuestion) {
-            if (activeQuestion.type === 'sound') {
-              audioService.speakText(`Kak Reza, dengarkan suara ini!`);
-              if (activeQuestion.soundFile) {
-                setTimeout(() => audioService.playSoundFile(activeQuestion.soundFile!), 1500);
+      {/* ======================================================== */}
+      {/* TOP COMPACT NAVIGATION BAR (~12% HEIGHT) */}
+      {/* ======================================================== */}
+      <div className="shrink-0 flex flex-col gap-1 w-full">
+        {/* Header with Reza Identity & Controls */}
+        <Header
+          dayName={activeDay.name}
+          dayTitle={activeDay.title}
+          isMuted={isMuted}
+          isPaused={isPaused}
+          onToggleMute={() => {
+            setIsMuted(!isMuted);
+            audioService.setMuted(!isMuted);
+          }}
+          onTogglePause={() => setIsPaused(!isPaused)}
+          onSpeakPrompt={() => {
+            if (activeQuestion) {
+              if (activeQuestion.type === 'sound') {
+                audioService.speakText(`Kak Reza, dengarkan suara ini!`);
+                if (activeQuestion.soundFile) {
+                  setTimeout(() => audioService.playSoundFile(activeQuestion.soundFile!), 1400);
+                }
+              } else if (activeQuestion.type === 'sequence_2') {
+                audioService.speakText(
+                  activeQuestion.voiceIntro || `Kak Reza, dengarkan urutannya: Pertama sentuh ${activeQuestion.step1Label}, kedua sentuh ${activeQuestion.step2Label}!`
+                );
+              } else {
+                audioService.speakText(`Kak Reza, ${activeQuestion.prompt}`);
               }
-            } else if (activeQuestion.type === 'sequence_2') {
-              audioService.speakText(
-                activeQuestion.voiceIntro || `Kak Reza, dengarkan urutannya: Pertama sentuh ${activeQuestion.step1Label}, kedua sentuh ${activeQuestion.step2Label}!`
-              );
-            } else {
-              audioService.speakText(`Kak Reza, ${activeQuestion.prompt}`);
             }
-          }
-        }}
-        onOpenParentDashboard={() => setShowParentDashboard(true)}
-        deferredPrompt={deferredPrompt}
-        onInstallPwa={handleInstallPwa}
-      />
+          }}
+          onOpenParentDashboard={() => setShowParentDashboard(true)}
+          deferredPrompt={deferredPrompt}
+          onInstallPwa={handleInstallPwa}
+        />
 
-      {/* 2. 6-Day Selector Navigation */}
-      <DaySelector
-        days={ALL_DAYS}
-        activeDayIndex={currentDayIndex}
-        onSelectDay={(idx) => initializeDaySession(idx)}
-      />
+        {/* 6-Day Navigation Selector */}
+        <DaySelector
+          days={DAYS_META}
+          activeDayIndex={currentDayIndex}
+          onSelectDay={(idx) => loadDaySession(idx)}
+        />
 
-      {/* 3. Status Progress & Timer */}
-      <div className="w-full mb-1">
-        <div className="flex items-center justify-between text-xs font-black text-slate-500 mb-1">
-          <span className="bg-red-50 text-hero-red px-2.5 py-0.5 rounded-full border border-red-100 font-sans">
-            Soal {currentQIndex + 1} / {sessionQuestions.length}
+        {/* Status Progress & Timer */}
+        <div className="flex items-center justify-between text-[0.72rem] font-black text-slate-500 px-0.5">
+          <span className="bg-red-50 text-hero-red px-2.5 py-0.5 rounded-full border border-red-100 font-sans shadow-xs">
+            Misi {currentQIndex + 1} / {sessionQuestions.length || 25}
           </span>
           <span
-            className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full border font-sans ${
+            className={`flex items-center gap-1 px-2.5 py-0.5 rounded-full border font-sans shadow-xs ${
               isAudioSpeaking
                 ? 'bg-blue-50 text-blue-700 border-blue-200 animate-pulse'
                 : 'bg-amber-50 text-amber-700 border-amber-200'
@@ -401,14 +456,14 @@ export default function HomePage() {
           </span>
         </div>
 
-        {/* Timer Bar */}
-        <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+        {/* Animated Timer Progress Bar */}
+        <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden shadow-inner">
           <div
             className={`h-full transition-all duration-300 rounded-full ${
               isAudioSpeaking
-                ? 'bg-blue-400'
+                ? 'bg-blue-500'
                 : timeLeft <= 5
-                ? 'bg-hero-danger'
+                ? 'bg-hero-danger animate-pulse'
                 : 'bg-gradient-to-r from-emerald-500 to-amber-500'
             }`}
             style={{ width: `${(timeLeft / activeDuration) * 100}%` }}
@@ -416,50 +471,84 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* 4. Main Question Card */}
-      {activeQuestion ? (
-        <QuestionCard
-          question={activeQuestion}
-          dayIcon={activeDay.icon}
-          feedbackToast={feedbackToast}
-          seqStep={seqStep}
-          seqCompletedIds={seqCompletedIds}
-          isAudioPlaying={isAudioSpeaking}
-        />
-      ) : (
-        <div className="flex-1 flex items-center justify-center font-bold text-slate-400">
-          Memuat petualangan Kak Reza...
-        </div>
-      )}
+      {/* ======================================================== */}
+      {/* 50 / 50 BALANCED ARENA: TOP QUESTION STAGE & BOTTOM ANSWER ARENA */}
+      {/* ======================================================== */}
+      <div className="flex-1 w-full flex flex-col gap-2 min-h-0 overflow-hidden my-1">
+        {isLoadingSession ? (
+          <div className="flex-1 flex flex-col items-center justify-center gap-3 bg-white rounded-3xl border-2 border-hero-border shadow-hero-md">
+            <div className="w-12 h-12 rounded-full border-4 border-hero-red border-t-transparent animate-spin" />
+            <span className="text-sm font-black text-hero-black">
+              ⚡ Menyiapkan 25 Misi Superhero Kak Reza...
+            </span>
+          </div>
+        ) : (
+          <>
+            {/* TOP 50%: QUESTION STAGE */}
+            <div
+              className={`h-[49%] w-full transition-all duration-200 ${
+                isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+              }`}
+            >
+              {activeQuestion && (
+                <QuestionCard
+                  question={activeQuestion}
+                  dayIcon={activeDay.icon}
+                  feedbackToast={feedbackToast}
+                  seqStep={seqStep}
+                  seqCompletedIds={seqCompletedIds}
+                  isAudioPlaying={isAudioSpeaking}
+                  builtLetters={builtLetters}
+                  countedItems={countedItems}
+                  onTapCountItem={handleTapCountItem}
+                />
+              )}
+            </div>
 
-      {/* 5. Interactive Choices Grid (Supports 2-Step Sequence and Standard Grid) */}
-      {activeQuestion && (
-        <ChoicesGrid
-          choices={activeQuestion.choices}
-          onSelectChoice={handleSelectChoice}
-          selectedIndex={selectedChoiceIndex}
-          isAnswered={isAnswered}
-          questionType={activeQuestion.type}
-          sequenceItems={activeQuestion.sequenceItems}
-          onSelectSequenceItem={handleSelectSequenceItem}
-          seqCompletedIds={seqCompletedIds}
-          seqWobbleId={seqWobbleId}
-        />
-      )}
+            {/* BOTTOM 50%: INTERACTIVE ANSWER ARENA */}
+            <div
+              className={`h-[49%] w-full transition-all duration-200 ${
+                isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+              }`}
+            >
+              {activeQuestion && (
+                <InteractiveArena
+                  questionType={activeQuestion.type}
+                  choices={activeQuestion.choices}
+                  onSelectChoice={handleSelectChoice}
+                  selectedIndex={selectedChoiceIndex}
+                  isAnswered={isAnswered}
+                  sequenceItems={activeQuestion.sequenceItems}
+                  onSelectSequenceItem={handleSelectSequenceItem}
+                  seqCompletedIds={seqCompletedIds}
+                  seqWobbleId={seqWobbleId}
+                  targetWord={activeQuestion.targetWord}
+                  letterChoices={activeQuestion.letterChoices}
+                  builtLetters={builtLetters}
+                  onSelectLetter={handleSelectLetter}
+                  usedLetterIndices={usedLetterIndices}
+                  isComparison={activeQuestion.type === 'comparison'}
+                />
+              )}
+            </div>
+          </>
+        )}
+      </div>
 
-      {/* 6. Result Modal at Session End */}
+      {/* ======================================================== */}
+      {/* MODALS */}
+      {/* ======================================================== */}
       {showResultModal && currentResult && (
         <ResultModal
           result={currentResult}
           dayName={activeDay.name}
-          nextDayName={ALL_DAYS[(currentDayIndex + 1) % ALL_DAYS.length].name}
-          onRetry={() => initializeDaySession(currentDayIndex)}
-          onNextDay={() => initializeDaySession((currentDayIndex + 1) % ALL_DAYS.length)}
-          onGoHome={() => initializeDaySession(0)}
+          nextDayName={DAYS_META[(currentDayIndex + 1) % DAYS_META.length].name}
+          onRetry={() => loadDaySession(currentDayIndex)}
+          onNextDay={() => loadDaySession((currentDayIndex + 1) % DAYS_META.length)}
+          onGoHome={() => loadDaySession(0)}
         />
       )}
 
-      {/* 7. Parent Dashboard & Growth Analytics */}
       <ParentDashboardModal
         isOpen={showParentDashboard}
         onClose={() => setShowParentDashboard(false)}

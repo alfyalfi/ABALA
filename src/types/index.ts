@@ -16,6 +16,9 @@ export interface QuestionVariant {
   prompt: string;
   visual?: string;
   countItems?: string[];
+  targetCount?: number;
+  itemName?: string;
+  itemEmoji?: string;
   soundFile?: string;
   soundLabel?: string;
   step1Target?: string;
@@ -26,6 +29,10 @@ export interface QuestionVariant {
   voiceStep1Done?: string;
   voiceSuccess?: string;
   sequenceItems?: SequenceItem[];
+  wordLabel?: string;
+  targetWord?: string[];
+  letterChoices?: string[];
+  missingNumber?: number;
   choices: ChoiceOption[];
   realImage?: string;
 }
@@ -45,6 +52,16 @@ export interface DayCurriculum {
   questions: QuestionSlot[];
 }
 
+export interface DayMeta {
+  id: number;
+  name: string;
+  title: string;
+  icon: string;
+  badge: string;
+  desc: string;
+  totalQuestions: number;
+}
+
 export interface ActiveQuestion {
   slotIndex: number;
   type?: string;
@@ -52,6 +69,9 @@ export interface ActiveQuestion {
   prompt: string;
   visual?: string;
   countItems?: string[];
+  targetCount?: number;
+  itemName?: string;
+  itemEmoji?: string;
   soundFile?: string;
   soundLabel?: string;
   step1Target?: string;
@@ -62,6 +82,10 @@ export interface ActiveQuestion {
   voiceStep1Done?: string;
   voiceSuccess?: string;
   sequenceItems?: SequenceItem[];
+  wordLabel?: string;
+  targetWord?: string[];
+  letterChoices?: string[];
+  missingNumber?: number;
   choices: ChoiceOption[];
   realImage?: string;
 }
